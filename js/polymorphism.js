@@ -5,6 +5,25 @@
 
 const PolymorphismModule = {
     /**
+     * Get utility functions
+     */
+    getUtils() {
+        return typeof Utils !== 'undefined' ? Utils : {
+            showToast(msg, type) {
+                const toast = document.createElement('div');
+                toast.textContent = msg;
+                toast.style.cssText = `
+                    position: fixed; top: 80px; right: 20px; padding: 12px 20px;
+                    background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 9999; border-left: 4px solid #3b82f6;
+                `;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            }
+        };
+    },
+
+    /**
      * Initialize the polymorphism module
      */
     init() {
@@ -16,8 +35,10 @@ const PolymorphismModule = {
      * Setup code examples
      */
     setupCodeExamples() {
-        const runBtn = document.getElementById('run-polymorphism');
-        const resetBtn = document.getElementById('reset-polymorphism');
+        const runBtn = document.getElementById('run-polymorphism') ||
+                       document.querySelector('[data-editor="editor-polymorphism"].run-btn');
+        const resetBtn = document.getElementById('reset-polymorphism') ||
+                         document.querySelector('[data-editor="editor-polymorphism"].reset-btn');
         
         if (runBtn) {
             runBtn.addEventListener('click', () => {
@@ -42,6 +63,16 @@ const PolymorphismModule = {
             card.addEventListener('click', () => {
                 this.showTypeDetails(card);
             });
+
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.boxShadow = '0 8px 25px rgba(99, 102, 241, 0.2)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                card.style.boxShadow = '';
+            });
         });
     },
 
@@ -56,23 +87,23 @@ const PolymorphismModule = {
 
         setTimeout(() => {
             output.innerHTML = `
-                <div class="output-line">=== Regular Bank Account ===</div>
-                <div class="output-line">Withdrew $100</div>
-                <div class="output-line">New balance: $400</div>
+                <div class="output-line">=== Polymorphism Demo ===</div>
                 <div class="output-line"></div>
-                <div class="output-line">=== Checking Account (with fees) ===</div>
-                <div class="output-line">Withdrew $100 + $2.50 fee</div>
-                <div class="output-line">Total deducted: $102.50</div>
-                <div class="output-line">New balance: $397.50</div>
+                <div class="output-line">[Basic] Withdrew $450</div>
+                <div class="output-line">New balance: $50.00</div>
                 <div class="output-line"></div>
-                <div class="output-line">💡 Same method name 'Withdraw'</div>
-                <div class="output-line">   Different behavior based on account type!</div>
+                <div class="output-line">[Checking] Withdrew $450 + $2.50 fee</div>
+                <div class="output-line">New balance: $47.50</div>
+                <div class="output-line"></div>
+                <div class="output-line">[Savings] Cannot withdraw!</div>
+                <div class="output-line">Minimum balance of $100 required</div>
+                <div class="output-line"></div>
             `;
             
             // Track progress
             if (typeof App !== 'undefined') {
-                App.trackProgress('polymorphism', 10);
-                App.markCodeRun();
+                if (App.trackProgress) App.trackProgress('polymorphism', 10);
+                if (App.markCodeRun) App.markCodeRun();
             }
         }, 500);
     },
@@ -81,58 +112,33 @@ const PolymorphismModule = {
      * Reset polymorphism example
      */
     resetPolymorphismExample() {
-        const editor = document.getElementById('code-editor-polymorphism');
+        const editor = document.getElementById('editor-polymorphism');
         const output = document.getElementById('output-polymorphism');
         
-        if (editor && CodeEditor.originalCode['code-editor-polymorphism']) {
-            editor.value = CodeEditor.originalCode['code-editor-polymorphism'];
+        if (editor && typeof CodeEditor !== 'undefined' && CodeEditor.originalCode['editor-polymorphism']) {
+            editor.value = CodeEditor.originalCode['editor-polymorphism'];
+            CodeEditor.updateLineNumbers(editor);
         }
         
         if (output) {
             output.innerHTML = '<span class="output-placeholder">Click "Run Code" to see the output...</span>';
         }
         
-                // Show toast notification
-        const toast = document.createElement('div');
-        toast.textContent = 'Code reset to original';
-        toast.style.cssText = `
-            position: fixed; top: 80px; right: 20px; padding: 12px 20px;
-            background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 9999; border-left: 4px solid #3b82f6;
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+        this.getUtils().showToast('Code reset to original', 'info');
     },
 
     /**
      * Show type details when card is clicked
      */
     showTypeDetails(card) {
-        const isOverriding = card.querySelector('h4').textContent.includes('Overriding');
-        
         // Add highlight effect
         card.style.transform = 'scale(1.02)';
-        card.style.borderColor = 'var(--color-primary)';
+        card.style.borderColor = 'var(--color-primary, #6366f1)';
         
         setTimeout(() => {
             card.style.transform = '';
             card.style.borderColor = '';
         }, 300);
-        
-        // Could show a modal with more details here
-    },
-
-    /**
-     * Create interactive visualization
-     */
-    createVisualization() {
-        const container = document.createElement('div');
-        container.className = 'polymorphism-visualization';
-        
-        // This could be expanded to show animated examples
-        // of polymorphism in action
-        
-        return container;
     }
 };
 
@@ -141,7 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
     PolymorphismModule.init();
 });
 
-// Export for use in other modules
+// Make globally available
+window.PolymorphismModule = PolymorphismModule;
+
+// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = PolymorphismModule;
 }
