@@ -4,6 +4,9 @@
  */
 
 const Utils = {
+    /**
+     * Debounce function execution
+     */
     debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -16,6 +19,9 @@ const Utils = {
         };
     },
 
+    /**
+     * Throttle function execution
+     */
     throttle(func, limit) {
         let inThrottle;
         return function(...args) {
@@ -27,8 +33,13 @@ const Utils = {
         };
     },
 
+    /**
+     * Smooth scroll to element
+     */
     scrollToElement(selector, offset = 80) {
-        const element = document.querySelector(selector);
+        const element = typeof selector === 'string' 
+            ? document.querySelector(selector) 
+            : selector;
         if (element) {
             const top = element.getBoundingClientRect().top + window.pageYOffset - offset;
             window.scrollTo({
@@ -38,7 +49,12 @@ const Utils = {
         }
     },
 
+    /**
+     * Animate counter from 0 to target
+     */
     animateCounter(element, target, duration = 2000) {
+        if (!element) return;
+        
         const start = 0;
         const increment = target / (duration / 16);
         let current = start;
@@ -56,6 +72,9 @@ const Utils = {
         updateCounter();
     },
 
+    /**
+     * Local Storage helpers with error handling
+     */
     storage: {
         set(key, value) {
             try {
@@ -82,15 +101,32 @@ const Utils = {
                 localStorage.removeItem(key);
                 return true;
             } catch (e) {
+                console.warn('LocalStorage remove failed:', e);
+                return false;
+            }
+        },
+
+        clear() {
+            try {
+                localStorage.clear();
+                return true;
+            } catch (e) {
+                console.warn('LocalStorage clear failed:', e);
                 return false;
             }
         }
     },
 
+    /**
+     * Generate unique ID
+     */
     generateId() {
         return Date.now().toString(36) + Math.random().toString(36).substr(2);
     },
 
+    /**
+     * Format date
+     */
     formatDate(date) {
         return new Intl.DateTimeFormat('en-US', {
             year: 'numeric',
@@ -101,6 +137,9 @@ const Utils = {
         }).format(new Date(date));
     },
 
+    /**
+     * Check if element is in viewport
+     */
     isInViewport(element) {
         const rect = element.getBoundingClientRect();
         return (
@@ -111,13 +150,39 @@ const Utils = {
         );
     },
 
+    /**
+     * Escape HTML to prevent XSS
+     */
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    },
+
+    /**
+     * Show toast notification
+     */
     showToast(message, type = 'info', duration = 3000) {
+        // Remove existing toasts if too many
+        const existingToasts = document.querySelectorAll('.utils-toast');
+        if (existingToasts.length > 3) {
+            existingToasts[0].remove();
+        }
+
         const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
+        toast.className = `utils-toast toast-${type}`;
         toast.textContent = message;
+        
+        const colors = {
+            success: '#10b981',
+            error: '#ef4444',
+            warning: '#f59e0b',
+            info: '#3b82f6'
+        };
+        
         toast.style.cssText = `
             position: fixed;
-            top: 80px;
+            top: ${80 + (existingToasts.length * 60)}px;
             right: 20px;
             padding: 12px 20px;
             background: #fff;
@@ -126,24 +191,38 @@ const Utils = {
             z-index: 9999;
             transform: translateX(120%);
             transition: transform 0.3s ease;
-            border-left: 4px solid ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+            border-left: 4px solid ${colors[type] || colors.info};
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 14px;
             color: #1e293b;
+            max-width: 350px;
         `;
         
         document.body.appendChild(toast);
         
+        // Trigger animation
         requestAnimationFrame(() => {
             toast.style.transform = 'translateX(0)';
         });
         
+        // Auto remove
         setTimeout(() => {
             toast.style.transform = 'translateX(120%)';
-            setTimeout(() => toast.remove(), 300);
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 300);
         }, duration);
+        
+        return toast;
     }
 };
 
 // Make Utils globally available
 window.Utils = Utils;
+
+// Export for module systems
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Utils;
+}
