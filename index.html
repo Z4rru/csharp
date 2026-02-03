@@ -1336,6 +1336,57 @@ public class Program
     </footer>
 
     <!-- Scripts -->
+        <!-- Scripts -->
+    <script>
+        // Inline fallback Utils in case external file fails to load
+        window.Utils = window.Utils || {
+            debounce(func, wait) {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func(...args), wait);
+                };
+            },
+            throttle(func, limit) {
+                let inThrottle;
+                return function(...args) {
+                    if (!inThrottle) {
+                        func.apply(this, args);
+                        inThrottle = true;
+                        setTimeout(() => inThrottle = false, limit);
+                    }
+                };
+            },
+            scrollToElement(selector, offset = 80) {
+                const el = document.querySelector(selector);
+                if (el) window.scrollTo({ top: el.offsetTop - offset, behavior: 'smooth' });
+            },
+            animateCounter(el, target, duration = 2000) {
+                let current = 0;
+                const increment = target / (duration / 16);
+                const update = () => {
+                    current += increment;
+                    el.textContent = current < target ? Math.floor(current) : target;
+                    if (current < target) requestAnimationFrame(update);
+                };
+                update();
+            },
+            storage: {
+                set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e) { return false; } },
+                get(k, d = null) { try { const i = localStorage.getItem(k); return i ? JSON.parse(i) : d; } catch(e) { return d; } },
+                remove(k) { try { localStorage.removeItem(k); return true; } catch(e) { return false; } }
+            },
+            generateId() { return Date.now().toString(36) + Math.random().toString(36).substr(2); },
+            showToast(msg, type = 'info', dur = 3000) {
+                const t = document.createElement('div');
+                t.textContent = msg;
+                t.style.cssText = `position:fixed;top:80px;right:20px;padding:12px 20px;background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:9999;transform:translateX(120%);transition:transform .3s;border-left:4px solid ${type==='success'?'#10b981':type==='error'?'#ef4444':'#3b82f6'};font:14px system-ui;`;
+                document.body.appendChild(t);
+                requestAnimationFrame(() => t.style.transform = 'translateX(0)');
+                setTimeout(() => { t.style.transform = 'translateX(120%)'; setTimeout(() => t.remove(), 300); }, dur);
+            }
+        };
+    </script>
     <script src="js/utils.js"></script>
     <script src="js/codeEditor.js"></script>
     <script src="js/interfaces.js"></script>
