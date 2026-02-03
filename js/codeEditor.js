@@ -595,7 +595,8 @@ public class Program
             editor.value = this.originalCode[editorId];
             this.updateLineNumbers(editor);
             this.clearOutput(id);
-            Utils.showToast('Code reset to original', 'info');
+                        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
+            _utils.showToast('Code reset to original', 'info');
         }
     },
 
@@ -617,21 +618,23 @@ public class Program
         if (editor && this.templates[templateName]) {
             editor.value = this.templates[templateName];
             this.updateLineNumbers(editor);
-            Utils.showToast(`Loaded ${templateName} template`, 'success');
+                        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
+            _utils.showToast(`Loaded ${templateName} template`, 'success');
         }
     },
 
     /**
      * Save code to local storage
      */
-    saveCode() {
+        saveCode() {
         const editor = document.getElementById('playground-editor');
         if (editor) {
             const code = editor.value;
-            const savedCodes = Utils.storage.get('savedCodes', []);
+            const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
+            const savedCodes = _utils.storage.get('savedCodes', []);
             
             const newSave = {
-                id: Utils.generateId(),
+                id: _utils.generateId(),
                 code: code,
                 timestamp: new Date().toISOString(),
                 name: `Code Snippet ${savedCodes.length + 1}`
@@ -644,19 +647,21 @@ public class Program
                 savedCodes.pop();
             }
             
-            Utils.storage.set('savedCodes', savedCodes);
-            Utils.storage.set('lastPlaygroundCode', code);
-            Utils.showToast('Code saved successfully! 💾', 'success');
+                        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
+            _utils.storage.set('savedCodes', savedCodes);
+            _utils.storage.set('lastPlaygroundCode', code);
+            _utils.showToast('Code saved successfully! 💾', 'success');
         }
     },
 
     /**
      * Load saved code from local storage
      */
-    loadSavedCode() {
+        loadSavedCode() {
         const editor = document.getElementById('playground-editor');
         if (editor) {
-            const savedCode = Utils.storage.get('lastPlaygroundCode');
+            const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
+            const savedCode = _utils.storage.get('lastPlaygroundCode');
             if (savedCode) {
                 editor.value = savedCode;
                 this.updateLineNumbers(editor);
@@ -698,16 +703,18 @@ public class Program
             }
         });
 
-        editor.value = formatted.trim();
+               editor.value = formatted.trim();
         this.updateLineNumbers(editor);
-        Utils.showToast('Code formatted! ✨', 'success');
+        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
+        _utils.showToast('Code formatted! ✨', 'success');
     },
 
     /**
      * Get list of saved code snippets
      */
-    getSavedSnippets() {
-        return Utils.storage.get('savedCodes', []);
+        getSavedSnippets() {
+        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
+        return _utils.storage.get('savedCodes', []);
     },
 
     /**
@@ -722,7 +729,8 @@ public class Program
             if (editor) {
                 editor.value = snippet.code;
                 this.updateLineNumbers(editor);
-                Utils.showToast(`Loaded: ${snippet.name}`, 'info');
+                                const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
+                _utils.showToast(`Loaded: ${snippet.name}`, 'info');
             }
         }
     },
@@ -730,23 +738,25 @@ public class Program
     /**
      * Delete a saved snippet
      */
-    deleteSnippet(id) {
+        deleteSnippet(id) {
+        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
         let savedCodes = this.getSavedSnippets();
         savedCodes = savedCodes.filter(s => s.id !== id);
-        Utils.storage.set('savedCodes', savedCodes);
-        Utils.showToast('Snippet deleted', 'info');
+        _utils.storage.set('savedCodes', savedCodes);
+        _utils.showToast('Snippet deleted', 'info');
     },
 
     /**
      * Auto-save functionality
      */
-    startAutoSave() {
+        startAutoSave() {
         setInterval(() => {
             const editor = document.getElementById('playground-editor');
             if (editor && editor.value.trim()) {
-                Utils.storage.set('lastPlaygroundCode', editor.value);
+                const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
+                _utils.storage.set('lastPlaygroundCode', editor.value);
             }
-        }, 30000); // Auto-save every 30 seconds
+        }, 30000);
     }
 };
 
