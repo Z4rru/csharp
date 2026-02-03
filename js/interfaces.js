@@ -200,10 +200,12 @@ const InterfacesModule = {
         `;
 
         // Save quiz score
-        if (typeof Utils !== 'undefined') {
-            const quizScores = Utils.storage.get('quizScores', {});
+                try {
+            const quizScores = JSON.parse(localStorage.getItem('quizScores') || '{}');
             quizScores.interfaces = Math.max(quizScores.interfaces || 0, percentage);
-            Utils.storage.set('quizScores', quizScores);
+            localStorage.setItem('quizScores', JSON.stringify(quizScores));
+        } catch (e) {
+            console.warn('Could not save quiz score:', e);
         }
     },
 
