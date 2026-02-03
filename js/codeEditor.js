@@ -1,55 +1,7 @@
 /**
  * C# OOP Learning Platform - Code Editor Module
- * Handles code editing, syntax highlighting, and execution simulation
+ * Handles code editing, syntax highlighting, and execution
  */
-
-// Inline Utils for CodeEditor (fallback if utils.js not loaded)
-const CodeEditorUtils = {
-    storage: {
-        set(key, value) {
-            try {
-                localStorage.setItem(key, JSON.stringify(value));
-                return true;
-            } catch (e) {
-                console.warn('LocalStorage not available:', e);
-                return false;
-            }
-        },
-        get(key, defaultValue = null) {
-            try {
-                const item = localStorage.getItem(key);
-                return item ? JSON.parse(item) : defaultValue;
-            } catch (e) {
-                console.warn('LocalStorage not available:', e);
-                return defaultValue;
-            }
-        }
-    },
-    generateId() {
-        return Date.now().toString(36) + Math.random().toString(36).substr(2);
-    },
-    showToast(message, type = 'info', duration = 3000) {
-        if (typeof Utils !== 'undefined' && Utils.showToast) {
-            Utils.showToast(message, type, duration);
-            return;
-        }
-        const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
-        toast.textContent = message;
-        toast.style.cssText = `
-            position: fixed; top: 80px; right: 20px; padding: 12px 20px;
-            background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 9999; transform: translateX(120%); transition: transform 0.3s ease;
-            border-left: 4px solid ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
-        `;
-        document.body.appendChild(toast);
-        requestAnimationFrame(() => { toast.style.transform = 'translateX(0)'; });
-        setTimeout(() => {
-            toast.style.transform = 'translateX(120%)';
-            setTimeout(() => toast.remove(), 300);
-        }, duration);
-    }
-};
 
 const CodeEditor = {
     // Code templates for the playground
@@ -327,6 +279,57 @@ public class Program
     originalCode: {},
 
     /**
+     * Get utility functions (with fallback)
+     */
+    getUtils() {
+        if (typeof Utils !== 'undefined') {
+            return Utils;
+        }
+        // Fallback utilities
+        return {
+            storage: {
+                set(key, value) {
+                    try {
+                        localStorage.setItem(key, JSON.stringify(value));
+                        return true;
+                    } catch (e) {
+                        return false;
+                    }
+                },
+                get(key, defaultValue = null) {
+                    try {
+                        const item = localStorage.getItem(key);
+                        return item ? JSON.parse(item) : defaultValue;
+                    } catch (e) {
+                        return defaultValue;
+                    }
+                }
+            },
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            },
+            showToast(message, type = 'info', duration = 3000) {
+                const toast = document.createElement('div');
+                toast.textContent = message;
+                const colors = { success: '#10b981', error: '#ef4444', info: '#3b82f6' };
+                toast.style.cssText = `
+                    position: fixed; top: 80px; right: 20px; padding: 12px 20px;
+                    background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 9999; transform: translateX(120%); transition: transform 0.3s ease;
+                    border-left: 4px solid ${colors[type] || colors.info};
+                    font-size: 14px; color: #1e293b;
+                `;
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => { toast.style.transform = 'translateX(0)'; });
+                setTimeout(() => {
+                    toast.style.transform = 'translateX(120%)';
+                    setTimeout(() => toast.remove(), 300);
+                }, duration);
+            }
+        };
+    },
+
+    /**
      * Initialize the code editor
      */
     init() {
@@ -362,6 +365,11 @@ public class Program
             editor.addEventListener('input', () => {
                 this.updateLineNumbers(editor);
             });
+
+            // Sync scroll with line numbers
+            editor.addEventListener('scroll', () => {
+                this.syncLineNumberScroll(editor);
+            });
         });
     },
 
@@ -369,8 +377,19 @@ public class Program
      * Update line numbers for an editor
      */
     updateLineNumbers(editor) {
-        const lineNumbersId = editor.id.replace('code-editor', 'line-numbers');
-        const lineNumbersEl = document.getElementById(lineNumbersId);
+        // Try multiple ID patterns
+        const lineNumbersId = editor.id.replace('code-editor', 'line-numbers')
+                                       .replace('editor-', 'lines-')
+                                       .replace('playground-editor', 'lines-playground');
+        let lineNumbersEl = document.getElementById(lineNumbersId);
+        
+        // Fallback: look for sibling line numbers element
+        if (!lineNumbersEl) {
+            const wrapper = editor.closest('.editor-wrapper');
+            if (wrapper) {
+                lineNumbersEl = wrapper.querySelector('.line-numbers');
+            }
+        }
         
         if (lineNumbersEl) {
             const lines = editor.value.split('\n').length;
@@ -383,22 +402,47 @@ public class Program
     },
 
     /**
+     * Sync line number scroll with editor
+     */
+    syncLineNumberScroll(editor) {
+        const lineNumbersId = editor.id.replace('code-editor', 'line-numbers')
+                                       .replace('editor-', 'lines-')
+                                       .replace('playground-editor', 'lines-playground');
+        let lineNumbersEl = document.getElementById(lineNumbersId);
+        
+        if (!lineNumbersEl) {
+            const wrapper = editor.closest('.editor-wrapper');
+            if (wrapper) {
+                lineNumbersEl = wrapper.querySelector('.line-numbers');
+            }
+        }
+        
+        if (lineNumbersEl) {
+            lineNumbersEl.scrollTop = editor.scrollTop;
+        }
+    },
+
+    /**
      * Setup event listeners for buttons
      */
     setupEventListeners() {
-        // Run buttons
-        document.querySelectorAll('[id^="run-"]').forEach(btn => {
+        // Run buttons (multiple ID patterns)
+        document.querySelectorAll('[id^="run-"], .run-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const id = btn.id.replace('run-', '');
-                this.runCode(id);
+                const id = btn.id?.replace('run-', '') || btn.dataset?.editor?.replace('editor-', '');
+                if (id) {
+                    this.runCode(id);
+                }
             });
         });
 
         // Reset buttons
-        document.querySelectorAll('[id^="reset-"]').forEach(btn => {
+        document.querySelectorAll('[id^="reset-"], .reset-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const id = btn.id.replace('reset-', '');
-                this.resetCode(id);
+                const id = btn.id?.replace('reset-', '') || btn.dataset?.editor?.replace('editor-', '');
+                if (id) {
+                    this.resetCode(id);
+                }
             });
         });
 
@@ -411,6 +455,13 @@ public class Program
         });
 
         // Playground specific
+        this.setupPlaygroundListeners();
+    },
+
+    /**
+     * Setup playground-specific event listeners
+     */
+    setupPlaygroundListeners() {
         const templateSelector = document.getElementById('code-template');
         if (templateSelector) {
             templateSelector.addEventListener('change', (e) => {
@@ -450,6 +501,11 @@ public class Program
                 }
             });
         }
+
+        const formatBtn = document.getElementById('format-code');
+        if (formatBtn) {
+            formatBtn.addEventListener('click', () => this.formatCode());
+        }
     },
 
     /**
@@ -457,12 +513,15 @@ public class Program
      */
     runCode(id) {
         const editor = document.getElementById(`code-editor-${id}`) || 
-                       document.getElementById(`${id}-editor`) ||
+                       document.getElementById(`editor-${id}`) ||
                        document.getElementById('playground-editor');
         const output = document.getElementById(`output-${id}`) || 
                        document.getElementById('playground-output');
         
-        if (!editor || !output) return;
+        if (!editor || !output) {
+            console.warn(`Editor or output not found for id: ${id}`);
+            return;
+        }
 
         const code = editor.value;
         
@@ -473,12 +532,16 @@ public class Program
         setTimeout(() => {
             const result = this.simulateExecution(code);
             output.innerHTML = result;
+            
+            // Track that code was run
+            if (typeof App !== 'undefined' && App.markCodeRun) {
+                App.markCodeRun();
+            }
         }, 500);
     },
 
     /**
      * Simulate C# code execution
-     * This is a simplified simulator for educational purposes
      */
     simulateExecution(code) {
         let output = [];
@@ -486,11 +549,8 @@ public class Program
         try {
             // Extract Console.WriteLine statements
             const writeLineRegex = /Console\.WriteLine\s*\(\s*(?:\$?"([^"]*(?:\{[^}]*\}[^"]*)*)"|([^)]+))\s*\)/g;
-            const writeRegex = /Console\.Write\s*\(\s*(?:\$?"([^"]*(?:\{[^}]*\}[^"]*)*)"|([^)]+))\s*\)/g;
             
             let match;
-            
-            // Process WriteLine
             while ((match = writeLineRegex.exec(code)) !== null) {
                 let text = match[1] || match[2] || '';
                 text = this.processInterpolation(text, code);
@@ -498,60 +558,7 @@ public class Program
             }
 
             // Check for specific examples and provide appropriate output
-            if (code.includes('ITransactions') && code.includes('Transaction')) {
-                if (output.length === 0) {
-                    output = [
-                        '<div class="output-line">Transaction code: ABC20190001</div>',
-                        '<div class="output-line">Amount: $5000.35</div>'
-                    ];
-                }
-            }
-
-            if (code.includes('CalculateAreas') && code.includes('ISquare')) {
-                if (output.length === 0) {
-                    output = [
-                        '<div class="output-line">=== Shape Calculator ===</div>',
-                        '<div class="output-line"></div>',
-                        '<div class="output-line">Square (side=5): Area = 25</div>',
-                        '<div class="output-line">Rectangle (4.5 x 3): Area = 13.5</div>',
-                        '<div class="output-line">Triangle (base=6, height=4): Area = 12</div>'
-                    ];
-                }
-            }
-
-            if (code.includes('Student') && code.includes('Person') && code.includes('DisplayStudentInfo')) {
-                if (output.length === 0) {
-                    output = [
-                        '<div class="output-line">=== Student Information ===</div>',
-                        '<div class="output-line"></div>',
-                        '<div class="output-line">Name: Jack Paul</div>',
-                        '<div class="output-line">Age: 18</div>',
-                        '<div class="output-line">Student ID: 20191001</div>',
-                        '<div class="output-line">Program: BSCS</div>',
-                        '<div class="output-line"></div>',
-                        '<div class="output-line">Jack Paul is walking...</div>',
-                        '<div class="output-line">Jack Paul is studying BSCS...</div>'
-                    ];
-                }
-            }
-
-            if (code.includes('BankAccount') && code.includes('CheckingAccount') && code.includes('Withdraw')) {
-                if (output.length === 0) {
-                    output = [
-                        '<div class="output-line">=== Regular Bank Account ===</div>',
-                        '<div class="output-line">Withdrew $100</div>',
-                        '<div class="output-line">New balance: $400</div>',
-                        '<div class="output-line"></div>',
-                        '<div class="output-line">=== Checking Account (with fees) ===</div>',
-                        '<div class="output-line">Withdrew $100 + $2.50 fee</div>',
-                        '<div class="output-line">Total deducted: $102.50</div>',
-                        '<div class="output-line">New balance: $397.50</div>',
-                        '<div class="output-line"></div>',
-                        '<div class="output-line">💡 Same method name \'Withdraw\'</div>',
-                        '<div class="output-line">   Different behavior based on account type!</div>'
-                    ];
-                }
-            }
+            output = this.getContextualOutput(code, output);
 
             if (output.length === 0) {
                 output = ['<div class="output-line output-success">✓ Code compiled successfully. No output.</div>'];
@@ -565,13 +572,70 @@ public class Program
     },
 
     /**
+     * Get contextual output based on code patterns
+     */
+    getContextualOutput(code, existingOutput) {
+        if (existingOutput.length > 0) return existingOutput;
+
+        // Interface example
+        if (code.includes('ITransactions') && code.includes('Transaction')) {
+            return [
+                '<div class="output-line">Transaction code: ABC20190001</div>',
+                '<div class="output-line">Amount: $5000.35</div>'
+            ];
+        }
+
+        // Shape calculator example
+        if (code.includes('CalculateAreas') || code.includes('ShapeCalculator')) {
+            return [
+                '<div class="output-line">=== Shape Calculator ===</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">Square (side=5): Area = 25</div>',
+                '<div class="output-line">Rectangle (4.5 x 3): Area = 13.5</div>',
+                '<div class="output-line">Triangle (base=6, height=4): Area = 12</div>'
+            ];
+        }
+
+        // Student/Person inheritance example
+        if (code.includes('Student') && code.includes('Person') && code.includes('DisplayInfo')) {
+            return [
+                '<div class="output-line">=== Student Information ===</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">Name: Alice Johnson</div>',
+                '<div class="output-line">Age: 20</div>',
+                '<div class="output-line">Student ID: 2024001</div>',
+                '<div class="output-line">Program: Computer Science</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">Alice Johnson is walking...</div>',
+                '<div class="output-line">Alice Johnson is studying Computer Science...</div>'
+            ];
+        }
+
+        // Bank account polymorphism example
+        if (code.includes('BankAccount') && code.includes('CheckingAccount')) {
+            return [
+                '<div class="output-line">=== Polymorphism Demo ===</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">[Basic] Withdrew $450</div>',
+                '<div class="output-line">New balance: $50.00</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">[Checking] Withdrew $450 + $2.50 fee</div>',
+                '<div class="output-line">New balance: $47.50</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">[Savings] Cannot withdraw!</div>',
+                '<div class="output-line">Minimum balance of $100 required</div>'
+            ];
+        }
+
+        return existingOutput;
+    },
+
+    /**
      * Process string interpolation (simplified)
      */
     processInterpolation(text, code) {
-        // This is a simplified version - real interpolation would need full parsing
         return text.replace(/\{([^}]+)\}/g, (match, expr) => {
-            // Return placeholder for variable expressions
-            return `[${expr}]`;
+            return `[${expr.trim()}]`;
         });
     },
 
@@ -588,15 +652,23 @@ public class Program
      * Reset code to original
      */
     resetCode(id) {
-        const editorId = `code-editor-${id}`;
-        const editor = document.getElementById(editorId);
+        const possibleIds = [`code-editor-${id}`, `editor-${id}`, 'playground-editor'];
+        let editor = null;
+        let editorId = null;
+
+        for (const eid of possibleIds) {
+            editor = document.getElementById(eid);
+            if (editor) {
+                editorId = eid;
+                break;
+            }
+        }
         
         if (editor && this.originalCode[editorId]) {
             editor.value = this.originalCode[editorId];
             this.updateLineNumbers(editor);
             this.clearOutput(id);
-                        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-            _utils.showToast('Code reset to original', 'info');
+            this.getUtils().showToast('Code reset to original', 'info');
         }
     },
 
@@ -604,7 +676,8 @@ public class Program
      * Clear output
      */
     clearOutput(id) {
-        const output = document.getElementById(`output-${id}`);
+        const output = document.getElementById(`output-${id}`) || 
+                       document.getElementById('playground-output');
         if (output) {
             output.innerHTML = '<span class="output-placeholder">Click "Run Code" to see the output...</span>';
         }
@@ -618,23 +691,22 @@ public class Program
         if (editor && this.templates[templateName]) {
             editor.value = this.templates[templateName];
             this.updateLineNumbers(editor);
-                        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-            _utils.showToast(`Loaded ${templateName} template`, 'success');
+            this.getUtils().showToast(`Loaded ${templateName} template`, 'success');
         }
     },
 
     /**
      * Save code to local storage
      */
-        saveCode() {
+    saveCode() {
         const editor = document.getElementById('playground-editor');
         if (editor) {
             const code = editor.value;
-            const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-            const savedCodes = _utils.storage.get('savedCodes', []);
+            const utils = this.getUtils();
+            const savedCodes = utils.storage.get('savedCodes', []);
             
             const newSave = {
-                id: _utils.generateId(),
+                id: utils.generateId(),
                 code: code,
                 timestamp: new Date().toISOString(),
                 name: `Code Snippet ${savedCodes.length + 1}`
@@ -647,21 +719,19 @@ public class Program
                 savedCodes.pop();
             }
             
-                        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-            _utils.storage.set('savedCodes', savedCodes);
-            _utils.storage.set('lastPlaygroundCode', code);
-            _utils.showToast('Code saved successfully! 💾', 'success');
+            utils.storage.set('savedCodes', savedCodes);
+            utils.storage.set('lastPlaygroundCode', code);
+            utils.showToast('Code saved successfully! 💾', 'success');
         }
     },
 
     /**
      * Load saved code from local storage
      */
-        loadSavedCode() {
+    loadSavedCode() {
         const editor = document.getElementById('playground-editor');
         if (editor) {
-            const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-            const savedCode = _utils.storage.get('lastPlaygroundCode');
+            const savedCode = this.getUtils().storage.get('lastPlaygroundCode');
             if (savedCode) {
                 editor.value = savedCode;
                 this.updateLineNumbers(editor);
@@ -703,60 +773,21 @@ public class Program
             }
         });
 
-               editor.value = formatted.trim();
+        editor.value = formatted.trim();
         this.updateLineNumbers(editor);
-        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-        _utils.showToast('Code formatted! ✨', 'success');
-    },
-
-    /**
-     * Get list of saved code snippets
-     */
-        getSavedSnippets() {
-        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-        return _utils.storage.get('savedCodes', []);
-    },
-
-    /**
-     * Load a specific saved snippet
-     */
-    loadSnippet(id) {
-        const savedCodes = this.getSavedSnippets();
-        const snippet = savedCodes.find(s => s.id === id);
-        
-        if (snippet) {
-            const editor = document.getElementById('playground-editor');
-            if (editor) {
-                editor.value = snippet.code;
-                this.updateLineNumbers(editor);
-                                const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-                _utils.showToast(`Loaded: ${snippet.name}`, 'info');
-            }
-        }
-    },
-
-    /**
-     * Delete a saved snippet
-     */
-        deleteSnippet(id) {
-        const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-        let savedCodes = this.getSavedSnippets();
-        savedCodes = savedCodes.filter(s => s.id !== id);
-        _utils.storage.set('savedCodes', savedCodes);
-        _utils.showToast('Snippet deleted', 'info');
+        this.getUtils().showToast('Code formatted! ✨', 'success');
     },
 
     /**
      * Auto-save functionality
      */
-        startAutoSave() {
+    startAutoSave() {
         setInterval(() => {
             const editor = document.getElementById('playground-editor');
             if (editor && editor.value.trim()) {
-                const _utils = typeof Utils !== 'undefined' ? Utils : CodeEditorUtils;
-                _utils.storage.set('lastPlaygroundCode', editor.value);
+                this.getUtils().storage.set('lastPlaygroundCode', editor.value);
             }
-        }, 30000);
+        }, 30000); // Auto-save every 30 seconds
     }
 };
 
@@ -766,7 +797,10 @@ document.addEventListener('DOMContentLoaded', () => {
     CodeEditor.startAutoSave();
 });
 
-// Export for use in other modules
+// Make globally available
+window.CodeEditor = CodeEditor;
+
+// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CodeEditor;
 }
