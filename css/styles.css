@@ -2437,3 +2437,101 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* ===== Toast Notifications ===== */
+.toast-container {
+    position: fixed;
+    top: calc(var(--header-height) + var(--spacing-md));
+    right: var(--spacing-md);
+    z-index: var(--z-tooltip);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.toast {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    transform: translateX(120%);
+    opacity: 0;
+    transition: all var(--transition-base);
+    max-width: 350px;
+}
+
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-success {
+    border-left: 4px solid var(--color-success);
+}
+
+.toast-error {
+    border-left: 4px solid var(--color-error);
+}
+
+.toast-info {
+    border-left: 4px solid var(--color-info);
+}
+
+.toast-warning {
+    border-left: 4px solid var(--color-warning);
+}
+
+/* ===== Quiz Results ===== */
+.quiz-results {
+    text-align: center;
+    padding: var(--spacing-2xl);
+}
+
+.results-emoji {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-lg);
+}
+
+.quiz-results h3 {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+}
+
+.results-score {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.results-percentage {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-md);
+}
+
+.results-message {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+/* ===== Output Loading ===== */
+.output-loading {
+    color: var(--color-text-muted);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ===== SVG Gradient for Progress Ring ===== */
+svg defs {
+    display: block;
+}
