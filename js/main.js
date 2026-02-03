@@ -1,469 +1,806 @@
 /**
- * C# OOP Learning Platform - Main Application
- * Core functionality and initialization
+ * C# OOP Learning Platform - Code Editor Module
+ * Handles code editing, syntax highlighting, and execution
  */
 
-// Inline Utils for App (fallback if utils.js not loaded)
-const AppUtils = {
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => { clearTimeout(timeout); func(...args); };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
-    throttle(func, limit) {
-        let inThrottle;
-        return function(...args) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    },
-    scrollToElement(selector, offset = 80) {
-        const element = document.querySelector(selector);
-        if (element) {
-            const top = element.getBoundingClientRect().top + window.pageYOffset - offset;
-            window.scrollTo({ top, behavior: 'smooth' });
-        }
-    },
-    animateCounter(element, target, duration = 2000) {
-        const increment = target / (duration / 16);
-        let current = 0;
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                element.textContent = Math.floor(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                element.textContent = target;
-            }
-        };
-        updateCounter();
-    },
-    storage: {
-        set(key, value) {
-            try { localStorage.setItem(key, JSON.stringify(value)); return true; }
-            catch (e) { return false; }
-        },
-        get(key, defaultValue = null) {
-            try {
-                const item = localStorage.getItem(key);
-                return item ? JSON.parse(item) : defaultValue;
-            } catch (e) { return defaultValue; }
-        }
-    },
-    showToast(message, type = 'info', duration = 3000) {
-        const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
-        toast.textContent = message;
-        toast.style.cssText = `
-            position: fixed; top: 80px; right: 20px; padding: 12px 20px;
-            background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 9999; transform: translateX(120%); transition: transform 0.3s ease;
-            border-left: 4px solid ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
-        `;
-        document.body.appendChild(toast);
-        requestAnimationFrame(() => { toast.style.transform = 'translateX(0)'; });
-        setTimeout(() => {
-            toast.style.transform = 'translateX(120%)';
-            setTimeout(() => toast.remove(), 300);
-        }, duration);
+const CodeEditor = {
+    // Code templates for the playground
+    templates: {
+        blank: `using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        // Write your code here
+        
     }
-};
+}`,
 
-// Helper to get utils
-const getUtils = () => typeof Utils !== 'undefined' ? Utils : AppUtils;
+        hello: `using System;
 
-const App = {
-    // Application state
-    state: {
-        theme: 'light',
-        currentSection: 'home',
-        progress: {
-            interfaces: 0,
-            inheritance: 0,
-            polymorphism: 0,
-            classes: 0,
-            methods: 0
-        },
-        achievements: [],
-        quizScores: {}
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine("Hello, C# World!");
+        Console.WriteLine("Welcome to Object-Oriented Programming!");
+        
+        // Try modifying the message above!
+    }
+}`,
+
+        interface: `using System;
+
+// Step 1: Define an interface
+public interface IGreeter
+{
+    void SayHello(string name);
+    string GetGreeting();
+}
+
+// Step 2: Implement the interface
+public class FriendlyGreeter : IGreeter
+{
+    private string greeting = "Hello";
+    
+    public void SayHello(string name)
+    {
+        Console.WriteLine($"{greeting}, {name}! Nice to meet you!");
+    }
+    
+    public string GetGreeting()
+    {
+        return greeting;
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        IGreeter greeter = new FriendlyGreeter();
+        greeter.SayHello("Student");
+        Console.WriteLine($"Current greeting: {greeter.GetGreeting()}");
+    }
+}`,
+
+        inheritance: `using System;
+
+// Base class (Parent)
+public class Animal
+{
+    protected string name;
+    
+    public Animal(string name)
+    {
+        this.name = name;
+    }
+    
+    public virtual void Speak()
+    {
+        Console.WriteLine($"{name} makes a sound.");
+    }
+}
+
+// Derived class (Child)
+public class Dog : Animal
+{
+    public Dog(string name) : base(name) { }
+    
+    public override void Speak()
+    {
+        Console.WriteLine($"{name} says: Woof! Woof!");
+    }
+    
+    public void Fetch()
+    {
+        Console.WriteLine($"{name} is fetching the ball!");
+    }
+}
+
+// Another derived class
+public class Cat : Animal
+{
+    public Cat(string name) : base(name) { }
+    
+    public override void Speak()
+    {
+        Console.WriteLine($"{name} says: Meow!");
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Dog dog = new Dog("Buddy");
+        Cat cat = new Cat("Whiskers");
+        
+        dog.Speak();
+        dog.Fetch();
+        
+        cat.Speak();
+    }
+}`,
+
+        polymorphism: `using System;
+
+// Base class with virtual method
+public class Shape
+{
+    public virtual double GetArea()
+    {
+        return 0;
+    }
+    
+    public virtual void Describe()
+    {
+        Console.WriteLine("I am a shape.");
+    }
+}
+
+// Derived classes override the virtual methods
+public class Circle : Shape
+{
+    private double radius;
+    
+    public Circle(double radius)
+    {
+        this.radius = radius;
+    }
+    
+    public override double GetArea()
+    {
+        return Math.PI * radius * radius;
+    }
+    
+    public override void Describe()
+    {
+        Console.WriteLine($"I am a circle with radius {radius}");
+    }
+}
+
+public class Rectangle : Shape
+{
+    private double width, height;
+    
+    public Rectangle(double width, double height)
+    {
+        this.width = width;
+        this.height = height;
+    }
+    
+    public override double GetArea()
+    {
+        return width * height;
+    }
+    
+    public override void Describe()
+    {
+        Console.WriteLine($"I am a rectangle ({width} x {height})");
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        // Polymorphism in action!
+        Shape[] shapes = new Shape[]
+        {
+            new Circle(5),
+            new Rectangle(4, 6),
+            new Circle(3)
+        };
+        
+        foreach (Shape shape in shapes)
+        {
+            shape.Describe();
+            Console.WriteLine($"Area: {shape.GetArea():F2}\\n");
+        }
+    }
+}`,
+
+        properties: `using System;
+
+public class Person
+{
+    // Private fields
+    private string firstName;
+    private string lastName;
+    private int age;
+    
+    // Properties with get and set
+    public string FirstName
+    {
+        get { return firstName; }
+        set { firstName = value; }
+    }
+    
+    public string LastName
+    {
+        get { return lastName; }
+        set { lastName = value; }
+    }
+    
+    // Property with validation
+    public int Age
+    {
+        get { return age; }
+        set
+        {
+            if (value >= 0 && value <= 150)
+                age = value;
+            else
+                Console.WriteLine("Invalid age!");
+        }
+    }
+    
+    // Read-only property
+    public string FullName
+    {
+        get { return $"{firstName} {lastName}"; }
+    }
+    
+    // Auto-implemented property
+    public string Email { get; set; }
+    
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"Name: {FullName}");
+        Console.WriteLine($"Age: {Age}");
+        Console.WriteLine($"Email: {Email}");
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Person person = new Person();
+        
+        // Using properties
+        person.FirstName = "John";
+        person.LastName = "Doe";
+        person.Age = 25;
+        person.Email = "john.doe@email.com";
+        
+        person.DisplayInfo();
+        
+        // Try setting invalid age
+        Console.WriteLine("\\nTrying to set age to 200:");
+        person.Age = 200;
+    }
+}`
+    },
+
+    // Original code for reset functionality
+    originalCode: {},
+
+    /**
+     * Get utility functions (with fallback)
+     */
+    getUtils() {
+        if (typeof Utils !== 'undefined') {
+            return Utils;
+        }
+        // Fallback utilities
+        return {
+            storage: {
+                set(key, value) {
+                    try {
+                        localStorage.setItem(key, JSON.stringify(value));
+                        return true;
+                    } catch (e) {
+                        return false;
+                    }
+                },
+                get(key, defaultValue = null) {
+                    try {
+                        const item = localStorage.getItem(key);
+                        return item ? JSON.parse(item) : defaultValue;
+                    } catch (e) {
+                        return defaultValue;
+                    }
+                }
+            },
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            },
+            showToast(message, type = 'info', duration = 3000) {
+                const toast = document.createElement('div');
+                toast.textContent = message;
+                const colors = { success: '#10b981', error: '#ef4444', info: '#3b82f6' };
+                toast.style.cssText = `
+                    position: fixed; top: 80px; right: 20px; padding: 12px 20px;
+                    background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 9999; transform: translateX(120%); transition: transform 0.3s ease;
+                    border-left: 4px solid ${colors[type] || colors.info};
+                    font-size: 14px; color: #1e293b;
+                `;
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => { toast.style.transform = 'translateX(0)'; });
+                setTimeout(() => {
+                    toast.style.transform = 'translateX(120%)';
+                    setTimeout(() => toast.remove(), 300);
+                }, duration);
+            }
+        };
     },
 
     /**
-     * Initialize the application
+     * Initialize the code editor
      */
     init() {
-        this.loadState();
-        this.hideLoadingScreen();
-        this.setupTheme();
-        this.setupNavigation();
-        this.setupScrollEffects();
-        this.setupAnimations();
-        this.setupCounters();
-        this.updateProgress();
-        this.trackFirstVisit();
-        
-        console.log('🚀 C# OOP Learning Platform initialized');
+        this.setupEditors();
+        this.setupEventListeners();
+        this.loadSavedCode();
     },
 
     /**
-     * Load saved state from local storage
+     * Setup all code editors on the page
      */
-        loadState() {
-        const savedState = getUtils().storage.get('appState');
-        if (savedState) {
-            this.state = { ...this.state, ...savedState };
-        }
-    },
-
-    /**
-     * Save state to local storage
-     */
-        saveState() {
-        getUtils().storage.set('appState', this.state);
-    },
-
-    /**
-     * Hide loading screen
-     */
-    hideLoadingScreen() {
-        const loadingScreen = document.getElementById('loading-screen');
-        if (loadingScreen) {
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 800);
-        }
-    },
-
-    /**
-     * Setup theme (dark/light mode)
-     */
-    setupTheme() {
-        const savedTheme = getUtils().storage.get('theme', 'light');
-        this.setTheme(savedTheme);
-
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                const newTheme = this.state.theme === 'light' ? 'dark' : 'light';
-                this.setTheme(newTheme);
-            });
-        }
-
-        // Check system preference
-        if (window.matchMedia) {
-            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            if (!getUtils().storage.get('theme') && mediaQuery.matches) {
-                this.setTheme('dark');
-            }
-        }
-    },
-
-    /**
-     * Set theme
-     */
-    setTheme(theme) {
-        this.state.theme = theme;
-        document.documentElement.setAttribute('data-theme', theme);
-        getUtils().storage.set('theme', theme);
-    },
-
-    /**
-     * Setup navigation
-     */
-    setupNavigation() {
-        // Mobile menu toggle
-        const mobileToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.getElementById('nav-links');
-        
-        if (mobileToggle && navLinks) {
-            mobileToggle.addEventListener('click', () => {
-                const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-                mobileToggle.setAttribute('aria-expanded', !isExpanded);
-                navLinks.classList.toggle('active');
-            });
-        }
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                const href = anchor.getAttribute('href');
-                if (href !== '#') {
+    setupEditors() {
+        const editors = document.querySelectorAll('.code-editor');
+        editors.forEach(editor => {
+            // Store original code
+            this.originalCode[editor.id] = editor.value;
+            
+            // Add line numbers
+            this.updateLineNumbers(editor);
+            
+            // Handle tab key
+            editor.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
                     e.preventDefault();
-                    getUtils().scrollToElement(href, 80);
-                    
-                    // Close mobile menu if open
-                    if (navLinks) {
-                        navLinks.classList.remove('active');
-                        if (mobileToggle) {
-                            mobileToggle.setAttribute('aria-expanded', 'false');
-                        }
-                    }
-                    
-                    // Update active state
-                    this.updateActiveNavLink(href);
+                    const start = editor.selectionStart;
+                    const end = editor.selectionEnd;
+                    editor.value = editor.value.substring(0, start) + '    ' + editor.value.substring(end);
+                    editor.selectionStart = editor.selectionEnd = start + 4;
                 }
             });
-        });
+            
+            // Update line numbers on input
+            editor.addEventListener('input', () => {
+                this.updateLineNumbers(editor);
+            });
 
-        // Card navigation buttons
-        document.querySelectorAll('.card-action[data-navigate]').forEach(btn => {
+            // Sync scroll with line numbers
+            editor.addEventListener('scroll', () => {
+                this.syncLineNumberScroll(editor);
+            });
+        });
+    },
+
+    /**
+     * Update line numbers for an editor
+     */
+    updateLineNumbers(editor) {
+        // Try multiple ID patterns
+        const lineNumbersId = editor.id.replace('code-editor', 'line-numbers')
+                                       .replace('editor-', 'lines-')
+                                       .replace('playground-editor', 'lines-playground');
+        let lineNumbersEl = document.getElementById(lineNumbersId);
+        
+        // Fallback: look for sibling line numbers element
+        if (!lineNumbersEl) {
+            const wrapper = editor.closest('.editor-wrapper');
+            if (wrapper) {
+                lineNumbersEl = wrapper.querySelector('.line-numbers');
+            }
+        }
+        
+        if (lineNumbersEl) {
+            const lines = editor.value.split('\n').length;
+            let numbers = '';
+            for (let i = 1; i <= lines; i++) {
+                numbers += i + '\n';
+            }
+            lineNumbersEl.textContent = numbers;
+        }
+    },
+
+    /**
+     * Sync line number scroll with editor
+     */
+    syncLineNumberScroll(editor) {
+        const lineNumbersId = editor.id.replace('code-editor', 'line-numbers')
+                                       .replace('editor-', 'lines-')
+                                       .replace('playground-editor', 'lines-playground');
+        let lineNumbersEl = document.getElementById(lineNumbersId);
+        
+        if (!lineNumbersEl) {
+            const wrapper = editor.closest('.editor-wrapper');
+            if (wrapper) {
+                lineNumbersEl = wrapper.querySelector('.line-numbers');
+            }
+        }
+        
+        if (lineNumbersEl) {
+            lineNumbersEl.scrollTop = editor.scrollTop;
+        }
+    },
+
+    /**
+     * Setup event listeners for buttons
+     */
+    setupEventListeners() {
+        // Run buttons (multiple ID patterns)
+        document.querySelectorAll('[id^="run-"], .run-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const target = btn.getAttribute('data-navigate');
-                getUtils().scrollToElement(`#${target}`, 80);
-                this.trackProgress(target, 10);
+                const id = btn.id?.replace('run-', '') || btn.dataset?.editor?.replace('editor-', '');
+                if (id) {
+                    this.runCode(id);
+                }
             });
         });
 
-        // Hero buttons
-        const beginBtn = document.getElementById('begin-journey-btn');
-        if (beginBtn) {
-            beginBtn.addEventListener('click', () => {
-                getUtils().scrollToElement('#learning-path', 80);
+        // Reset buttons
+        document.querySelectorAll('[id^="reset-"], .reset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.id?.replace('reset-', '') || btn.dataset?.editor?.replace('editor-', '');
+                if (id) {
+                    this.resetCode(id);
+                }
+            });
+        });
+
+        // Clear output buttons
+        document.querySelectorAll('[id^="clear-output"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.id.replace('clear-output-', '');
+                this.clearOutput(id);
+            });
+        });
+
+        // Playground specific
+        this.setupPlaygroundListeners();
+    },
+
+    /**
+     * Setup playground-specific event listeners
+     */
+    setupPlaygroundListeners() {
+        const templateSelector = document.getElementById('code-template');
+        if (templateSelector) {
+            templateSelector.addEventListener('change', (e) => {
+                this.loadTemplate(e.target.value);
             });
         }
 
-        const startBtn = document.getElementById('start-learning-btn');
-        if (startBtn) {
-            startBtn.addEventListener('click', () => {
-                getUtils().scrollToElement('#interfaces', 80);
+        const saveBtn = document.getElementById('save-code');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => this.saveCode());
+        }
+
+        const clearPlaygroundBtn = document.getElementById('clear-playground');
+        if (clearPlaygroundBtn) {
+            clearPlaygroundBtn.addEventListener('click', () => {
+                const editor = document.getElementById('playground-editor');
+                if (editor) {
+                    editor.value = this.templates.blank;
+                    this.updateLineNumbers(editor);
+                }
             });
+        }
+
+        const runPlaygroundBtn = document.getElementById('run-playground');
+        if (runPlaygroundBtn) {
+            runPlaygroundBtn.addEventListener('click', () => {
+                this.runCode('playground');
+            });
+        }
+
+        const clearConsoleBtn = document.getElementById('clear-console');
+        if (clearConsoleBtn) {
+            clearConsoleBtn.addEventListener('click', () => {
+                const output = document.getElementById('playground-output');
+                if (output) {
+                    output.innerHTML = '<div class="console-welcome"><p>Console cleared.</p></div>';
+                }
+            });
+        }
+
+        const formatBtn = document.getElementById('format-code');
+        if (formatBtn) {
+            formatBtn.addEventListener('click', () => this.formatCode());
         }
     },
 
     /**
-     * Update active navigation link
+     * Run code and display simulated output
      */
-    updateActiveNavLink(href) {
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === href) {
-                link.classList.add('active');
-            }
-        });
-    },
-
-    /**
-     * Setup scroll effects
-     */
-    setupScrollEffects() {
-        const header = document.querySelector('.header');
+    runCode(id) {
+        const editor = document.getElementById(`code-editor-${id}`) || 
+                       document.getElementById(`editor-${id}`) ||
+                       document.getElementById('playground-editor');
+        const output = document.getElementById(`output-${id}`) || 
+                       document.getElementById('playground-output');
         
-        // Header scroll effect
-        window.addEventListener('scroll', getUtils().throttle(() => {
-            if (header) {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            }
+        if (!editor || !output) {
+            console.warn(`Editor or output not found for id: ${id}`);
+            return;
+        }
 
-            // Update active section based on scroll position
-            this.updateActiveSectionOnScroll();
-        }, 100));
-    },
-
-    /**
-     * Update active section based on scroll position
-     */
-    updateActiveSectionOnScroll() {
-        const sections = document.querySelectorAll('section[id]');
-        const scrollPosition = window.scrollY + 200;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                this.updateActiveNavLink(`#${sectionId}`);
-            }
-        });
-    },
-
-    /**
-     * Setup animations (Intersection Observer)
-     */
-    setupAnimations() {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    
-                    // Track section views
-                    const sectionId = entry.target.id;
-                    if (sectionId) {
-                        this.trackSectionView(sectionId);
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Observe all reveal elements
-        document.querySelectorAll('.reveal, .learning-card, .concept-explainer, .interactive-example').forEach(el => {
-            el.classList.add('reveal');
-            observer.observe(el);
-        });
-    },
-
-    /**
-     * Setup counter animations
-     */
-    setupCounters() {
-        const counters = document.querySelectorAll('.stat-number[data-count]');
+        const code = editor.value;
         
-        const observerOptions = {
-            threshold: 0.5
-        };
+        // Show loading state
+        output.innerHTML = '<span class="output-loading">⏳ Compiling and running...</span>';
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = parseInt(entry.target.getAttribute('data-count'));
-                    getUtils().animateCounter(entry.target, target);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        counters.forEach(counter => {
-            observer.observe(counter);
-        });
-    },
-
-    /**
-     * Track section view for progress
-     */
-    trackSectionView(sectionId) {
-        const validSections = ['interfaces', 'inheritance', 'polymorphism', 'classes', 'methods'];
-        if (validSections.includes(sectionId)) {
-            this.trackProgress(sectionId, 5);
-        }
-    },
-
-    /**
-     * Track progress for a topic
-     */
-    trackProgress(topic, amount) {
-        if (this.state.progress[topic] !== undefined) {
-            this.state.progress[topic] = Math.min(100, this.state.progress[topic] + amount);
-            this.saveState();
-            this.updateProgress();
-        }
-    },
-
-    /**
-     * Update progress display
-     */
-    updateProgress() {
-        // Update topic progress bars
-        Object.entries(this.state.progress).forEach(([topic, value]) => {
-            const progressItem = document.querySelector(`.topic-progress-item .topic-name`);
-            // Find the correct progress item
-            document.querySelectorAll('.topic-progress-item').forEach(item => {
-                const name = item.querySelector('.topic-name');
-                if (name && name.textContent.toLowerCase().includes(topic)) {
-                    const fill = item.querySelector('.topic-fill');
-                    const percentage = item.querySelector('.topic-percentage');
-                    if (fill) fill.style.width = `${value}%`;
-                    if (percentage) percentage.textContent = `${value}%`;
-                }
-            });
-        });
-
-        // Calculate overall progress
-        const values = Object.values(this.state.progress);
-        const overall = Math.round(values.reduce((a, b) => a + b, 0) / values.length);
-        
-        // Update progress ring
-        const percentageEl = document.getElementById('overall-percentage');
-        if (percentageEl) {
-            percentageEl.textContent = overall;
-        }
-
-        // Update progress ring fill
-        const progressFill = document.querySelector('.progress-ring-fill');
-        if (progressFill) {
-            const circumference = 2 * Math.PI * 90;
-            const offset = circumference - (overall / 100) * circumference;
-            progressFill.style.strokeDashoffset = offset;
-        }
-
-        // Check for achievements
-        this.checkAchievements();
-    },
-
-    /**
-     * Check and unlock achievements
-     */
-    checkAchievements() {
-        const achievements = {
-            'first-steps': () => Object.values(this.state.progress).some(v => v > 0),
-            'code-runner': () => getUtils().storage.get('hasRunCode', false),
-            'interface-master': () => this.state.progress.interfaces >= 100,
-            'inheritance-hero': () => this.state.progress.inheritance >= 100,
-            'oop-champion': () => Object.values(this.state.progress).every(v => v >= 100)
-        };
-
-        document.querySelectorAll('.achievement').forEach(el => {
-            const title = el.getAttribute('title') || '';
-            const achievementKey = el.querySelector('.achievement-name')?.textContent
-                .toLowerCase().replace(/\s+/g, '-');
+        // Simulate execution delay
+        setTimeout(() => {
+            const result = this.simulateExecution(code);
+            output.innerHTML = result;
             
-            if (achievementKey && achievements[achievementKey] && achievements[achievementKey]()) {
-                el.classList.add('unlocked');
-                if (!this.state.achievements.includes(achievementKey)) {
-                    this.state.achievements.push(achievementKey);
-                    this.saveState();
-                    getUtils().showToast(`🏆 Achievement Unlocked: ${el.querySelector('.achievement-name')?.textContent}!`, 'success');
-                }
+            // Track that code was run
+            if (typeof App !== 'undefined' && App.markCodeRun) {
+                App.markCodeRun();
             }
-        });
+        }, 500);
     },
 
     /**
-     * Track first visit
+     * Simulate C# code execution
      */
-    trackFirstVisit() {
-                if (!getUtils().storage.get('hasVisited')) {
-            getUtils().storage.set('hasVisited', true);
-            getUtils().storage.set('firstVisit', new Date().toISOString());
+    simulateExecution(code) {
+        let output = [];
+        
+        try {
+            // Extract Console.WriteLine statements
+            const writeLineRegex = /Console\.WriteLine\s*\(\s*(?:\$?"([^"]*(?:\{[^}]*\}[^"]*)*)"|([^)]+))\s*\)/g;
             
-            // Show welcome message after a delay
-            setTimeout(() => {
-                getUtils().showToast('👋 Welcome! Start your C# learning journey!', 'info', 5000);
-            }, 2000);
+            let match;
+            while ((match = writeLineRegex.exec(code)) !== null) {
+                let text = match[1] || match[2] || '';
+                text = this.processInterpolation(text, code);
+                output.push(`<div class="output-line">${this.escapeHtml(text)}</div>`);
+            }
+
+            // Check for specific examples and provide appropriate output
+            output = this.getContextualOutput(code, output);
+
+            if (output.length === 0) {
+                output = ['<div class="output-line output-success">✓ Code compiled successfully. No output.</div>'];
+            }
+
+            return output.join('');
+
+        } catch (error) {
+            return `<div class="output-line output-error">❌ Error: ${this.escapeHtml(error.message)}</div>`;
         }
     },
 
     /**
-     * Mark code as run (for achievements)
+     * Get contextual output based on code patterns
      */
-        markCodeRun() {
-        getUtils().storage.set('hasRunCode', true);
-        this.checkAchievements();
+    getContextualOutput(code, existingOutput) {
+        if (existingOutput.length > 0) return existingOutput;
+
+        // Interface example
+        if (code.includes('ITransactions') && code.includes('Transaction')) {
+            return [
+                '<div class="output-line">Transaction code: ABC20190001</div>',
+                '<div class="output-line">Amount: $5000.35</div>'
+            ];
+        }
+
+        // Shape calculator example
+        if (code.includes('CalculateAreas') || code.includes('ShapeCalculator')) {
+            return [
+                '<div class="output-line">=== Shape Calculator ===</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">Square (side=5): Area = 25</div>',
+                '<div class="output-line">Rectangle (4.5 x 3): Area = 13.5</div>',
+                '<div class="output-line">Triangle (base=6, height=4): Area = 12</div>'
+            ];
+        }
+
+        // Student/Person inheritance example
+        if (code.includes('Student') && code.includes('Person') && code.includes('DisplayInfo')) {
+            return [
+                '<div class="output-line">=== Student Information ===</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">Name: Alice Johnson</div>',
+                '<div class="output-line">Age: 20</div>',
+                '<div class="output-line">Student ID: 2024001</div>',
+                '<div class="output-line">Program: Computer Science</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">Alice Johnson is walking...</div>',
+                '<div class="output-line">Alice Johnson is studying Computer Science...</div>'
+            ];
+        }
+
+        // Bank account polymorphism example
+        if (code.includes('BankAccount') && code.includes('CheckingAccount')) {
+            return [
+                '<div class="output-line">=== Polymorphism Demo ===</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">[Basic] Withdrew $450</div>',
+                '<div class="output-line">New balance: $50.00</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">[Checking] Withdrew $450 + $2.50 fee</div>',
+                '<div class="output-line">New balance: $47.50</div>',
+                '<div class="output-line"></div>',
+                '<div class="output-line">[Savings] Cannot withdraw!</div>',
+                '<div class="output-line">Minimum balance of $100 required</div>'
+            ];
+        }
+
+        return existingOutput;
+    },
+
+    /**
+     * Process string interpolation (simplified)
+     */
+    processInterpolation(text, code) {
+        return text.replace(/\{([^}]+)\}/g, (match, expr) => {
+            return `[${expr.trim()}]`;
+        });
+    },
+
+    /**
+     * Escape HTML characters
+     */
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    },
+
+    /**
+     * Reset code to original
+     */
+    resetCode(id) {
+        const possibleIds = [`code-editor-${id}`, `editor-${id}`, 'playground-editor'];
+        let editor = null;
+        let editorId = null;
+
+        for (const eid of possibleIds) {
+            editor = document.getElementById(eid);
+            if (editor) {
+                editorId = eid;
+                break;
+            }
+        }
+        
+        if (editor && this.originalCode[editorId]) {
+            editor.value = this.originalCode[editorId];
+            this.updateLineNumbers(editor);
+            this.clearOutput(id);
+            this.getUtils().showToast('Code reset to original', 'info');
+        }
+    },
+
+    /**
+     * Clear output
+     */
+    clearOutput(id) {
+        const output = document.getElementById(`output-${id}`) || 
+                       document.getElementById('playground-output');
+        if (output) {
+            output.innerHTML = '<span class="output-placeholder">Click "Run Code" to see the output...</span>';
+        }
+    },
+
+    /**
+     * Load template into playground
+     */
+    loadTemplate(templateName) {
+        const editor = document.getElementById('playground-editor');
+        if (editor && this.templates[templateName]) {
+            editor.value = this.templates[templateName];
+            this.updateLineNumbers(editor);
+            this.getUtils().showToast(`Loaded ${templateName} template`, 'success');
+        }
+    },
+
+    /**
+     * Save code to local storage
+     */
+    saveCode() {
+        const editor = document.getElementById('playground-editor');
+        if (editor) {
+            const code = editor.value;
+            const utils = this.getUtils();
+            const savedCodes = utils.storage.get('savedCodes', []);
+            
+            const newSave = {
+                id: utils.generateId(),
+                code: code,
+                timestamp: new Date().toISOString(),
+                name: `Code Snippet ${savedCodes.length + 1}`
+            };
+            
+            savedCodes.unshift(newSave);
+            
+            // Keep only last 10 saves
+            if (savedCodes.length > 10) {
+                savedCodes.pop();
+            }
+            
+            utils.storage.set('savedCodes', savedCodes);
+            utils.storage.set('lastPlaygroundCode', code);
+            utils.showToast('Code saved successfully! 💾', 'success');
+        }
+    },
+
+    /**
+     * Load saved code from local storage
+     */
+    loadSavedCode() {
+        const editor = document.getElementById('playground-editor');
+        if (editor) {
+            const savedCode = this.getUtils().storage.get('lastPlaygroundCode');
+            if (savedCode) {
+                editor.value = savedCode;
+                this.updateLineNumbers(editor);
+            }
+        }
+    },
+
+    /**
+     * Format code (basic indentation)
+     */
+    formatCode() {
+        const editor = document.getElementById('playground-editor');
+        if (!editor) return;
+
+        let code = editor.value;
+        let formatted = '';
+        let indentLevel = 0;
+        const indentSize = 4;
+        const lines = code.split('\n');
+
+        lines.forEach(line => {
+            const trimmedLine = line.trim();
+            
+            // Decrease indent for closing braces
+            if (trimmedLine.startsWith('}') || trimmedLine.startsWith(')')) {
+                indentLevel = Math.max(0, indentLevel - 1);
+            }
+
+            // Add indentation
+            if (trimmedLine.length > 0) {
+                formatted += ' '.repeat(indentLevel * indentSize) + trimmedLine + '\n';
+            } else {
+                formatted += '\n';
+            }
+
+            // Increase indent for opening braces
+            if (trimmedLine.endsWith('{') || trimmedLine.endsWith('(')) {
+                indentLevel++;
+            }
+        });
+
+        editor.value = formatted.trim();
+        this.updateLineNumbers(editor);
+        this.getUtils().showToast('Code formatted! ✨', 'success');
+    },
+
+    /**
+     * Auto-save functionality
+     */
+    startAutoSave() {
+        setInterval(() => {
+            const editor = document.getElementById('playground-editor');
+            if (editor && editor.value.trim()) {
+                this.getUtils().storage.set('lastPlaygroundCode', editor.value);
+            }
+        }, 30000); // Auto-save every 30 seconds
     }
 };
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    App.init();
+    CodeEditor.init();
+    CodeEditor.startAutoSave();
 });
 
-// Export for use in other modules
+// Make globally available
+window.CodeEditor = CodeEditor;
+
+// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = App;
+    module.exports = CodeEditor;
 }
