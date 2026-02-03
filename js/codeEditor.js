@@ -3,6 +3,54 @@
  * Handles code editing, syntax highlighting, and execution simulation
  */
 
+// Inline Utils for CodeEditor (fallback if utils.js not loaded)
+const CodeEditorUtils = {
+    storage: {
+        set(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+                return true;
+            } catch (e) {
+                console.warn('LocalStorage not available:', e);
+                return false;
+            }
+        },
+        get(key, defaultValue = null) {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : defaultValue;
+            } catch (e) {
+                console.warn('LocalStorage not available:', e);
+                return defaultValue;
+            }
+        }
+    },
+    generateId() {
+        return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    },
+    showToast(message, type = 'info', duration = 3000) {
+        if (typeof Utils !== 'undefined' && Utils.showToast) {
+            Utils.showToast(message, type, duration);
+            return;
+        }
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed; top: 80px; right: 20px; padding: 12px 20px;
+            background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 9999; transform: translateX(120%); transition: transform 0.3s ease;
+            border-left: 4px solid ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+        `;
+        document.body.appendChild(toast);
+        requestAnimationFrame(() => { toast.style.transform = 'translateX(0)'; });
+        setTimeout(() => {
+            toast.style.transform = 'translateX(120%)';
+            setTimeout(() => toast.remove(), 300);
+        }, duration);
+    }
+};
+
 const CodeEditor = {
     // Code templates for the playground
     templates: {
