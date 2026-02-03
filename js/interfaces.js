@@ -13,11 +13,50 @@ const InterfacesModule = {
     },
 
     /**
+     * Get utility functions
+     */
+    getUtils() {
+        return typeof Utils !== 'undefined' ? Utils : {
+            showToast(msg, type) {
+                console.log(`[${type}] ${msg}`);
+            },
+            storage: {
+                get(key, def) { 
+                    try { return JSON.parse(localStorage.getItem(key)) || def; } 
+                    catch(e) { return def; }
+                },
+                set(key, val) { 
+                    try { localStorage.setItem(key, JSON.stringify(val)); } 
+                    catch(e) {}
+                }
+            }
+        };
+    },
+
+    /**
      * Initialize the interfaces module
      */
     init() {
         this.setupQuiz();
         this.setupTabSwitching();
+        this.setupCodeExamples();
+    },
+
+    /**
+     * Setup code examples
+     */
+    setupCodeExamples() {
+        // Run buttons for interface examples
+        document.querySelectorAll('[data-editor^="editor-"]').forEach(btn => {
+            if (btn.classList.contains('run-btn')) {
+                btn.addEventListener('click', () => {
+                    const editorId = btn.dataset.editor;
+                    if (editorId && typeof CodeEditor !== 'undefined') {
+                        CodeEditor.runCode(editorId.replace('editor-', ''));
+                    }
+                });
+            }
+        });
     },
 
     /**
@@ -30,7 +69,9 @@ const InterfacesModule = {
         // Setup quiz option clicks
         quizContainer.querySelectorAll('.quiz-option').forEach(option => {
             option.addEventListener('click', (e) => {
-                this.handleQuizAnswer(e.target);
+                if (!option.disabled) {
+                    this.handleQuizAnswer(e.target);
+                }
             });
         });
 
@@ -52,12 +93,14 @@ const InterfacesModule = {
      */
     handleQuizAnswer(optionEl) {
         const questionEl = optionEl.closest('.quiz-question');
+        if (!questionEl) return;
+
         const questionNum = questionEl.getAttribute('data-question');
         const isCorrect = optionEl.getAttribute('data-answer') === 'correct';
         
-        // Remove previous selections
+        // Disable all options in this question
         questionEl.querySelectorAll('.quiz-option').forEach(opt => {
-            opt.classList.remove('selected', 'correct', 'incorrect');
+            opt.classList.remove('selected');
             opt.disabled = true;
         });
 
@@ -67,13 +110,17 @@ const InterfacesModule = {
 
         // If wrong, show correct answer
         if (!isCorrect) {
-            questionEl.querySelector('[data-answer="correct"]').classList.add('correct');
+            const correctOption = questionEl.querySelector('[data-answer="correct"]');
+            if (correctOption) {
+                correctOption.classList.add('correct');
+            }
         }
 
         // Show feedback
         const feedback = questionEl.querySelector('.quiz-feedback');
         if (feedback) {
             feedback.classList.add('show');
+            feedback.classList.remove('correct', 'incorrect');
             feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
             feedback.textContent = isCorrect 
                 ? '✓ Correct! Great job!' 
@@ -87,7 +134,7 @@ const InterfacesModule = {
         }
 
         // Track progress
-        if (typeof App !== 'undefined') {
+        if (typeof App !== 'undefined' && App.trackProgress) {
             App.trackProgress('interfaces', isCorrect ? 15 : 5);
         }
 
@@ -116,6 +163,8 @@ const InterfacesModule = {
     goToNextQuestion() {
         if (this.quizState.currentQuestion < this.quizState.totalQuestions) {
             this.showQuestion(this.quizState.currentQuestion + 1);
+        } else {
+            this.showQuizResults();
         }
     },
 
@@ -133,7 +182,7 @@ const InterfacesModule = {
             }
         });
 
-        // Update progress
+        // Update progress display
         const currentQ = document.getElementById('current-q');
         const progressFill = document.querySelector('.quiz-progress .progress-fill');
         
@@ -155,11 +204,7 @@ const InterfacesModule = {
         }
         
         if (nextBtn) {
-            if (num === this.quizState.totalQuestions) {
-                nextBtn.textContent = 'Finish';
-            } else {
-                nextBtn.textContent = 'Next →';
-            }
+            nextBtn.textContent = num === this.quizState.totalQuestions ? 'Finish' : 'Next →';
         }
     },
 
@@ -172,8 +217,7 @@ const InterfacesModule = {
 
         const percentage = Math.round((this.quizState.score / this.quizState.totalQuestions) * 100);
         
-        let message = '';
-        let emoji = '';
+        let message, emoji;
         
         if (percentage === 100) {
             message = 'Perfect score! You\'ve mastered interfaces!';
@@ -200,13 +244,12 @@ const InterfacesModule = {
         `;
 
         // Save quiz score
-                try {
-            const quizScores = JSON.parse(localStorage.getItem('quizScores') || '{}');
-            quizScores.interfaces = Math.max(quizScores.interfaces || 0, percentage);
-            localStorage.setItem('quizScores', JSON.stringify(quizScores));
-        } catch (e) {
-            console.warn('Could not save quiz score:', e);
-        }
+        const utils = this.getUtils();
+        const quizScores = utils.storage.get('quizScores', {});
+        quizScores.interfaces = Math.max(quizScores.interfaces || 0, percentage);
+        utils.storage.set('quizScores', quizScores);
+        
+        utils.showToast(`Quiz completed! Score: ${percentage}%`, percentage >= 66 ? 'success' : 'info');
     },
 
     /**
@@ -236,9 +279,8 @@ const InterfacesModule = {
                     // Add active to clicked tab
                     tab.classList.add('active');
                     
-                    // Here you could switch editor content based on file
                     const file = tab.getAttribute('data-file');
-                    // Implementation for switching files would go here
+                    console.log(`Switched to file: ${file}`);
                 });
             });
         });
@@ -250,7 +292,10 @@ document.addEventListener('DOMContentLoaded', () => {
     InterfacesModule.init();
 });
 
-// Export for use in other modules
+// Make globally available
+window.InterfacesModule = InterfacesModule;
+
+// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = InterfacesModule;
 }
