@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn C# interfaces, inheritance, polymorphism and OOP concepts with interactive examples and real-time code execution">
+    <meta name="keywords" content="C#, interfaces, OOP, programming, learning, tutorial, inheritance, polymorphism">
+    <title>C# OOP Mastery | Interactive Learning Platform 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+    <!-- Skip Navigation for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader">
+            <div class="loader-ring"></div>
+            <div class="loader-text">Loading C# Learning Platform...</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="header" role="banner">
+        <nav class="nav-container" role="navigation" aria-label="Main navigation">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">C# <span class="highlight">Mastery</span></span>
+            </div>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                <li class="dropdown">
+                    <a href="#concepts" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                        Concepts <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="menuitem"><a href="#interfaces">Interfaces</a></li>
+                        <li role="menuitem"><a href="#inheritance">Inheritance</a></li>
+                        <li role="menuitem"><a href="#polymorphism">Polymorphism</a></li>
+                        <li role="menuitem"><a href="#classes">Classes & Objects</a></li>
+                        <li role="menuitem"><a href="#methods">Methods & Structures</a></li>
+                    </ul>
+                </li>
+                <li><a href="#playground" class="nav-link" data-section="playground">Code Playground</a></li>
+                <li><a href="#progress" class="nav-link" data-section="progress">My Progress</a></li>
+                <li><a href="#resources" class="nav-link" data-section="resources">Resources</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">
+                    <span class="sun-icon">☀️</span>
+                    <span class="moon-icon">🌙</span>
+                </button>
+                <button class="btn btn-primary" id="start-learning-btn">Start Learning</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-background">
+                <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                    <div class="shape shape-4"></div>
+                </div>
+            </div>
+            
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="hero-badge">🚀 Updated for 2026</span>
+                    <h1 class="hero-title">
+                        Master <span class="gradient-text">C# Interfaces</span> & 
+                        <span class="gradient-text">OOP</span> Like a Pro
+                    </h1>
+                    <p class="hero-description">
+                        Learn object-oriented programming concepts through <strong>interactive examples</strong>, 
+                        <strong>real-time code execution</strong>, and <strong>visual explanations</strong>. 
+                        Perfect for beginners – no prior programming knowledge required!
+                    </p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="15">0</span>
+                            <span class="stat-label">Chapters</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="50">0</span>
+                            <span class="stat-label">Examples</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="100">0</span>
+                            <span class="stat-label">Exercises</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <button class="btn btn-large btn-primary" id="begin-journey-btn">
+                            <span>Begin Your Journey</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                        <button class="btn btn-large btn-secondary" id="watch-demo-btn">
+                            <span class="play-icon">▶</span>
+                            <span>Watch Demo</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="code-preview-card">
+                        <div class="code-header">
+                            <div class="window-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <span class="file-name">ITransactions.cs</span>
+                        </div>
+                        <pre class="code-content"><code class="language-csharp"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="interface-name">ITransactions</span>
+{
+    <span class="comment">// Method signatures - no implementation</span>
+    <span class="keyword">void</span> <span class="method-name">ShowTransaction</span>();
+    <span class="keyword">double</span> <span class="method-name">GetAmount</span>();
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">Transaction</span> : <span class="interface-name">ITransactions</span>
+{
+    <span class="keyword">private</span> <span class="keyword">string</span> _code;
+    <span class="keyword">private</span> <span class="keyword">double</span> _amount;
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method-name">ShowTransaction</span>()
+    {
+        Console.<span class="method-name">WriteLine</span>(<span class="string">$"Code: {_code}"</span>);
+    }
+}</code></pre>
+                        <div class="code-footer">
+                            <span class="typing-indicator">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </span>
+                            <span class="status">Interface implemented successfully ✓</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scroll-indicator" aria-hidden="true">
+                <span class="scroll-text">Scroll to explore</span>
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </section>
+
+        <!-- What You'll Learn Section -->
+        <section id="learning-path" class="learning-path-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">📚 Learning Path</span>
+                    <h2 class="section-title">What You'll Master</h2>
+                    <p class="section-description">
+                        A structured curriculum designed to take you from beginner to confident C# developer
+                    </p>
+                </div>
+                
+                <div class="learning-grid">
+                    <!-- Interfaces Card -->
+                    <article class="learning-card" data-topic="interfaces">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" class="icon-svg">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Interfaces</h3>
+                            <p class="card-description">
+                                Think of interfaces as <strong>contracts</strong> or <strong>blueprints</strong>. 
+                                Like how a job description lists required skills without telling you HOW to do them, 
+                                interfaces define WHAT a class must do, not HOW.
+                            </p>
+                            <ul class="card-topics">
+                                <li>Defining interface signatures</li>
+                                <li>Implementing single interfaces</li>
+                                <li>Multiple interface implementation</li>
+                                <li>Interface properties</li>
+                            </ul>
+                            <div class="card-meta">
+                                <span class="difficulty easy">Beginner</span>
+                                <span class="duration">~45 mins</span>
+                            </div>
+                        </div>
+                        <button class="card-action" data-navigate="interfaces">
+                            Start Learning →
+                        </button>
+                    </article>
+
+                    <!-- Inheritance Card -->
+                    <article class="learning-card" data-topic="inheritance">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" class="icon-svg">
+                                <path d="M12 3v18M5 10l7-7 7 7M5 14l7 7 7-7"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Inheritance</h3>
+                            <p class="card-description">
+                                Inheritance is like a <strong>family tree</strong>. 
+                                Just as children inherit traits from parents, 
+                                classes can inherit features from other classes, 
+                                reusing code and creating hierarchies.
+                            </p>
+                            <ul class="card-topics">
+                                <li>Base and derived classes</li>
+                                <li>Protected members</li>
+                                <li>Constructor chaining</li>
+                                <li>Abstract classes</li>
+                            </ul>
+                            <div class="card-meta">
+                                <span class="difficulty medium">Intermediate</span>
+                                <span class="duration">~60 mins</span>
+                            </div>
+                        </div>
+                        <button class="card-action" data-navigate="inheritance">
+                            Start Learning →
+                        </button>
+                    </article>
+
+                    <!-- Polymorphism Card -->
+                    <article class="learning-card" data-topic="polymorphism">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" class="icon-svg">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12a4 4 0 108 0 4 4 0 00-8 0"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Polymorphism</h3>
+                            <p class="card-description">
+                                "Many forms" – like how a <strong>universal remote</strong> 
+                                works with different TVs. The same button (method) produces 
+                                different results based on the device (object) it controls.
+                            </p>
+                            <ul class="card-topics">
+                                <li>Method overriding</li>
+                                <li>Virtual methods</li>
+                                <li>Runtime polymorphism</li>
+                                <li>Method overloading</li>
+                            </ul>
+                            <div class="card-meta">
+                                <span class="difficulty medium">Intermediate</span>
+                                <span class="duration">~50 mins</span>
+                            </div>
+                        </div>
+                        <button class="card-action" data-navigate="polymorphism">
+                            Start Learning →
+                        </button>
+                    </article>
+
+                    <!-- Classes Card -->
+                    <article class="learning-card" data-topic="classes">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" class="icon-svg">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M3 9h18M9 21V9"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Classes & Objects</h3>
+                            <p class="card-description">
+                                Classes are like <strong>cookie cutters</strong>, 
+                                and objects are the <strong>cookies</strong>. 
+                                The class defines the shape; objects are the actual items 
+                                you create from that template.
+                            </p>
+                            <ul class="card-topics">
+                                <li>Class definition</li>
+                                <li>Constructors</li>
+                                <li>Encapsulation & properties</li>
+                                <li>Namespaces</li>
+                            </ul>
+                            <div class="card-meta">
+                                <span class="difficulty easy">Beginner</span>
+                                <span class="duration">~40 mins</span>
+                            </div>
+                        </div>
+                        <button class="card-action" data-navigate="classes">
+                            Start Learning →
+                        </button>
+                    </article>
+
+                    <!-- Methods Card -->
+                    <article class="learning-card" data-topic="methods">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" class="icon-svg">
+                                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Methods & Structures</h3>
+                            <p class="card-description">
+                                Methods are <strong>actions</strong> or <strong>verbs</strong> 
+                                your objects can perform. Like recipes that take ingredients (parameters) 
+                                and produce a dish (return value).
+                            </p>
+                            <ul class="card-topics">
+                                <li>Method signatures</li>
+                                <li>Parameters & return types</li>
+                                <li>Method overloading</li>
+                                <li>Structures vs classes</li>
+                            </ul>
+                            <div class="card-meta">
+                                <span class="difficulty easy">Beginner</span>
+                                <span class="duration">~35 mins</span>
+                            </div>
+                        </div>
+                        <button class="card-action" data-navigate="methods">
+                            Start Learning →
+                        </button>
+                    </article>
+
+                    <!-- Playground Card -->
+                    <article class="learning-card featured" data-topic="playground">
+                        <div class="featured-badge">⭐ Interactive</div>
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" class="icon-svg">
+                                <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Code Playground</h3>
+                            <p class="card-description">
+                                <strong>Practice makes perfect!</strong> 
+                                Write, run, and experiment with C# code in real-time. 
+                                See instant results and learn by doing.
+                            </p>
+                            <ul class="card-topics">
+                                <li>Real-time code execution</li>
+                                <li>Syntax highlighting</li>
+                                <li>Pre-built examples</li>
+                                <li>Save your code</li>
+                            </ul>
+                            <div class="card-meta">
+                                <span class="difficulty all">All Levels</span>
+                                <span class="duration">Unlimited</span>
+                            </div>
+                        </div>
+                        <button class="card-action" data-navigate="playground">
+                            Open Playground →
+                        </button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interfaces Deep Dive Section -->
+        <section id="interfaces" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">📋 Core Concept</span>
+                    <h2 class="section-title">Understanding Interfaces</h2>
+                    <p class="section-description">
+                        The foundation of flexible, maintainable code
+                    </p>
+                </div>
+
+                <!-- Concept Explanation -->
+                <div class="concept-explainer">
+                    <div class="explainer-content">
+                        <h3>What is an Interface? (In Plain English)</h3>
+                        <div class="analogy-box">
+                            <div class="analogy-icon">🔌</div>
+                            <div class="analogy-text">
+                                <p><strong>Real-World Analogy:</strong> Think of a power outlet.</p>
+                                <p>Every device that plugs into an outlet must have the right plug shape 
+                                (the interface). The outlet doesn't care if you plug in a lamp, TV, or phone charger – 
+                                it just needs the right shape plug.</p>
+                                <p>Similarly, an interface defines <strong>what methods a class must have</strong>, 
+                                but not <strong>how those methods work</strong>.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Key Rules to Remember:</h4>
+                            <ul class="rules-list">
+                                <li>
+                                    <span class="rule-icon">✓</span>
+                                    <span>Interfaces <strong>cannot contain implementation code</strong> – only signatures (names and parameters)</span>
+                                </li>
+                                <li>
+                                    <span class="rule-icon">✓</span>
+                                    <span>Interface names start with capital <strong>"I"</strong> (e.g., ITransactions, IShape)</span>
+                                </li>
+                                <li>
+                                    <span class="rule-icon">✓</span>
+                                    <span>Classes that implement an interface <strong>must provide all methods</strong> defined in the interface</span>
+                                </li>
+                                <li>
+                                    <span class="rule-icon">✓</span>
+                                    <span>A class can implement <strong>multiple interfaces</strong> (unlike inheritance, which allows only one parent class)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Code Example 1 -->
+                <div class="interactive-example">
+                    <div class="example-header">
+                        <h3>Example 1: Defining an Interface</h3>
+                        <div class="example-controls">
+                            <button class="btn btn-small btn-outline" id="reset-example-1">Reset</button>
+                            <button class="btn btn-small btn-primary" id="run-example-1">Run Code ▶</button>
+                        </div>
+                    </div>
+                    
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="ITransactions.cs">ITransactions.cs</button>
+                            <button class="tab" data-file="Transaction.cs">Transaction.cs</button>
+                            <button class="tab" data-file="Program.cs">Program.cs</button>
+                        </div>
+                        
+                        <div class="editor-content">
+                            <div class="line-numbers" id="line-numbers-1"></div>
+                            <textarea class="code-editor" id="code-editor-1" spellcheck="false">// STEP 1: Define the Interface
+// This is like creating a "contract" that classes must follow
+
+namespace TransactionInterfaces
+{
+    public interface ITransactions
+    {
+        // These are just SIGNATURES - no code inside!
+        void ShowTransaction();  // Method that displays info
+        double GetAmount();      // Method that returns the amount
+    }
+}
+
+// 💡 TIP: Notice there's no code inside the methods
+// The interface only says WHAT methods must exist
+// It doesn't say HOW they should work</textarea>
+                        </div>
+                        
+                        <div class="editor-output">
+                            <div class="output-header">
+                                <span class="output-title">📤 Output</span>
+                                <button class="btn btn-tiny btn-outline" id="clear-output-1">Clear</button>
+                            </div>
+                            <div class="output-content" id="output-1">
+                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="example-explanation">
+                        <div class="explanation-step">
+                            <span class="step-number">1</span>
+                            <p>We use the <code>interface</code> keyword to create an interface</p>
+                        </div>
+                        <div class="explanation-step">
+                            <span class="step-number">2</span>
+                            <p>Inside, we declare method <strong>signatures</strong> (name + return type + parameters)</p>
+                        </div>
+                        <div class="explanation-step">
+                            <span class="step-number">3</span>
+                            <p>No curly braces <code>{}</code> with code – just semicolons <code>;</code></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Code Example 2 -->
+                <div class="interactive-example">
+                    <div class="example-header">
+                        <h3>Example 2: Implementing an Interface</h3>
+                        <div class="example-controls">
+                            <button class="btn btn-small btn-outline" id="reset-example-2">Reset</button>
+                            <button class="btn btn-small btn-primary" id="run-example-2">Run Code ▶</button>
+                        </div>
+                    </div>
+                    
+                    <div class="code-split-view">
+                        <div class="code-panel">
+                            <h4>The Interface (Contract)</h4>
+                            <pre class="code-display"><code><span class="keyword">public</span> <span class="keyword">interface</span> <span class="interface">ITransactions</span>
+{
+    <span class="keyword">void</span> <span class="method">ShowTransaction</span>();
+    <span class="keyword">double</span> <span class="method">GetAmount</span>();
+}</code></pre>
+                        </div>
+                        
+                        <div class="arrow-connector">
+                            <span>implements</span>
+                            <div class="arrow">→</div>
+                        </div>
+                        
+                        <div class="code-panel">
+                            <h4>The Class (Implementation)</h4>
+                            <pre class="code-display"><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="class">Transaction</span> : <span class="interface">ITransactions</span>
+{
+    <span class="keyword">private</span> <span class="keyword">string</span> _code;
+    <span class="keyword">private</span> <span class="keyword">double</span> _amount;
+
+    <span class="comment">// Must implement ALL interface methods!</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">ShowTransaction</span>()
+    {
+        Console.WriteLine(<span class="string">$"Code: {_code}"</span>);
+        Console.WriteLine(<span class="string">$"Amount: {GetAmount()}"</span>);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">double</span> <span class="method">GetAmount</span>()
+    {
+        <span class="keyword">return</span> _amount;
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="code-editor-container">
+                        <div class="editor-content">
+                            <div class="line-numbers" id="line-numbers-2"></div>
+                            <textarea class="code-editor" id="code-editor-2" spellcheck="false">// STEP 2: Create a class that IMPLEMENTS the interface
+// The colon (:) means "implements" or "follows the contract"
+
+using System;
+
+public interface ITransactions
+{
+    void ShowTransaction();
+    double GetAmount();
+}
+
+public class Transaction : ITransactions
+{
+    private string transactionCode;
+    private double amount;
+
+    // Constructor - creates a new Transaction
+    public Transaction(string code, double amount)
+    {
+        this.transactionCode = code;
+        this.amount = amount;
+    }
+
+    // ✅ We MUST provide the actual code for ShowTransaction
+    public void ShowTransaction()
+    {
+        Console.WriteLine("Transaction code: " + transactionCode);
+        Console.WriteLine("Amount: $" + GetAmount());
+    }
+
+    // ✅ We MUST provide the actual code for GetAmount
+    public double GetAmount()
+    {
+        return amount;
+    }
+}
+
+// Let's test it!
+public class Program
+{
+    public static void Main()
+    {
+        // Create an instance of Transaction
+        Transaction t1 = new Transaction("ABC20190001", 5000.35);
+        
+        // Call the methods
+        t1.ShowTransaction();
+    }
+}</textarea>
+                        </div>
+                        
+                        <div class="editor-output">
+                            <div class="output-header">
+                                <span class="output-title">📤 Output</span>
+                                <button class="btn btn-tiny btn-outline" id="clear-output-2">Clear</button>
+                            </div>
+                            <div class="output-content" id="output-2">
+                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Code Example 3: Multiple Interfaces -->
+                <div class="interactive-example">
+                    <div class="example-header">
+                        <h3>Example 3: Implementing Multiple Interfaces</h3>
+                        <span class="pro-tip">💪 A class can follow MULTIPLE contracts!</span>
+                    </div>
+                    
+                    <div class="visual-diagram">
+                        <div class="diagram-container">
+                            <div class="interface-box">
+                                <span class="box-label">ISquare</span>
+                                <code>int GetSquareArea(int side)</code>
+                            </div>
+                            <div class="interface-box">
+                                <span class="box-label">IRectangle</span>
+                                <code>double GetRectArea(double l, double w)</code>
+                            </div>
+                            <div class="interface-box">
+                                <span class="box-label">ITriangle</span>
+                                <code>double GetTriangleArea(double b, double h)</code>
+                            </div>
+                            <div class="arrows-container">
+                                <div class="connecting-arrow"></div>
+                                <div class="connecting-arrow"></div>
+                                <div class="connecting-arrow"></div>
+                            </div>
+                            <div class="class-box">
+                                <span class="box-label">CalculateAreas</span>
+                                <code>Implements all three interfaces!</code>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="code-editor-container">
+                        <div class="editor-content">
+                            <textarea class="code-editor" id="code-editor-3" spellcheck="false">using System;
+
+// Define THREE separate interfaces
+public interface ISquare
+{
+    int GetSquareArea(int side);
+}
+
+public interface IRectangle
+{
+    double GetRectArea(double length, double width);
+}
+
+public interface ITriangle
+{
+    double GetTriangleArea(double baseLength, double height);
+}
+
+// ONE class that implements ALL THREE interfaces!
+// Use comma to separate multiple interfaces
+public class CalculateAreas : ISquare, IRectangle, ITriangle
+{
+    // Implement ISquare
+    public int GetSquareArea(int side)
+    {
+        return side * side;
+    }
+
+    // Implement IRectangle
+    public double GetRectArea(double length, double width)
+    {
+        return length * width;
+    }
+
+    // Implement ITriangle
+    public double GetTriangleArea(double baseLength, double height)
+    {
+        return (baseLength * height) / 2;
+    }
+}
+
+// Test all the methods!
+public class Program
+{
+    public static void Main()
+    {
+        CalculateAreas calculator = new CalculateAreas();
+        
+        Console.WriteLine("=== Shape Calculator ===\n");
+        
+        // Calculate square area
+        int squareArea = calculator.GetSquareArea(5);
+        Console.WriteLine($"Square (side=5): Area = {squareArea}");
+        
+        // Calculate rectangle area
+        double rectArea = calculator.GetRectArea(4.5, 3.0);
+        Console.WriteLine($"Rectangle (4.5 x 3): Area = {rectArea}");
+        
+        // Calculate triangle area
+        double triArea = calculator.GetTriangleArea(6, 4);
+        Console.WriteLine($"Triangle (base=6, height=4): Area = {triArea}");
+    }
+}</textarea>
+                        </div>
+                        
+                        <div class="example-controls bottom-controls">
+                            <button class="btn btn-small btn-outline" id="reset-example-3">Reset</button>
+                            <button class="btn btn-primary" id="run-example-3">Run Code ▶</button>
+                        </div>
+                        
+                        <div class="editor-output">
+                            <div class="output-header">
+                                <span class="output-title">📤 Output</span>
+                            </div>
+                            <div class="output-content" id="output-3">
+                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Quiz -->
+                <div class="quiz-section">
+                    <h3>🎯 Quick Check: Test Your Understanding</h3>
+                    
+                    <div class="quiz-container" id="interface-quiz">
+                        <div class="quiz-question active" data-question="1">
+                            <p class="question-text">What keyword is used to define an interface in C#?</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-answer="wrong">class</button>
+                                <button class="quiz-option" data-answer="correct">interface</button>
+                                <button class="quiz-option" data-answer="wrong">struct</button>
+                                <button class="quiz-option" data-answer="wrong">abstract</button>
+                            </div>
+                            <div class="quiz-feedback"></div>
+                        </div>
+                        
+                        <div class="quiz-question" data-question="2">
+                            <p class="question-text">Can interfaces contain implementation code (actual method body)?</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-answer="wrong">Yes, always</button>
+                                <button class="quiz-option" data-answer="correct">No, only signatures</button>
+                                <button class="quiz-option" data-answer="wrong">Only for private methods</button>
+                                <button class="quiz-option" data-answer="wrong">Only with the abstract keyword</button>
+                            </div>
+                            <div class="quiz-feedback"></div>
+                        </div>
+                        
+                        <div class="quiz-question" data-question="3">
+                            <p class="question-text">How many interfaces can a single class implement?</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-answer="wrong">Only 1</button>
+                                <button class="quiz-option" data-answer="wrong">Maximum of 5</button>
+                                <button class="quiz-option" data-answer="correct">Multiple (no limit)</button>
+                                <button class="quiz-option" data-answer="wrong">It depends on the class size</button>
+                            </div>
+                            <div class="quiz-feedback"></div>
+                        </div>
+                        
+                        <div class="quiz-progress">
+                            <span class="progress-text">Question <span id="current-q">1</span> of 3</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 33%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-navigation">
+                            <button class="btn btn-outline" id="prev-question" disabled>← Previous</button>
+                            <button class="btn btn-primary" id="next-question">Next →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inheritance Section -->
+        <section id="inheritance" class="content-section alt-bg">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">🌳 Core Concept</span>
+                    <h2 class="section-title">Inheritance: Building Family Trees</h2>
+                    <p class="section-description">
+                        Reuse code by creating specialized versions of existing classes
+                    </p>
+                </div>
+
+                <div class="concept-explainer">
+                    <div class="explainer-content">
+                        <h3>What is Inheritance? (In Plain English)</h3>
+                        <div class="analogy-box family">
+                            <div class="analogy-icon">👨‍👩‍👧‍👦</div>
+                            <div class="analogy-text">
+                                <p><strong>Real-World Analogy:</strong> Think of a family.</p>
+                                <p>Children inherit traits from their parents – eye color, height, etc. 
+                                But children can also have their own unique characteristics.</p>
+                                <p>In programming, a <strong>derived class (child)</strong> inherits features from a 
+                                <strong>base class (parent)</strong>, but can also add its own special features!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="inheritance-diagram">
+                            <div class="uml-container">
+                                <div class="uml-box parent">
+                                    <div class="uml-header">Person (Base Class)</div>
+                                    <div class="uml-content">
+                                        <div class="uml-section">
+                                            <span class="section-title">Fields</span>
+                                            <code>- full_name: string</code>
+                                            <code>- age: int</code>
+                                        </div>
+                                        <div class="uml-section">
+                                            <span class="section-title">Methods</span>
+                                            <code>+ setName()</code>
+                                            <code>+ Walk()</code>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inheritance-arrows">
+                                    <div class="arrow-line"></div>
+                                    <div class="arrow-line"></div>
+                                </div>
+                                <div class="child-classes">
+                                    <div class="uml-box child">
+                                        <div class="uml-header">Student (Derived)</div>
+                                        <div class="uml-content">
+                                            <code>- program: string</code>
+                                            <code>+ EnrollProgram()</code>
+                                            <code>+ ComputeGrade()</code>
+                                        </div>
+                                    </div>
+                                    <div class="uml-box child">
+                                        <div class="uml-header">Teacher (Derived)</div>
+                                        <div class="uml-content">
+                                            <code>- department: string</code>
+                                            <code>+ TeachClass()</code>
+                                            <code>+ setSalary()</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Inheritance Example -->
+                <div class="interactive-example">
+                    <div class="example-header">
+                        <h3>Interactive Example: Person → Student Inheritance</h3>
+                    </div>
+                    
+                    <div class="code-editor-container large">
+                        <textarea class="code-editor" id="code-editor-inheritance" spellcheck="false">using System;
+
+// BASE CLASS (Parent) - Contains shared features
+public class Person
+{
+    // Protected = accessible by this class AND child classes
+    protected string fullName;
+    private int age;
+
+    // Constructor for Person
+    public Person(string name, int age)
+    {
+        this.fullName = name;
+        this.age = age;
+    }
+
+    // Method all people can do
+    public void Walk()
+    {
+        Console.WriteLine($"{fullName} is walking...");
+    }
+
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"Name: {fullName}");
+        Console.WriteLine($"Age: {age}");
+    }
+}
+
+// DERIVED CLASS (Child) - Inherits from Person
+// Uses colon (:) to indicate inheritance
+public class Student : Person
+{
+    private long studentId;
+    private string program;
+
+    // Constructor that calls the parent constructor using 'base'
+    public Student(string name, int age, long id, string program) 
+        : base(name, age)  // Call parent's constructor first!
+    {
+        this.studentId = id;
+        this.program = program;
+    }
+
+    // Student-specific method
+    public void Study()
+    {
+        Console.WriteLine($"{fullName} is studying {program}...");
+    }
+
+    // Display all info including inherited data
+    public void DisplayStudentInfo()
+    {
+        base.DisplayInfo();  // Call parent's method
+        Console.WriteLine($"Student ID: {studentId}");
+        Console.WriteLine($"Program: {program}");
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        // Create a Student (which is also a Person!)
+        Student s1 = new Student("Jack Paul", 18, 20191001, "BSCS");
+        
+        Console.WriteLine("=== Student Information ===\n");
+        s1.DisplayStudentInfo();
+        
+        Console.WriteLine();
+        
+        // Student can use methods inherited from Person!
+        s1.Walk();
+        s1.Study();
+    }
+}</textarea>
+                        
+                        <div class="example-controls bottom-controls">
+                            <button class="btn btn-outline" id="reset-inheritance">Reset</button>
+                            <button class="btn btn-primary" id="run-inheritance">Run Code ▶</button>
+                        </div>
+                        
+                        <div class="editor-output">
+                            <div class="output-header">
+                                <span class="output-title">📤 Output</span>
+                            </div>
+                            <div class="output-content" id="output-inheritance">
+                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-concepts-grid">
+                        <div class="concept-card">
+                            <div class="concept-icon">🔑</div>
+                            <h4>The <code>base</code> Keyword</h4>
+                            <p>Use <code>base</code> to call the parent class constructor or methods from the child class.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-icon">🛡️</div>
+                            <h4><code>protected</code> Access</h4>
+                            <p>Members marked <code>protected</code> are accessible in the class AND its children, but not outside.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-icon">🔗</div>
+                            <h4>Single Inheritance</h4>
+                            <p>C# allows inheriting from only ONE base class (but can implement multiple interfaces!).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Polymorphism Section -->
+        <section id="polymorphism" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">🎭 Core Concept</span>
+                    <h2 class="section-title">Polymorphism: Many Forms</h2>
+                    <p class="section-description">
+                        Same method name, different behaviors based on the object
+                    </p>
+                </div>
+
+                <div class="concept-explainer">
+                    <div class="explainer-content">
+                        <h3>What is Polymorphism? (In Plain English)</h3>
+                        <div class="analogy-box remote">
+                            <div class="analogy-icon">📺</div>
+                            <div class="analogy-text">
+                                <p><strong>Real-World Analogy:</strong> Think of a universal remote control.</p>
+                                <p>When you press the "Power" button, every device responds differently:</p>
+                                <ul>
+                                    <li>📺 TV turns on/off the screen</li>
+                                    <li>🔊 Soundbar starts/stops audio</li>
+                                    <li>📀 DVD player opens/closes tray</li>
+                                </ul>
+                                <p>Same button (method), different behaviors (implementations)!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="polymorphism-types">
+                    <div class="type-card">
+                        <h4>Method Overriding (Runtime)</h4>
+                        <p>Child class provides its own version of a parent's method</p>
+                        <code>virtual</code> + <code>override</code>
+                    </div>
+                    <div class="type-card">
+                        <h4>Method Overloading (Compile-time)</h4>
+                        <p>Same method name, different parameters</p>
+                        <code>GetArea(int)</code> vs <code>GetArea(int, int)</code>
+                    </div>
+                </div>
+
+                <!-- Interactive Polymorphism Example -->
+                <div class="interactive-example">
+                    <div class="example-header">
+                        <h3>Bank Account Example: Method Overriding</h3>
+                    </div>
+                    
+                    <div class="code-editor-container large">
+                        <textarea class="code-editor" id="code-editor-polymorphism" spellcheck="false">using System;
+
+// Base class with a VIRTUAL method (can be overridden)
+public class BankAccount
+{
+    protected long accountNumber;
+    protected double balance;
+
+    public BankAccount(long account, double balance)
+    {
+        this.accountNumber = account;
+        this.balance = balance;
+    }
+
+    // 'virtual' allows child classes to override this method
+    public virtual void Withdraw(double amount)
+    {
+        balance -= amount;
+        Console.WriteLine($"Withdrew ${amount}");
+        Console.WriteLine($"New balance: ${balance}");
+    }
+
+    public double GetBalance() => balance;
+}
+
+// Derived class that OVERRIDES the withdraw behavior
+public class CheckingAccount : BankAccount
+{
+    private double withdrawalFee = 2.50;
+
+    public CheckingAccount(long account, double balance) 
+        : base(account, balance) { }
+
+    // 'override' provides a NEW implementation
+    public override void Withdraw(double amount)
+    {
+        double totalDeduction = amount + withdrawalFee;
+        balance -= totalDeduction;
+        
+        Console.WriteLine($"Withdrew ${amount} + ${withdrawalFee} fee");
+        Console.WriteLine($"Total deducted: ${totalDeduction}");
+        Console.WriteLine($"New balance: ${balance}");
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine("=== Regular Bank Account ===");
+        BankAccount regular = new BankAccount(1001, 500.00);
+        regular.Withdraw(100);
+        
+        Console.WriteLine("\n=== Checking Account (with fees) ===");
+        CheckingAccount checking = new CheckingAccount(2001, 500.00);
+        checking.Withdraw(100);
+        
+        Console.WriteLine("\n💡 Same method name 'Withdraw'");
+        Console.WriteLine("   Different behavior based on account type!");
+    }
+}</textarea>
+                        
+                        <div class="example-controls bottom-controls">
+                            <button class="btn btn-outline" id="reset-polymorphism">Reset</button>
+                            <button class="btn btn-primary" id="run-polymorphism">Run Code ▶</button>
+                        </div>
+                        
+                        <div class="editor-output">
+                            <div class="output-content" id="output-polymorphism">
+                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Playground Section -->
+        <section id="playground" class="content-section playground-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">🎮 Practice Zone</span>
+                    <h2 class="section-title">Interactive Code Playground</h2>
+                    <p class="section-description">
+                        Write, test, and experiment with C# code in real-time
+                    </p>
+                </div>
+
+                <div class="playground-container">
+                    <div class="playground-toolbar">
+                        <div class="template-selector">
+                            <label for="code-template">Load Template:</label>
+                            <select id="code-template">
+                                <option value="blank">Blank Slate</option>
+                                <option value="hello">Hello World</option>
+                                <option value="interface">Interface Example</option>
+                                <option value="inheritance">Inheritance Example</option>
+                                <option value="polymorphism">Polymorphism Example</option>
+                                <option value="properties">Properties Example</option>
+                            </select>
+                        </div>
+                        <div class="playground-actions">
+                            <button class="btn btn-outline" id="clear-playground">Clear</button>
+                            <button class="btn btn-outline" id="format-code">Format</button>
+                            <button class="btn btn-outline" id="save-code">💾 Save</button>
+                            <button class="btn btn-primary btn-large" id="run-playground">
+                                ▶ Run Code
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="playground-editor">
+                        <div class="editor-pane">
+                            <div class="pane-header">
+                                <span>📝 Code Editor</span>
+                                <span class="file-indicator">Program.cs</span>
+                            </div>
+                            <textarea class="code-editor large" id="playground-editor" spellcheck="false">using System;
+
+// Welcome to the C# Playground! 🎮
+// Write your code here and click "Run Code" to see the results.
+
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine("Hello, C# World!");
+        Console.WriteLine("Start experimenting with interfaces and OOP concepts.");
+        
+        // Try creating your own interface and class below:
+        
+    }
+}</textarea>
+                        </div>
+                        
+                        <div class="output-pane">
+                            <div class="pane-header">
+                                <span>📤 Output Console</span>
+                                <button class="btn btn-tiny" id="clear-console">Clear</button>
+                            </div>
+                            <div class="console-output" id="playground-output">
+                                <div class="console-welcome">
+                                    <p>👋 Welcome to the C# Playground!</p>
+                                    <p>Write code on the left and click "Run Code" to execute.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="playground-tips">
+                        <h4>💡 Quick Tips:</h4>
+                        <ul>
+                            <li>Use <code>Console.WriteLine()</code> to print output</li>
+                            <li>All code runs in a sandboxed environment</li>
+                            <li>Your code is auto-saved locally</li>
+                            <li>Try the templates to see working examples!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Tracking Section -->
+        <section id="progress" class="content-section alt-bg">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">📊 Your Journey</span>
+                    <h2 class="section-title">Learning Progress</h2>
+                    <p class="section-description">
+                        Track your mastery of C# OOP concepts
+                    </p>
+                </div>
+
+                <div class="progress-dashboard">
+                    <div class="overall-progress">
+                        <div class="progress-ring-container">
+                            <svg class="progress-ring" width="200" height="200">
+                                <circle class="progress-ring-bg" cx="100" cy="100" r="90"/>
+                                <circle class="progress-ring-fill" cx="100" cy="100" r="90" 
+                                        stroke-dasharray="565.48" stroke-dashoffset="400"/>
+                            </svg>
+                            <div class="progress-percentage">
+                                <span class="percentage-number" id="overall-percentage">29</span>
+                                <span class="percentage-symbol">%</span>
+                            </div>
+                        </div>
+                        <h3>Overall Progress</h3>
+                    </div>
+
+                    <div class="topic-progress-list">
+                        <div class="topic-progress-item">
+                            <div class="topic-info">
+                                <span class="topic-name">Interfaces</span>
+                                <span class="topic-percentage">45%</span>
+                            </div>
+                            <div class="topic-bar">
+                                <div class="topic-fill" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div class="topic-progress-item">
+                            <div class="topic-info">
+                                <span class="topic-name">Inheritance</span>
+                                <span class="topic-percentage">30%</span>
+                            </div>
+                            <div class="topic-bar">
+                                <div class="topic-fill" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div class="topic-progress-item">
+                            <div class="topic-info">
+                                <span class="topic-name">Polymorphism</span>
+                                <span class="topic-percentage">20%</span>
+                            </div>
+                            <div class="topic-bar">
+                                <div class="topic-fill" style="width: 20%"></div>
+                            </div>
+                        </div>
+                        <div class="topic-progress-item">
+                            <div class="topic-info">
+                                <span class="topic-name">Classes & Objects</span>
+                                <span class="topic-percentage">35%</span>
+                            </div>
+                            <div class="topic-bar">
+                                <div class="topic-fill" style="width: 35%"></div>
+                            </div>
+                        </div>
+                        <div class="topic-progress-item">
+                            <div class="topic-info">
+                                <span class="topic-name">Methods</span>
+                                <span class="topic-percentage">15%</span>
+                            </div>
+                            <div class="topic-bar">
+                                <div class="topic-fill" style="width: 15%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="achievements">
+                        <h4>🏆 Achievements</h4>
+                        <div class="achievement-grid">
+                            <div class="achievement unlocked" title="Completed first lesson">
+                                <span class="achievement-icon">🎯</span>
+                                <span class="achievement-name">First Steps</span>
+                            </div>
+                            <div class="achievement unlocked" title="Ran first code">
+                                <span class="achievement-icon">▶️</span>
+                                <span class="achievement-name">Code Runner</span>
+                            </div>
+                            <div class="achievement" title="Complete all interface lessons">
+                                <span class="achievement-icon">🔌</span>
+                                <span class="achievement-name">Interface Master</span>
+                            </div>
+                            <div class="achievement" title="Complete all inheritance lessons">
+                                <span class="achievement-icon">🌳</span>
+                                <span class="achievement-name">Inheritance Hero</span>
+                            </div>
+                            <div class="achievement" title="Complete all lessons">
+                                <span class="achievement-icon">🏅</span>
+                                <span class="achievement-name">OOP Champion</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">📚 Additional Learning</span>
+                    <h2 class="section-title">Resources & References</h2>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h4>📖 Quick Reference</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">C# Keywords Cheat Sheet</a></li>
+                            <li><a href="#" class="resource-link">OOP Concepts Summary</a></li>
+                            <li><a href="#" class="resource-link">Common Patterns</a></li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <h4>🔗 Official Documentation</h4>
+                        <ul>
+                            <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank" rel="noopener" class="resource-link">Microsoft C# Docs</a></li>
+                            <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interfaces/" target="_blank" rel="noopener" class="resource-link">Interfaces Guide</a></li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <h4>💾 Download</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">All Examples (ZIP)</a></li>
+                            <li><a href="#" class="resource-link">PDF Study Guide</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">C# Mastery</span>
+                    <p>Interactive learning for everyone</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Learn</h4>
+                        <ul>
+                            <li><a href="#interfaces">Interfaces</a></li>
+                            <li><a href="#inheritance">Inheritance</a></li>
+                            <li><a href="#polymorphism">Polymorphism</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Practice</h4>
+                        <ul>
+                            <li><a href="#playground">Code Playground</a></li>
+                            <li><a href="#progress">My Progress</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 C# Mastery. Built for learning.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/codeEditor.js"></script>
+    <script src="js/interfaces.js"></script>
+    <script src="js/inheritance.js"></script>
+    <script src="js/polymorphism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
