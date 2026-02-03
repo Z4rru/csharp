@@ -3,6 +3,81 @@
  * Core functionality and initialization
  */
 
+// Inline Utils for App (fallback if utils.js not loaded)
+const AppUtils = {
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => { clearTimeout(timeout); func(...args); };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    },
+    throttle(func, limit) {
+        let inThrottle;
+        return function(...args) {
+            if (!inThrottle) {
+                func.apply(this, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    },
+    scrollToElement(selector, offset = 80) {
+        const element = document.querySelector(selector);
+        if (element) {
+            const top = element.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
+    },
+    animateCounter(element, target, duration = 2000) {
+        const increment = target / (duration / 16);
+        let current = 0;
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                element.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.textContent = target;
+            }
+        };
+        updateCounter();
+    },
+    storage: {
+        set(key, value) {
+            try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+            catch (e) { return false; }
+        },
+        get(key, defaultValue = null) {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : defaultValue;
+            } catch (e) { return defaultValue; }
+        }
+    },
+    showToast(message, type = 'info', duration = 3000) {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed; top: 80px; right: 20px; padding: 12px 20px;
+            background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 9999; transform: translateX(120%); transition: transform 0.3s ease;
+            border-left: 4px solid ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+        `;
+        document.body.appendChild(toast);
+        requestAnimationFrame(() => { toast.style.transform = 'translateX(0)'; });
+        setTimeout(() => {
+            toast.style.transform = 'translateX(120%)';
+            setTimeout(() => toast.remove(), 300);
+        }, duration);
+    }
+};
+
+// Helper to get utils
+const getUtils = () => typeof Utils !== 'undefined' ? Utils : AppUtils;
+
 const App = {
     // Application state
     state: {
@@ -39,8 +114,8 @@ const App = {
     /**
      * Load saved state from local storage
      */
-    loadState() {
-        const savedState = Utils.storage.get('appState');
+        loadState() {
+        const savedState = getUtils().storage.get('appState');
         if (savedState) {
             this.state = { ...this.state, ...savedState };
         }
@@ -49,8 +124,8 @@ const App = {
     /**
      * Save state to local storage
      */
-    saveState() {
-        Utils.storage.set('appState', this.state);
+        saveState() {
+        getUtils().storage.set('appState', this.state);
     },
 
     /**
@@ -70,7 +145,7 @@ const App = {
      * Setup theme (dark/light mode)
      */
     setupTheme() {
-        const savedTheme = Utils.storage.get('theme', 'light');
+        const savedTheme = getUtils().storage.get('theme', 'light');
         this.setTheme(savedTheme);
 
         const themeToggle = document.getElementById('theme-toggle');
@@ -84,7 +159,7 @@ const App = {
         // Check system preference
         if (window.matchMedia) {
             const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            if (!Utils.storage.get('theme') && mediaQuery.matches) {
+            if (!getUtils().storage.get('theme') && mediaQuery.matches) {
                 this.setTheme('dark');
             }
         }
@@ -96,7 +171,7 @@ const App = {
     setTheme(theme) {
         this.state.theme = theme;
         document.documentElement.setAttribute('data-theme', theme);
-        Utils.storage.set('theme', theme);
+        getUtils().storage.set('theme', theme);
     },
 
     /**
@@ -121,7 +196,7 @@ const App = {
                 const href = anchor.getAttribute('href');
                 if (href !== '#') {
                     e.preventDefault();
-                    Utils.scrollToElement(href, 80);
+                    getUtils().scrollToElement(href, 80);
                     
                     // Close mobile menu if open
                     if (navLinks) {
@@ -141,7 +216,7 @@ const App = {
         document.querySelectorAll('.card-action[data-navigate]').forEach(btn => {
             btn.addEventListener('click', () => {
                 const target = btn.getAttribute('data-navigate');
-                Utils.scrollToElement(`#${target}`, 80);
+                getUtils().scrollToElement(`#${target}`, 80);
                 this.trackProgress(target, 10);
             });
         });
@@ -150,14 +225,14 @@ const App = {
         const beginBtn = document.getElementById('begin-journey-btn');
         if (beginBtn) {
             beginBtn.addEventListener('click', () => {
-                Utils.scrollToElement('#learning-path', 80);
+                getUtils().scrollToElement('#learning-path', 80);
             });
         }
 
         const startBtn = document.getElementById('start-learning-btn');
         if (startBtn) {
             startBtn.addEventListener('click', () => {
-                Utils.scrollToElement('#interfaces', 80);
+                getUtils().scrollToElement('#interfaces', 80);
             });
         }
     },
@@ -181,7 +256,7 @@ const App = {
         const header = document.querySelector('.header');
         
         // Header scroll effect
-        window.addEventListener('scroll', Utils.throttle(() => {
+        window.addEventListener('scroll', getUtils().throttle(() => {
             if (header) {
                 if (window.scrollY > 50) {
                     header.classList.add('scrolled');
@@ -258,7 +333,7 @@ const App = {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const target = parseInt(entry.target.getAttribute('data-count'));
-                    Utils.animateCounter(entry.target, target);
+                    getUtils().animateCounter(entry.target, target);
                     observer.unobserve(entry.target);
                 }
             });
@@ -337,7 +412,7 @@ const App = {
     checkAchievements() {
         const achievements = {
             'first-steps': () => Object.values(this.state.progress).some(v => v > 0),
-            'code-runner': () => Utils.storage.get('hasRunCode', false),
+            'code-runner': () => getUtils().storage.get('hasRunCode', false),
             'interface-master': () => this.state.progress.interfaces >= 100,
             'inheritance-hero': () => this.state.progress.inheritance >= 100,
             'oop-champion': () => Object.values(this.state.progress).every(v => v >= 100)
@@ -353,7 +428,7 @@ const App = {
                 if (!this.state.achievements.includes(achievementKey)) {
                     this.state.achievements.push(achievementKey);
                     this.saveState();
-                    Utils.showToast(`🏆 Achievement Unlocked: ${el.querySelector('.achievement-name')?.textContent}!`, 'success');
+                    getUtils().showToast(`🏆 Achievement Unlocked: ${el.querySelector('.achievement-name')?.textContent}!`, 'success');
                 }
             }
         });
@@ -363,13 +438,13 @@ const App = {
      * Track first visit
      */
     trackFirstVisit() {
-        if (!Utils.storage.get('hasVisited')) {
-            Utils.storage.set('hasVisited', true);
-            Utils.storage.set('firstVisit', new Date().toISOString());
+                if (!getUtils().storage.get('hasVisited')) {
+            getUtils().storage.set('hasVisited', true);
+            getUtils().storage.set('firstVisit', new Date().toISOString());
             
             // Show welcome message after a delay
             setTimeout(() => {
-                Utils.showToast('👋 Welcome! Start your C# learning journey!', 'info', 5000);
+                getUtils().showToast('👋 Welcome! Start your C# learning journey!', 'info', 5000);
             }, 2000);
         }
     },
@@ -377,8 +452,8 @@ const App = {
     /**
      * Mark code as run (for achievements)
      */
-    markCodeRun() {
-        Utils.storage.set('hasRunCode', true);
+        markCodeRun() {
+        getUtils().storage.set('hasRunCode', true);
         this.checkAchievements();
     }
 };
