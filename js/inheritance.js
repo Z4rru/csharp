@@ -5,6 +5,25 @@
 
 const InheritanceModule = {
     /**
+     * Get utility functions
+     */
+    getUtils() {
+        return typeof Utils !== 'undefined' ? Utils : {
+            showToast(msg, type) {
+                const toast = document.createElement('div');
+                toast.textContent = msg;
+                toast.style.cssText = `
+                    position: fixed; top: 80px; right: 20px; padding: 12px 20px;
+                    background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 9999; border-left: 4px solid #3b82f6;
+                `;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            }
+        };
+    },
+
+    /**
      * Initialize the inheritance module
      */
     init() {
@@ -33,12 +52,9 @@ const InheritanceModule = {
      * Highlight related code when hovering on diagram
      */
     highlightRelatedCode(box) {
-        const isParent = box.classList.contains('parent');
-        const isChild = box.classList.contains('child');
-        
-        // Add visual feedback
         box.style.transform = 'scale(1.02)';
         box.style.boxShadow = '0 8px 25px rgba(99, 102, 241, 0.3)';
+        box.style.transition = 'all 0.2s ease';
     },
 
     /**
@@ -55,9 +71,11 @@ const InheritanceModule = {
      * Setup code examples
      */
     setupCodeExamples() {
-        // Handle inheritance example run
-        const runBtn = document.getElementById('run-inheritance');
-        const resetBtn = document.getElementById('reset-inheritance');
+        // Run button for inheritance example
+        const runBtn = document.getElementById('run-inheritance') || 
+                       document.querySelector('[data-editor="editor-inheritance"].run-btn');
+        const resetBtn = document.getElementById('reset-inheritance') ||
+                         document.querySelector('[data-editor="editor-inheritance"].reset-btn');
         
         if (runBtn) {
             runBtn.addEventListener('click', () => {
@@ -83,21 +101,21 @@ const InheritanceModule = {
 
         setTimeout(() => {
             output.innerHTML = `
-                <div class="output-line">=== Student Information ===</div>
+                <div class="output-line">=== Creating a Student ===</div>
                 <div class="output-line"></div>
-                <div class="output-line">Name: Jack Paul</div>
-                <div class="output-line">Age: 18</div>
-                <div class="output-line">Student ID: 20191001</div>
-                <div class="output-line">Program: BSCS</div>
+                <div class="output-line">Name: Alice Johnson</div>
+                <div class="output-line">Age: 20</div>
+                <div class="output-line">Student ID: 2024001</div>
+                <div class="output-line">Program: Computer Science</div>
                 <div class="output-line"></div>
-                <div class="output-line">Jack Paul is walking...</div>
-                <div class="output-line">Jack Paul is studying BSCS...</div>
+                <div class="output-line">Alice Johnson is walking...</div>
+                <div class="output-line">Alice Johnson is studying Computer Science...</div>
             `;
             
             // Track progress
             if (typeof App !== 'undefined') {
-                App.trackProgress('inheritance', 10);
-                App.markCodeRun();
+                if (App.trackProgress) App.trackProgress('inheritance', 10);
+                if (App.markCodeRun) App.markCodeRun();
             }
         }, 500);
     },
@@ -106,27 +124,19 @@ const InheritanceModule = {
      * Reset inheritance example
      */
     resetInheritanceExample() {
-        const editor = document.getElementById('code-editor-inheritance');
+        const editor = document.getElementById('editor-inheritance');
         const output = document.getElementById('output-inheritance');
         
-        if (editor && CodeEditor.originalCode['code-editor-inheritance']) {
-            editor.value = CodeEditor.originalCode['code-editor-inheritance'];
+        if (editor && typeof CodeEditor !== 'undefined' && CodeEditor.originalCode['editor-inheritance']) {
+            editor.value = CodeEditor.originalCode['editor-inheritance'];
+            CodeEditor.updateLineNumbers(editor);
         }
         
         if (output) {
             output.innerHTML = '<span class="output-placeholder">Click "Run Code" to see the output...</span>';
         }
         
-                // Show toast notification
-        const toast = document.createElement('div');
-        toast.textContent = 'Code reset to original';
-        toast.style.cssText = `
-            position: fixed; top: 80px; right: 20px; padding: 12px 20px;
-            background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 9999; border-left: 4px solid #3b82f6;
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+        this.getUtils().showToast('Code reset to original', 'info');
     },
 
     /**
@@ -145,7 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
     InheritanceModule.init();
 });
 
-// Export for use in other modules
+// Make globally available
+window.InheritanceModule = InheritanceModule;
+
+// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = InheritanceModule;
 }
