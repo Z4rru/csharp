@@ -92,9 +92,16 @@ const PolymorphismModule = {
             output.innerHTML = '<span class="output-placeholder">Click "Run Code" to see the output...</span>';
         }
         
-        if (typeof Utils !== 'undefined') {
-            Utils.showToast('Code reset to original', 'info');
-        }
+                // Show toast notification
+        const toast = document.createElement('div');
+        toast.textContent = 'Code reset to original';
+        toast.style.cssText = `
+            position: fixed; top: 80px; right: 20px; padding: 12px 20px;
+            background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 9999; border-left: 4px solid #3b82f6;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
     },
 
     /**
