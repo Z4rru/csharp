@@ -24,6 +24,12 @@
         </div>
     </div>
 
+    <!-- Compiler Status Indicator -->
+    <div id="compiler-status" class="compiler-status">
+        <span class="status-dot"></span>
+        <span class="status-text">Compiler Ready</span>
+    </div>
+
     <!-- Navigation -->
     <header class="header" role="banner">
         <nav class="nav-container" role="navigation" aria-label="Main navigation">
@@ -80,7 +86,7 @@
             
             <div class="hero-content">
                 <div class="hero-text">
-                    <span class="hero-badge">🚀 Updated for 2026</span>
+                    <span class="hero-badge">🚀 Real C# Compiler - Updated 2026</span>
                     <h1 class="hero-title">
                         Master <span class="gradient-text">C# Interfaces</span> & 
                         <span class="gradient-text">OOP</span> Like a Pro
@@ -88,7 +94,7 @@
                     <p class="hero-description">
                         Learn object-oriented programming concepts through <strong>interactive examples</strong>, 
                         <strong>real-time code execution</strong>, and <strong>visual explanations</strong>. 
-                        Perfect for beginners – no prior programming knowledge required!
+                        <em>Code runs on a real C# compiler!</em>
                     </p>
                     
                     <div class="hero-stats">
@@ -111,9 +117,9 @@
                             <span>Begin Your Journey</span>
                             <span class="btn-arrow">→</span>
                         </button>
-                        <button class="btn btn-large btn-secondary" id="watch-demo-btn">
+                        <button class="btn btn-large btn-secondary" id="test-compiler-btn">
                             <span class="play-icon">▶</span>
-                            <span>Watch Demo</span>
+                            <span>Test Compiler</span>
                         </button>
                     </div>
                 </div>
@@ -127,6 +133,7 @@
                                 <span class="control green"></span>
                             </div>
                             <span class="file-name">ITransactions.cs</span>
+                            <span class="compiler-badge">🔴 Live Compiler</span>
                         </div>
                         <pre class="code-content"><code class="language-csharp"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="interface-name">ITransactions</span>
 {
@@ -331,7 +338,7 @@
 
                     <!-- Playground Card -->
                     <article class="learning-card featured" data-topic="playground">
-                        <div class="featured-badge">⭐ Interactive</div>
+                        <div class="featured-badge">⭐ Real Compiler</div>
                         <div class="card-icon">
                             <svg viewBox="0 0 24 24" class="icon-svg">
                                 <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
@@ -341,13 +348,13 @@
                             <h3 class="card-title">Code Playground</h3>
                             <p class="card-description">
                                 <strong>Practice makes perfect!</strong> 
-                                Write, run, and experiment with C# code in real-time. 
+                                Write, run, and experiment with C# code using a real compiler. 
                                 See instant results and learn by doing.
                             </p>
                             <ul class="card-topics">
-                                <li>Real-time code execution</li>
+                                <li>Real C# compilation</li>
                                 <li>Syntax highlighting</li>
-                                <li>Pre-built examples</li>
+                                <li>Error messages</li>
                                 <li>Save your code</li>
                             </ul>
                             <div class="card-meta">
@@ -395,19 +402,19 @@
                             <ul class="rules-list">
                                 <li>
                                     <span class="rule-icon">✓</span>
-                                    <span>Interfaces <strong>cannot contain implementation code</strong> – only signatures (names and parameters)</span>
+                                    <span>Interfaces <strong>cannot contain implementation code</strong> – only signatures</span>
                                 </li>
                                 <li>
                                     <span class="rule-icon">✓</span>
-                                    <span>Interface names start with capital <strong>"I"</strong> (e.g., ITransactions, IShape)</span>
+                                    <span>Interface names start with capital <strong>"I"</strong> (e.g., ITransactions)</span>
                                 </li>
                                 <li>
                                     <span class="rule-icon">✓</span>
-                                    <span>Classes that implement an interface <strong>must provide all methods</strong> defined in the interface</span>
+                                    <span>Classes that implement an interface <strong>must provide all methods</strong></span>
                                 </li>
                                 <li>
                                     <span class="rule-icon">✓</span>
-                                    <span>A class can implement <strong>multiple interfaces</strong> (unlike inheritance, which allows only one parent class)</span>
+                                    <span>A class can implement <strong>multiple interfaces</strong></span>
                                 </li>
                             </ul>
                         </div>
@@ -415,166 +422,64 @@
                 </div>
 
                 <!-- Interactive Code Example 1 -->
-                <div class="interactive-example">
+                <div class="interactive-example" id="example-1">
                     <div class="example-header">
-                        <h3>Example 1: Defining an Interface</h3>
+                        <h3>Example 1: Basic Interface Implementation</h3>
                         <div class="example-controls">
-                            <button class="btn btn-small btn-outline" id="reset-example-1">Reset</button>
-                            <button class="btn btn-small btn-primary" id="run-example-1">Run Code ▶</button>
+                            <button class="btn btn-small btn-outline reset-btn" data-editor="editor-1">Reset</button>
+                            <button class="btn btn-small btn-primary run-btn" data-editor="editor-1">
+                                <span class="run-icon">▶</span> Run Code
+                            </button>
                         </div>
                     </div>
                     
                     <div class="code-editor-container">
-                        <div class="editor-tabs">
-                            <button class="tab active" data-file="ITransactions.cs">ITransactions.cs</button>
-                            <button class="tab" data-file="Transaction.cs">Transaction.cs</button>
-                            <button class="tab" data-file="Program.cs">Program.cs</button>
-                        </div>
-                        
-                        <div class="editor-content">
-                            <div class="line-numbers" id="line-numbers-1"></div>
-                            <textarea class="code-editor" id="code-editor-1" spellcheck="false">// STEP 1: Define the Interface
-// This is like creating a "contract" that classes must follow
+                        <div class="editor-wrapper">
+                            <div class="line-numbers" id="lines-1"></div>
+                            <textarea class="code-editor" id="editor-1" spellcheck="false">using System;
 
-namespace TransactionInterfaces
-{
-    public interface ITransactions
-    {
-        // These are just SIGNATURES - no code inside!
-        void ShowTransaction();  // Method that displays info
-        double GetAmount();      // Method that returns the amount
-    }
-}
-
-// 💡 TIP: Notice there's no code inside the methods
-// The interface only says WHAT methods must exist
-// It doesn't say HOW they should work</textarea>
-                        </div>
-                        
-                        <div class="editor-output">
-                            <div class="output-header">
-                                <span class="output-title">📤 Output</span>
-                                <button class="btn btn-tiny btn-outline" id="clear-output-1">Clear</button>
-                            </div>
-                            <div class="output-content" id="output-1">
-                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="example-explanation">
-                        <div class="explanation-step">
-                            <span class="step-number">1</span>
-                            <p>We use the <code>interface</code> keyword to create an interface</p>
-                        </div>
-                        <div class="explanation-step">
-                            <span class="step-number">2</span>
-                            <p>Inside, we declare method <strong>signatures</strong> (name + return type + parameters)</p>
-                        </div>
-                        <div class="explanation-step">
-                            <span class="step-number">3</span>
-                            <p>No curly braces <code>{}</code> with code – just semicolons <code>;</code></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interactive Code Example 2 -->
-                <div class="interactive-example">
-                    <div class="example-header">
-                        <h3>Example 2: Implementing an Interface</h3>
-                        <div class="example-controls">
-                            <button class="btn btn-small btn-outline" id="reset-example-2">Reset</button>
-                            <button class="btn btn-small btn-primary" id="run-example-2">Run Code ▶</button>
-                        </div>
-                    </div>
-                    
-                    <div class="code-split-view">
-                        <div class="code-panel">
-                            <h4>The Interface (Contract)</h4>
-                            <pre class="code-display"><code><span class="keyword">public</span> <span class="keyword">interface</span> <span class="interface">ITransactions</span>
-{
-    <span class="keyword">void</span> <span class="method">ShowTransaction</span>();
-    <span class="keyword">double</span> <span class="method">GetAmount</span>();
-}</code></pre>
-                        </div>
-                        
-                        <div class="arrow-connector">
-                            <span>implements</span>
-                            <div class="arrow">→</div>
-                        </div>
-                        
-                        <div class="code-panel">
-                            <h4>The Class (Implementation)</h4>
-                            <pre class="code-display"><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="class">Transaction</span> : <span class="interface">ITransactions</span>
-{
-    <span class="keyword">private</span> <span class="keyword">string</span> _code;
-    <span class="keyword">private</span> <span class="keyword">double</span> _amount;
-
-    <span class="comment">// Must implement ALL interface methods!</span>
-    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">ShowTransaction</span>()
-    {
-        Console.WriteLine(<span class="string">$"Code: {_code}"</span>);
-        Console.WriteLine(<span class="string">$"Amount: {GetAmount()}"</span>);
-    }
-
-    <span class="keyword">public</span> <span class="keyword">double</span> <span class="method">GetAmount</span>()
-    {
-        <span class="keyword">return</span> _amount;
-    }
-}</code></pre>
-                        </div>
-                    </div>
-                    
-                    <div class="code-editor-container">
-                        <div class="editor-content">
-                            <div class="line-numbers" id="line-numbers-2"></div>
-                            <textarea class="code-editor" id="code-editor-2" spellcheck="false">// STEP 2: Create a class that IMPLEMENTS the interface
-// The colon (:) means "implements" or "follows the contract"
-
-using System;
-
+// Define the Interface - this is the "contract"
 public interface ITransactions
 {
     void ShowTransaction();
     double GetAmount();
 }
 
+// Implement the Interface
 public class Transaction : ITransactions
 {
     private string transactionCode;
     private double amount;
 
-    // Constructor - creates a new Transaction
     public Transaction(string code, double amount)
     {
         this.transactionCode = code;
         this.amount = amount;
     }
 
-    // ✅ We MUST provide the actual code for ShowTransaction
     public void ShowTransaction()
     {
-        Console.WriteLine("Transaction code: " + transactionCode);
+        Console.WriteLine("Transaction Code: " + transactionCode);
         Console.WriteLine("Amount: $" + GetAmount());
     }
 
-    // ✅ We MUST provide the actual code for GetAmount
     public double GetAmount()
     {
         return amount;
     }
 }
 
-// Let's test it!
 public class Program
 {
     public static void Main()
     {
-        // Create an instance of Transaction
-        Transaction t1 = new Transaction("ABC20190001", 5000.35);
-        
-        // Call the methods
+        Transaction t1 = new Transaction("TXN001", 1500.50);
         t1.ShowTransaction();
+        
+        Console.WriteLine();
+        
+        Transaction t2 = new Transaction("TXN002", 2750.00);
+        t2.ShowTransaction();
     }
 }</textarea>
                         </div>
@@ -582,20 +487,25 @@ public class Program
                         <div class="editor-output">
                             <div class="output-header">
                                 <span class="output-title">📤 Output</span>
-                                <button class="btn btn-tiny btn-outline" id="clear-output-2">Clear</button>
+                                <div class="output-status" id="status-1"></div>
                             </div>
-                            <div class="output-content" id="output-2">
-                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
+                            <div class="output-content" id="output-1">
+                                <span class="output-placeholder">Click "Run Code" to compile and execute...</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Interactive Code Example 3: Multiple Interfaces -->
-                <div class="interactive-example">
+                <!-- Interactive Code Example 2: Multiple Interfaces -->
+                <div class="interactive-example" id="example-2">
                     <div class="example-header">
-                        <h3>Example 3: Implementing Multiple Interfaces</h3>
-                        <span class="pro-tip">💪 A class can follow MULTIPLE contracts!</span>
+                        <h3>Example 2: Multiple Interface Implementation</h3>
+                        <div class="example-controls">
+                            <button class="btn btn-small btn-outline reset-btn" data-editor="editor-2">Reset</button>
+                            <button class="btn btn-small btn-primary run-btn" data-editor="editor-2">
+                                <span class="run-icon">▶</span> Run Code
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="visual-diagram">
@@ -618,17 +528,18 @@ public class Program
                                 <div class="connecting-arrow"></div>
                             </div>
                             <div class="class-box">
-                                <span class="box-label">CalculateAreas</span>
-                                <code>Implements all three interfaces!</code>
+                                <span class="box-label">ShapeCalculator</span>
+                                <code>Implements all three!</code>
                             </div>
                         </div>
                     </div>
                     
                     <div class="code-editor-container">
-                        <div class="editor-content">
-                            <textarea class="code-editor" id="code-editor-3" spellcheck="false">using System;
+                        <div class="editor-wrapper">
+                            <div class="line-numbers" id="lines-2"></div>
+                            <textarea class="code-editor" id="editor-2" spellcheck="false">using System;
 
-// Define THREE separate interfaces
+// Three separate interfaces for different shapes
 public interface ISquare
 {
     int GetSquareArea(int side);
@@ -641,73 +552,63 @@ public interface IRectangle
 
 public interface ITriangle
 {
-    double GetTriangleArea(double baseLength, double height);
+    double GetTriangleArea(double baseLen, double height);
 }
 
-// ONE class that implements ALL THREE interfaces!
-// Use comma to separate multiple interfaces
-public class CalculateAreas : ISquare, IRectangle, ITriangle
+// One class implementing ALL THREE interfaces!
+public class ShapeCalculator : ISquare, IRectangle, ITriangle
 {
-    // Implement ISquare
     public int GetSquareArea(int side)
     {
         return side * side;
     }
 
-    // Implement IRectangle
     public double GetRectArea(double length, double width)
     {
         return length * width;
     }
 
-    // Implement ITriangle
-    public double GetTriangleArea(double baseLength, double height)
+    public double GetTriangleArea(double baseLen, double height)
     {
-        return (baseLength * height) / 2;
+        return (baseLen * height) / 2;
     }
 }
 
-// Test all the methods!
 public class Program
 {
     public static void Main()
     {
-        CalculateAreas calculator = new CalculateAreas();
+        ShapeCalculator calc = new ShapeCalculator();
         
         Console.WriteLine("=== Shape Calculator ===\n");
         
-        // Calculate square area
-        int squareArea = calculator.GetSquareArea(5);
+        int squareArea = calc.GetSquareArea(5);
         Console.WriteLine($"Square (side=5): Area = {squareArea}");
         
-        // Calculate rectangle area
-        double rectArea = calculator.GetRectArea(4.5, 3.0);
+        double rectArea = calc.GetRectArea(4.5, 3.0);
         Console.WriteLine($"Rectangle (4.5 x 3): Area = {rectArea}");
         
-        // Calculate triangle area
-        double triArea = calculator.GetTriangleArea(6, 4);
-        Console.WriteLine($"Triangle (base=6, height=4): Area = {triArea}");
+        double triArea = calc.GetTriangleArea(6, 4);
+        Console.WriteLine($"Triangle (base=6, h=4): Area = {triArea}");
+        
+        Console.WriteLine("\n✓ One class, three interfaces!");
     }
 }</textarea>
-                        </div>
-                        
-                        <div class="example-controls bottom-controls">
-                            <button class="btn btn-small btn-outline" id="reset-example-3">Reset</button>
-                            <button class="btn btn-primary" id="run-example-3">Run Code ▶</button>
                         </div>
                         
                         <div class="editor-output">
                             <div class="output-header">
                                 <span class="output-title">📤 Output</span>
+                                <div class="output-status" id="status-2"></div>
                             </div>
-                            <div class="output-content" id="output-3">
-                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
+                            <div class="output-content" id="output-2">
+                                <span class="output-placeholder">Click "Run Code" to compile and execute...</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Interactive Quiz -->
+                <!-- Quiz Section -->
                 <div class="quiz-section">
                     <h3>🎯 Quick Check: Test Your Understanding</h3>
                     
@@ -724,23 +625,23 @@ public class Program
                         </div>
                         
                         <div class="quiz-question" data-question="2">
-                            <p class="question-text">Can interfaces contain implementation code (actual method body)?</p>
+                            <p class="question-text">Can interfaces contain implementation code?</p>
                             <div class="quiz-options">
                                 <button class="quiz-option" data-answer="wrong">Yes, always</button>
                                 <button class="quiz-option" data-answer="correct">No, only signatures</button>
                                 <button class="quiz-option" data-answer="wrong">Only for private methods</button>
-                                <button class="quiz-option" data-answer="wrong">Only with the abstract keyword</button>
+                                <button class="quiz-option" data-answer="wrong">Only with abstract</button>
                             </div>
                             <div class="quiz-feedback"></div>
                         </div>
                         
                         <div class="quiz-question" data-question="3">
-                            <p class="question-text">How many interfaces can a single class implement?</p>
+                            <p class="question-text">How many interfaces can a class implement?</p>
                             <div class="quiz-options">
                                 <button class="quiz-option" data-answer="wrong">Only 1</button>
-                                <button class="quiz-option" data-answer="wrong">Maximum of 5</button>
+                                <button class="quiz-option" data-answer="wrong">Maximum 5</button>
                                 <button class="quiz-option" data-answer="correct">Multiple (no limit)</button>
-                                <button class="quiz-option" data-answer="wrong">It depends on the class size</button>
+                                <button class="quiz-option" data-answer="wrong">Depends on size</button>
                             </div>
                             <div class="quiz-feedback"></div>
                         </div>
@@ -774,7 +675,7 @@ public class Program
 
                 <div class="concept-explainer">
                     <div class="explainer-content">
-                        <h3>What is Inheritance? (In Plain English)</h3>
+                        <h3>What is Inheritance?</h3>
                         <div class="analogy-box family">
                             <div class="analogy-icon">👨‍👩‍👧‍👦</div>
                             <div class="analogy-text">
@@ -782,115 +683,76 @@ public class Program
                                 <p>Children inherit traits from their parents – eye color, height, etc. 
                                 But children can also have their own unique characteristics.</p>
                                 <p>In programming, a <strong>derived class (child)</strong> inherits features from a 
-                                <strong>base class (parent)</strong>, but can also add its own special features!</p>
-                            </div>
-                        </div>
-                        
-                        <div class="inheritance-diagram">
-                            <div class="uml-container">
-                                <div class="uml-box parent">
-                                    <div class="uml-header">Person (Base Class)</div>
-                                    <div class="uml-content">
-                                        <div class="uml-section">
-                                            <span class="section-title">Fields</span>
-                                            <code>- full_name: string</code>
-                                            <code>- age: int</code>
-                                        </div>
-                                        <div class="uml-section">
-                                            <span class="section-title">Methods</span>
-                                            <code>+ setName()</code>
-                                            <code>+ Walk()</code>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="inheritance-arrows">
-                                    <div class="arrow-line"></div>
-                                    <div class="arrow-line"></div>
-                                </div>
-                                <div class="child-classes">
-                                    <div class="uml-box child">
-                                        <div class="uml-header">Student (Derived)</div>
-                                        <div class="uml-content">
-                                            <code>- program: string</code>
-                                            <code>+ EnrollProgram()</code>
-                                            <code>+ ComputeGrade()</code>
-                                        </div>
-                                    </div>
-                                    <div class="uml-box child">
-                                        <div class="uml-header">Teacher (Derived)</div>
-                                        <div class="uml-content">
-                                            <code>- department: string</code>
-                                            <code>+ TeachClass()</code>
-                                            <code>+ setSalary()</code>
-                                        </div>
-                                    </div>
-                                </div>
+                                <strong>base class (parent)</strong>, but can add its own!</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Interactive Inheritance Example -->
-                <div class="interactive-example">
+                <div class="interactive-example" id="example-inheritance">
                     <div class="example-header">
-                        <h3>Interactive Example: Person → Student Inheritance</h3>
+                        <h3>Person → Student Inheritance</h3>
+                        <div class="example-controls">
+                            <button class="btn btn-small btn-outline reset-btn" data-editor="editor-inheritance">Reset</button>
+                            <button class="btn btn-small btn-primary run-btn" data-editor="editor-inheritance">
+                                <span class="run-icon">▶</span> Run Code
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="code-editor-container large">
-                        <textarea class="code-editor" id="code-editor-inheritance" spellcheck="false">using System;
+                        <div class="editor-wrapper">
+                            <div class="line-numbers" id="lines-inheritance"></div>
+                            <textarea class="code-editor" id="editor-inheritance" spellcheck="false">using System;
 
-// BASE CLASS (Parent) - Contains shared features
+// BASE CLASS (Parent)
 public class Person
 {
-    // Protected = accessible by this class AND child classes
     protected string fullName;
-    private int age;
+    protected int age;
 
-    // Constructor for Person
     public Person(string name, int age)
     {
         this.fullName = name;
         this.age = age;
     }
 
-    // Method all people can do
     public void Walk()
     {
         Console.WriteLine($"{fullName} is walking...");
     }
 
-    public void DisplayInfo()
+    public virtual void DisplayInfo()
     {
         Console.WriteLine($"Name: {fullName}");
         Console.WriteLine($"Age: {age}");
     }
 }
 
-// DERIVED CLASS (Child) - Inherits from Person
-// Uses colon (:) to indicate inheritance
+// DERIVED CLASS (Child) - inherits from Person
 public class Student : Person
 {
     private long studentId;
     private string program;
 
-    // Constructor that calls the parent constructor using 'base'
+    // Call parent constructor with 'base'
     public Student(string name, int age, long id, string program) 
-        : base(name, age)  // Call parent's constructor first!
+        : base(name, age)
     {
         this.studentId = id;
         this.program = program;
     }
 
-    // Student-specific method
     public void Study()
     {
         Console.WriteLine($"{fullName} is studying {program}...");
     }
 
-    // Display all info including inherited data
-    public void DisplayStudentInfo()
+    // Override parent method
+    public override void DisplayInfo()
     {
-        base.DisplayInfo();  // Call parent's method
+        base.DisplayInfo(); // Call parent's version
         Console.WriteLine($"Student ID: {studentId}");
         Console.WriteLine($"Program: {program}");
     }
@@ -900,31 +762,25 @@ public class Program
 {
     public static void Main()
     {
-        // Create a Student (which is also a Person!)
-        Student s1 = new Student("Jack Paul", 18, 20191001, "BSCS");
+        Console.WriteLine("=== Creating a Student ===\n");
         
-        Console.WriteLine("=== Student Information ===\n");
-        s1.DisplayStudentInfo();
+        Student s1 = new Student("Alice Johnson", 20, 2024001, "Computer Science");
+        s1.DisplayInfo();
         
         Console.WriteLine();
-        
-        // Student can use methods inherited from Person!
-        s1.Walk();
-        s1.Study();
+        s1.Walk();  // Inherited from Person
+        s1.Study(); // Student's own method
     }
 }</textarea>
-                        
-                        <div class="example-controls bottom-controls">
-                            <button class="btn btn-outline" id="reset-inheritance">Reset</button>
-                            <button class="btn btn-primary" id="run-inheritance">Run Code ▶</button>
                         </div>
                         
                         <div class="editor-output">
                             <div class="output-header">
                                 <span class="output-title">📤 Output</span>
+                                <div class="output-status" id="status-inheritance"></div>
                             </div>
                             <div class="output-content" id="output-inheritance">
-                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
+                                <span class="output-placeholder">Click "Run Code" to compile and execute...</span>
                             </div>
                         </div>
                     </div>
@@ -933,17 +789,17 @@ public class Program
                         <div class="concept-card">
                             <div class="concept-icon">🔑</div>
                             <h4>The <code>base</code> Keyword</h4>
-                            <p>Use <code>base</code> to call the parent class constructor or methods from the child class.</p>
+                            <p>Call parent constructor or methods from child class</p>
                         </div>
                         <div class="concept-card">
                             <div class="concept-icon">🛡️</div>
                             <h4><code>protected</code> Access</h4>
-                            <p>Members marked <code>protected</code> are accessible in the class AND its children, but not outside.</p>
+                            <p>Accessible in class AND its children</p>
                         </div>
                         <div class="concept-card">
                             <div class="concept-icon">🔗</div>
                             <h4>Single Inheritance</h4>
-                            <p>C# allows inheriting from only ONE base class (but can implement multiple interfaces!).</p>
+                            <p>One base class, but multiple interfaces allowed</p>
                         </div>
                     </div>
                 </div>
@@ -963,85 +819,101 @@ public class Program
 
                 <div class="concept-explainer">
                     <div class="explainer-content">
-                        <h3>What is Polymorphism? (In Plain English)</h3>
+                        <h3>What is Polymorphism?</h3>
                         <div class="analogy-box remote">
                             <div class="analogy-icon">📺</div>
                             <div class="analogy-text">
-                                <p><strong>Real-World Analogy:</strong> Think of a universal remote control.</p>
-                                <p>When you press the "Power" button, every device responds differently:</p>
+                                <p><strong>Real-World Analogy:</strong> Universal remote control.</p>
+                                <p>Same "Power" button, different device behaviors:</p>
                                 <ul>
-                                    <li>📺 TV turns on/off the screen</li>
+                                    <li>📺 TV turns on/off screen</li>
                                     <li>🔊 Soundbar starts/stops audio</li>
                                     <li>📀 DVD player opens/closes tray</li>
                                 </ul>
-                                <p>Same button (method), different behaviors (implementations)!</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="polymorphism-types">
-                    <div class="type-card">
-                        <h4>Method Overriding (Runtime)</h4>
-                        <p>Child class provides its own version of a parent's method</p>
-                        <code>virtual</code> + <code>override</code>
-                    </div>
-                    <div class="type-card">
-                        <h4>Method Overloading (Compile-time)</h4>
-                        <p>Same method name, different parameters</p>
-                        <code>GetArea(int)</code> vs <code>GetArea(int, int)</code>
-                    </div>
-                </div>
-
                 <!-- Interactive Polymorphism Example -->
-                <div class="interactive-example">
+                <div class="interactive-example" id="example-polymorphism">
                     <div class="example-header">
-                        <h3>Bank Account Example: Method Overriding</h3>
+                        <h3>Bank Account: Method Overriding</h3>
+                        <div class="example-controls">
+                            <button class="btn btn-small btn-outline reset-btn" data-editor="editor-polymorphism">Reset</button>
+                            <button class="btn btn-small btn-primary run-btn" data-editor="editor-polymorphism">
+                                <span class="run-icon">▶</span> Run Code
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="code-editor-container large">
-                        <textarea class="code-editor" id="code-editor-polymorphism" spellcheck="false">using System;
+                        <div class="editor-wrapper">
+                            <div class="line-numbers" id="lines-polymorphism"></div>
+                            <textarea class="code-editor" id="editor-polymorphism" spellcheck="false">using System;
 
-// Base class with a VIRTUAL method (can be overridden)
+// Base class with VIRTUAL method
 public class BankAccount
 {
-    protected long accountNumber;
     protected double balance;
+    protected string accountType;
 
-    public BankAccount(long account, double balance)
+    public BankAccount(double balance)
     {
-        this.accountNumber = account;
         this.balance = balance;
+        this.accountType = "Basic";
     }
 
-    // 'virtual' allows child classes to override this method
+    // 'virtual' = can be overridden
     public virtual void Withdraw(double amount)
     {
         balance -= amount;
-        Console.WriteLine($"Withdrew ${amount}");
-        Console.WriteLine($"New balance: ${balance}");
+        Console.WriteLine($"[{accountType}] Withdrew ${amount}");
+        Console.WriteLine($"New balance: ${balance:F2}");
     }
 
     public double GetBalance() => balance;
 }
 
-// Derived class that OVERRIDES the withdraw behavior
+// Checking account with fees
 public class CheckingAccount : BankAccount
 {
-    private double withdrawalFee = 2.50;
+    private double fee = 2.50;
 
-    public CheckingAccount(long account, double balance) 
-        : base(account, balance) { }
+    public CheckingAccount(double balance) : base(balance)
+    {
+        this.accountType = "Checking";
+    }
 
-    // 'override' provides a NEW implementation
+    // 'override' = new implementation
     public override void Withdraw(double amount)
     {
-        double totalDeduction = amount + withdrawalFee;
-        balance -= totalDeduction;
-        
-        Console.WriteLine($"Withdrew ${amount} + ${withdrawalFee} fee");
-        Console.WriteLine($"Total deducted: ${totalDeduction}");
-        Console.WriteLine($"New balance: ${balance}");
+        double total = amount + fee;
+        balance -= total;
+        Console.WriteLine($"[{accountType}] Withdrew ${amount} + ${fee} fee");
+        Console.WriteLine($"New balance: ${balance:F2}");
+    }
+}
+
+// Savings account with minimum balance
+public class SavingsAccount : BankAccount
+{
+    private double minBalance = 100;
+
+    public SavingsAccount(double balance) : base(balance)
+    {
+        this.accountType = "Savings";
+    }
+
+    public override void Withdraw(double amount)
+    {
+        if (balance - amount < minBalance)
+        {
+            Console.WriteLine($"[{accountType}] Cannot withdraw!");
+            Console.WriteLine($"Minimum balance of ${minBalance} required");
+            return;
+        }
+        base.Withdraw(amount);
     }
 }
 
@@ -1049,27 +921,32 @@ public class Program
 {
     public static void Main()
     {
-        Console.WriteLine("=== Regular Bank Account ===");
-        BankAccount regular = new BankAccount(1001, 500.00);
-        regular.Withdraw(100);
+        Console.WriteLine("=== Polymorphism Demo ===\n");
         
-        Console.WriteLine("\n=== Checking Account (with fees) ===");
-        CheckingAccount checking = new CheckingAccount(2001, 500.00);
-        checking.Withdraw(100);
+        // Array of different account types
+        BankAccount[] accounts = {
+            new BankAccount(500),
+            new CheckingAccount(500),
+            new SavingsAccount(500)
+        };
         
-        Console.WriteLine("\n💡 Same method name 'Withdraw'");
-        Console.WriteLine("   Different behavior based on account type!");
+        // Same method call, different behaviors!
+        foreach (var account in accounts)
+        {
+            account.Withdraw(450);
+            Console.WriteLine();
+        }
     }
 }</textarea>
-                        
-                        <div class="example-controls bottom-controls">
-                            <button class="btn btn-outline" id="reset-polymorphism">Reset</button>
-                            <button class="btn btn-primary" id="run-polymorphism">Run Code ▶</button>
                         </div>
                         
                         <div class="editor-output">
+                            <div class="output-header">
+                                <span class="output-title">📤 Output</span>
+                                <div class="output-status" id="status-polymorphism"></div>
+                            </div>
                             <div class="output-content" id="output-polymorphism">
-                                <span class="output-placeholder">Click "Run Code" to see the output...</span>
+                                <span class="output-placeholder">Click "Run Code" to compile and execute...</span>
                             </div>
                         </div>
                     </div>
@@ -1084,7 +961,7 @@ public class Program
                     <span class="section-badge">🎮 Practice Zone</span>
                     <h2 class="section-title">Interactive Code Playground</h2>
                     <p class="section-description">
-                        Write, test, and experiment with C# code in real-time
+                        Write, test, and experiment with C# code using a <strong>real compiler</strong>
                     </p>
                 </div>
 
@@ -1099,6 +976,8 @@ public class Program
                                 <option value="inheritance">Inheritance Example</option>
                                 <option value="polymorphism">Polymorphism Example</option>
                                 <option value="properties">Properties Example</option>
+                                <option value="linq">LINQ Basics</option>
+                                <option value="async">Async/Await</option>
                             </select>
                         </div>
                         <div class="playground-actions">
@@ -1117,33 +996,46 @@ public class Program
                                 <span>📝 Code Editor</span>
                                 <span class="file-indicator">Program.cs</span>
                             </div>
-                            <textarea class="code-editor large" id="playground-editor" spellcheck="false">using System;
+                            <div class="editor-wrapper full">
+                                <div class="line-numbers" id="lines-playground"></div>
+                                <textarea class="code-editor large" id="playground-editor" spellcheck="false">using System;
 
 // Welcome to the C# Playground! 🎮
-// Write your code here and click "Run Code" to see the results.
+// This uses a REAL C# compiler via Piston API
 
 public class Program
 {
     public static void Main()
     {
         Console.WriteLine("Hello, C# World!");
-        Console.WriteLine("Start experimenting with interfaces and OOP concepts.");
+        Console.WriteLine("Your code runs on a real compiler!");
         
-        // Try creating your own interface and class below:
+        // Try some C# features:
+        int[] numbers = { 1, 2, 3, 4, 5 };
         
+        Console.WriteLine("\nNumbers squared:");
+        foreach (int n in numbers)
+        {
+            Console.WriteLine($"  {n} × {n} = {n * n}");
+        }
+        
+        Console.WriteLine("\n✓ Compilation successful!");
     }
 }</textarea>
+                            </div>
                         </div>
                         
                         <div class="output-pane">
                             <div class="pane-header">
                                 <span>📤 Output Console</span>
+                                <div class="output-status" id="status-playground"></div>
                                 <button class="btn btn-tiny" id="clear-console">Clear</button>
                             </div>
                             <div class="console-output" id="playground-output">
                                 <div class="console-welcome">
                                     <p>👋 Welcome to the C# Playground!</p>
-                                    <p>Write code on the left and click "Run Code" to execute.</p>
+                                    <p>Write code on the left and click <strong>"Run Code"</strong> to execute.</p>
+                                    <p class="compiler-info">🔴 Powered by real C# compiler (Mono)</p>
                                 </div>
                             </div>
                         </div>
@@ -1152,10 +1044,10 @@ public class Program
                     <div class="playground-tips">
                         <h4>💡 Quick Tips:</h4>
                         <ul>
-                            <li>Use <code>Console.WriteLine()</code> to print output</li>
-                            <li>All code runs in a sandboxed environment</li>
-                            <li>Your code is auto-saved locally</li>
-                            <li>Try the templates to see working examples!</li>
+                            <li><code>Console.WriteLine()</code> - Print output</li>
+                            <li><code>Console.ReadLine()</code> - Read input (not supported in web)</li>
+                            <li>Errors will show line numbers</li>
+                            <li>Code auto-saves to browser storage</li>
                         </ul>
                     </div>
                 </div>
@@ -1168,9 +1060,6 @@ public class Program
                 <div class="section-header">
                     <span class="section-badge">📊 Your Journey</span>
                     <h2 class="section-title">Learning Progress</h2>
-                    <p class="section-description">
-                        Track your mastery of C# OOP concepts
-                    </p>
                 </div>
 
                 <div class="progress-dashboard">
@@ -1224,15 +1113,6 @@ public class Program
                             </div>
                             <div class="topic-bar">
                                 <div class="topic-fill" style="width: 35%"></div>
-                            </div>
-                        </div>
-                        <div class="topic-progress-item">
-                            <div class="topic-info">
-                                <span class="topic-name">Methods</span>
-                                <span class="topic-percentage">15%</span>
-                            </div>
-                            <div class="topic-bar">
-                                <div class="topic-fill" style="width: 15%"></div>
                             </div>
                         </div>
                     </div>
@@ -1291,10 +1171,11 @@ public class Program
                         </ul>
                     </div>
                     <div class="resource-card">
-                        <h4>💾 Download</h4>
+                        <h4>🔧 Compiler Info</h4>
                         <ul>
-                            <li><a href="#" class="resource-link">All Examples (ZIP)</a></li>
-                            <li><a href="#" class="resource-link">PDF Study Guide</a></li>
+                            <li><span class="resource-link">Using: Piston API</span></li>
+                            <li><span class="resource-link">Runtime: Mono C#</span></li>
+                            <li><span class="resource-link">Version: Latest</span></li>
                         </ul>
                     </div>
                 </div>
@@ -1309,7 +1190,7 @@ public class Program
                 <div class="footer-brand">
                     <span class="logo-icon">⚡</span>
                     <span class="logo-text">C# Mastery</span>
-                    <p>Interactive learning for everyone</p>
+                    <p>Interactive learning with real compilation</p>
                 </div>
                 <div class="footer-links">
                     <div class="footer-column">
@@ -1330,68 +1211,17 @@ public class Program
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 C# Mastery. Built for learning.</p>
+                <p>&copy; 2026 C# Mastery. Built for learning. Compiler by Piston API.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
     <!-- Scripts -->
-        <!-- Scripts -->
-    <script>
-        // Inline fallback Utils in case external file fails to load
-        window.Utils = window.Utils || {
-            debounce(func, wait) {
-                let timeout;
-                return function(...args) {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => func(...args), wait);
-                };
-            },
-            throttle(func, limit) {
-                let inThrottle;
-                return function(...args) {
-                    if (!inThrottle) {
-                        func.apply(this, args);
-                        inThrottle = true;
-                        setTimeout(() => inThrottle = false, limit);
-                    }
-                };
-            },
-            scrollToElement(selector, offset = 80) {
-                const el = document.querySelector(selector);
-                if (el) window.scrollTo({ top: el.offsetTop - offset, behavior: 'smooth' });
-            },
-            animateCounter(el, target, duration = 2000) {
-                let current = 0;
-                const increment = target / (duration / 16);
-                const update = () => {
-                    current += increment;
-                    el.textContent = current < target ? Math.floor(current) : target;
-                    if (current < target) requestAnimationFrame(update);
-                };
-                update();
-            },
-            storage: {
-                set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e) { return false; } },
-                get(k, d = null) { try { const i = localStorage.getItem(k); return i ? JSON.parse(i) : d; } catch(e) { return d; } },
-                remove(k) { try { localStorage.removeItem(k); return true; } catch(e) { return false; } }
-            },
-            generateId() { return Date.now().toString(36) + Math.random().toString(36).substr(2); },
-            showToast(msg, type = 'info', dur = 3000) {
-                const t = document.createElement('div');
-                t.textContent = msg;
-                t.style.cssText = `position:fixed;top:80px;right:20px;padding:12px 20px;background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:9999;transform:translateX(120%);transition:transform .3s;border-left:4px solid ${type==='success'?'#10b981':type==='error'?'#ef4444':'#3b82f6'};font:14px system-ui;`;
-                document.body.appendChild(t);
-                requestAnimationFrame(() => t.style.transform = 'translateX(0)');
-                setTimeout(() => { t.style.transform = 'translateX(120%)'; setTimeout(() => t.remove(), 300); }, dur);
-            }
-        };
-    </script>
-    <script src="js/utils.js"></script>
+    <script src="js/compiler.js"></script>
     <script src="js/codeEditor.js"></script>
-    <script src="js/interfaces.js"></script>
-    <script src="js/inheritance.js"></script>
-    <script src="js/polymorphism.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
