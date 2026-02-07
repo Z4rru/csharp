@@ -1104,7 +1104,7 @@ body {
 .code-editor-container {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    overflow: visible;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -1117,70 +1117,78 @@ body {
 
 .code-editor-container.large .editor-wrapper {
     min-height: 400px;
-    max-height: 600px;
+    max-height: none;
 }
 
 /* Editor Wrapper - FIXED */
 .editor-wrapper {
     display: flex;
+    position: relative;
     background: var(--color-code-bg);
     min-height: 280px;
     max-height: none;
-    overflow: hidden;
-    flex: 1;
-    position: relative;
+    overflow: visible;
+    flex: 1 1 auto;
 }
 
 .editor-wrapper.full {
-    flex: 1;
+    flex: 1 1 auto;
     min-height: 350px;
-    max-height: 70vh;
+    max-height: none;
 }
 
 /* Line Numbers - FIXED */
 .line-numbers {
-    flex-shrink: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
     width: 50px;
     padding: var(--spacing-md) var(--spacing-sm);
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
     color: var(--color-text-muted);
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    line-height: 1.6;
+    font-size: 0.875rem;
+    line-height: 1.65;
     text-align: right;
     user-select: none;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    overflow-y: hidden;
-    overflow-x: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    overflow: hidden;
     white-space: pre;
     pointer-events: none;
+    z-index: 1;
 }
 
 /* Code Editor Textarea - FIXED */
 .code-editor {
     flex: 1;
-    width: calc(100% - 50px);
+    width: 100%;
     min-height: 280px;
-    height: 100%;
+    height: auto;
     padding: var(--spacing-md);
+    padding-left: calc(50px + var(--spacing-md));
+    margin-left: -50px;
     background: var(--color-code-bg);
     color: var(--color-code-text);
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    line-height: 1.6;
+    font-size: 0.875rem;
+    line-height: 1.65;
     border: none;
     resize: vertical;
     outline: none;
     tab-size: 4;
+    -moz-tab-size: 4;
     overflow-x: auto;
     overflow-y: auto;
-    white-space: pre;
-    word-wrap: normal;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .code-editor.large {
     min-height: 400px;
-    max-height: 600px;
+    max-height: none;
 }
 
 .code-editor:focus {
@@ -1190,6 +1198,40 @@ body {
 
 .code-editor::placeholder {
     color: var(--color-text-muted);
+}
+
+/* Ensure code is always visible and readable */
+.code-editor,
+.editor-pane .code-editor,
+.playground-editor .code-editor {
+    color: var(--color-code-text) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Text selection styling */
+.code-editor::selection {
+    background: rgba(99, 102, 241, 0.4);
+    color: inherit;
+}
+
+.code-editor::-moz-selection {
+    background: rgba(99, 102, 241, 0.4);
+    color: inherit;
+}
+
+.code-editor::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.code-editor::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.code-editor::-webkit-scrollbar-thumb {
+    background: var(--color-surface);
+    border-radius: 4px;
 }
 
 /* ===== Editor Output - FIXED ALIGNMENT ===== */
@@ -1243,20 +1285,36 @@ body {
 
 /* Output Content - FIXED BOUNDS */
 .output-content {
-    flex: 1;
+    flex: 1 1 auto;
     padding: var(--spacing-md);
     margin: 0;
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     color: var(--color-text);
-    min-height: 80px;
-    max-height: 250px;
+    min-height: 100px;
+    max-height: 300px;
     overflow-y: auto;
     overflow-x: auto;
     white-space: pre-wrap;
+    word-wrap: break-word;
     word-break: break-word;
-    line-height: 1.5;
+    overflow-wrap: break-word;
+    line-height: 1.6;
     background: var(--color-surface);
+}
+
+.output-content::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.output-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.output-content::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
 }
 
 .output-placeholder {
@@ -1672,36 +1730,58 @@ body {
 }
 
 .editor-pane .editor-wrapper {
-    flex: 1;
+    flex: 1 1 auto;
     min-height: 350px;
     max-height: none;
-    overflow: hidden;
+    overflow: visible;
+    position: relative;
 }
 
 .editor-pane .code-editor {
+    width: 100%;
     height: 100%;
     min-height: 350px;
     max-height: none;
     resize: none;
     overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding-left: calc(50px + var(--spacing-md));
+    margin-left: -50px;
 }
 
 /* Console Output - FIXED BOUNDS */
 .console-output {
-    flex: 1;
+    flex: 1 1 auto;
     padding: var(--spacing-md);
     margin: 0;
     background: var(--color-code-bg);
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     color: var(--color-code-text);
     overflow-x: auto;
     overflow-y: auto;
     white-space: pre-wrap;
+    word-wrap: break-word;
     word-break: break-word;
-    line-height: 1.5;
+    overflow-wrap: break-word;
+    line-height: 1.6;
     min-height: 200px;
     max-height: none;
+}
+
+.console-output::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.console-output::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.console-output::-webkit-scrollbar-thumb {
+    background: var(--color-surface);
+    border-radius: 4px;
 }
 
 .console-welcome {
@@ -2255,9 +2335,13 @@ body {
         min-height: 250px;
     }
     
-    .code-editor {
+        .code-editor {
         min-height: 250px;
         font-size: 0.8rem;
+        padding-left: calc(40px + var(--spacing-md));
+        margin-left: -40px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
     }
     
     .line-numbers {
