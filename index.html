@@ -1,81 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Learn C# interfaces, inheritance, polymorphism and OOP concepts with interactive examples and real-time code execution">
     <meta name="keywords" content="C#, interfaces, OOP, programming, learning, tutorial, inheritance, polymorphism">
+    <meta name="author" content="C# Mastery">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6366f1" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1e1b4b" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="C# Mastery">
+    <meta name="application-name" content="C# Mastery">
+    <meta name="format-detection" content="telephone=no">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://csharp-mastery.dev/">
+    <meta property="og:title" content="C# OOP Mastery | Interactive Learning Platform">
+    <meta property="og:description" content="Learn C# interfaces, inheritance, polymorphism and OOP concepts with interactive examples and real-time code execution">
+    <meta property="og:image" content="https://csharp-mastery.dev/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="C# Mastery">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="C# OOP Mastery | Interactive Learning Platform">
+    <meta name="twitter:description" content="Learn C# interfaces, inheritance, polymorphism and OOP concepts with interactive examples and real-time code execution">
+    <meta name="twitter:image" content="https://csharp-mastery.dev/images/twitter-card.png">
     <title>C# OOP Mastery | Interactive Learning Platform 2026</title>
+    <link rel="canonical" href="https://csharp-mastery.dev/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://emkc.org" crossorigin>
+    <link rel="dns-prefetch" href="https://emkc.org">
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="js/compiler.js" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "C# OOP Mastery",
+        "description": "Interactive C# learning platform with real-time code execution",
+        "url": "https://csharp-mastery.dev/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://csharp-mastery.dev/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "C# OOP Mastery",
+        "description": "Learn C# interfaces, inheritance, polymorphism and OOP concepts",
+        "provider": {
+            "@type": "Organization",
+            "name": "C# Mastery"
+        },
+        "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "online"
+        }
+    }
+    </script>
 </head>
 <body>
-    <!-- Skip Navigation for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
+    <a href="#playground" class="skip-link">Skip to code playground</a>
+
+    <div id="loading-screen" class="loading-screen" role="progressbar" aria-label="Loading application" aria-valuetext="Loading C# Learning Platform">
         <div class="loader">
-            <div class="loader-ring"></div>
+            <div class="loader-ring" aria-hidden="true"></div>
             <div class="loader-text">Loading C# Learning Platform...</div>
         </div>
     </div>
 
-    <!-- Compiler Status Indicator -->
-    <div id="compiler-status" class="compiler-status">
-        <span class="status-dot"></span>
+    <noscript>
+        <div class="noscript-warning" role="alert">
+            <h2>JavaScript Required</h2>
+            <p>This interactive C# learning platform requires JavaScript to run code examples. Please enable JavaScript in your browser settings.</p>
+        </div>
+    </noscript>
+
+    <div id="compiler-status" class="compiler-status" role="status" aria-live="polite" aria-atomic="true">
+        <span class="status-dot" aria-hidden="true"></span>
         <span class="status-text">Compiler Ready</span>
     </div>
 
-    <!-- Navigation -->
+    <div id="announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+
     <header class="header" role="banner">
         <nav class="nav-container" role="navigation" aria-label="Main navigation">
-            <div class="logo">
-                <span class="logo-icon">⚡</span>
+            <a href="#home" class="logo" aria-label="C# Mastery - Home">
+                <span class="logo-icon" aria-hidden="true">⚡</span>
                 <span class="logo-text">C# <span class="highlight">Mastery</span></span>
-            </div>
+            </a>
             
-            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span class="hamburger"></span>
+            <button type="button" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+                <span class="hamburger" aria-hidden="true"></span>
             </button>
             
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
-                <li class="dropdown">
-                    <a href="#concepts" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">
-                        Concepts <span class="dropdown-arrow">▼</span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="menuitem"><a href="#interfaces">Interfaces</a></li>
-                        <li role="menuitem"><a href="#inheritance">Inheritance</a></li>
-                        <li role="menuitem"><a href="#polymorphism">Polymorphism</a></li>
-                        <li role="menuitem"><a href="#classes">Classes & Objects</a></li>
-                        <li role="menuitem"><a href="#methods">Methods & Structures</a></li>
+            <ul class="nav-links" id="nav-links" role="menubar">
+                <li role="none"><a href="#home" class="nav-link active" data-section="home" role="menuitem" aria-current="page">Home</a></li>
+                <li class="dropdown" role="none">
+                    <button type="button" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="concepts-menu" role="menuitem">
+                        Concepts <span class="dropdown-arrow" aria-hidden="true">▼</span>
+                    </button>
+                    <ul class="dropdown-menu" id="concepts-menu" role="menu" aria-label="Concepts submenu">
+                        <li role="none"><a href="#interfaces" role="menuitem" tabindex="-1">Interfaces</a></li>
+                        <li role="none"><a href="#inheritance" role="menuitem" tabindex="-1">Inheritance</a></li>
+                        <li role="none"><a href="#polymorphism" role="menuitem" tabindex="-1">Polymorphism</a></li>
+                        <li role="none"><a href="#classes" role="menuitem" tabindex="-1">Classes &amp; Objects</a></li>
+                        <li role="none"><a href="#methods" role="menuitem" tabindex="-1">Methods &amp; Structures</a></li>
                     </ul>
                 </li>
-                <li><a href="#playground" class="nav-link" data-section="playground">Code Playground</a></li>
-                <li><a href="#progress" class="nav-link" data-section="progress">My Progress</a></li>
-                <li><a href="#resources" class="nav-link" data-section="resources">Resources</a></li>
+                <li role="none"><a href="#playground" class="nav-link" data-section="playground" role="menuitem">Code Playground</a></li>
+                <li role="none"><a href="#progress" class="nav-link" data-section="progress" role="menuitem">My Progress</a></li>
+                <li role="none"><a href="#resources" class="nav-link" data-section="resources" role="menuitem">Resources</a></li>
             </ul>
             
             <div class="nav-actions">
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">
-                    <span class="sun-icon">☀️</span>
-                    <span class="moon-icon">🌙</span>
+                <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" aria-pressed="false" data-theme="light">
+                    <span class="sun-icon" aria-hidden="true">☀️</span>
+                    <span class="moon-icon" aria-hidden="true">🌙</span>
                 </button>
-                <button class="btn btn-primary" id="start-learning-btn">Start Learning</button>
+                <button type="button" class="btn btn-primary" id="start-learning-btn">Start Learning</button>
             </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section id="home" class="hero-section">
-            <div class="hero-background">
+    <main id="main-content" tabindex="-1">
+        <section id="home" class="hero-section" aria-labelledby="hero-title">
+            <div class="hero-background" aria-hidden="true">
                 <div class="floating-shapes">
                     <div class="shape shape-1"></div>
                     <div class="shape shape-2"></div>
@@ -86,9 +153,9 @@
             
             <div class="hero-content">
                 <div class="hero-text">
-                    <span class="hero-badge">🚀 Real C# Compiler - Updated 2026</span>
-                    <h1 class="hero-title">
-                        Master <span class="gradient-text">C# Interfaces</span> & 
+                    <span class="hero-badge"><span aria-hidden="true">🚀</span> Real C# Compiler - Updated <time datetime="2026">2026</time></span>
+                    <h1 id="hero-title" class="hero-title">
+                        Master <span class="gradient-text">C# Interfaces</span> &amp; 
                         <span class="gradient-text">OOP</span> Like a Pro
                     </h1>
                     <p class="hero-description">
@@ -97,35 +164,38 @@
                         <em>Code runs on a real C# compiler!</em>
                     </p>
                     
-                    <div class="hero-stats">
+                    <dl class="hero-stats" role="group" aria-label="Platform statistics">
                         <div class="stat-item">
-                            <span class="stat-number" data-count="15">0</span>
-                            <span class="stat-label">Chapters</span>
+                            <dt class="visually-hidden">Chapters</dt>
+                            <dd><span class="stat-number" data-count="15" aria-label="15 Chapters">0</span></dd>
+                            <dt class="stat-label">Chapters</dt>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number" data-count="50">0</span>
-                            <span class="stat-label">Examples</span>
+                            <dt class="visually-hidden">Examples</dt>
+                            <dd><span class="stat-number" data-count="50" aria-label="50 Examples">0</span></dd>
+                            <dt class="stat-label">Examples</dt>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number" data-count="100">0</span>
-                            <span class="stat-label">Exercises</span>
+                            <dt class="visually-hidden">Exercises</dt>
+                            <dd><span class="stat-number" data-count="100" aria-label="100 Exercises">0</span></dd>
+                            <dt class="stat-label">Exercises</dt>
                         </div>
-                    </div>
+                    </dl>
                     
-                    <div class="hero-actions">
-                        <button class="btn btn-large btn-primary" id="begin-journey-btn">
+                    <div class="hero-actions" role="group" aria-label="Get started actions">
+                        <button type="button" class="btn btn-large btn-primary" id="begin-journey-btn">
                             <span>Begin Your Journey</span>
-                            <span class="btn-arrow">→</span>
+                            <span class="btn-arrow" aria-hidden="true">→</span>
                         </button>
-                        <button class="btn btn-large btn-secondary" id="test-compiler-btn">
-                            <span class="play-icon">▶</span>
+                        <button type="button" class="btn btn-large btn-secondary" id="test-compiler-btn">
+                            <span class="play-icon" aria-hidden="true">▶</span>
                             <span>Test Compiler</span>
                         </button>
                     </div>
                 </div>
                 
-                <div class="hero-visual">
-                    <div class="code-preview-card">
+                <div class="hero-visual" aria-hidden="true">
+                    <figure class="code-preview-card">
                         <div class="code-header">
                             <div class="window-controls">
                                 <span class="control red"></span>
@@ -137,7 +207,6 @@
                         </div>
                         <pre class="code-content"><code class="language-csharp"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="interface-name">ITransactions</span>
 {
-    <span class="comment">// Method signatures - no implementation</span>
     <span class="keyword">void</span> <span class="method-name">ShowTransaction</span>();
     <span class="keyword">double</span> <span class="method-name">GetAmount</span>();
 }
@@ -160,7 +229,7 @@
                             </span>
                             <span class="status">Interface implemented successfully ✓</span>
                         </div>
-                    </div>
+                    </figure>
                 </div>
             </div>
             
@@ -170,22 +239,20 @@
             </div>
         </section>
 
-        <!-- What You'll Learn Section -->
-        <section id="learning-path" class="learning-path-section">
+        <section id="learning-path" class="learning-path-section" aria-labelledby="learning-path-title">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">📚 Learning Path</span>
-                    <h2 class="section-title">What You'll Master</h2>
+                <header class="section-header">
+                    <span class="section-badge"><span aria-hidden="true">📚</span> Learning Path</span>
+                    <h2 id="learning-path-title" class="section-title">What You'll Master</h2>
                     <p class="section-description">
                         A structured curriculum designed to take you from beginner to confident C# developer
                     </p>
-                </div>
+                </header>
                 
-                <div class="learning-grid">
-                    <!-- Interfaces Card -->
-                    <article class="learning-card" data-topic="interfaces">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" class="icon-svg">
+                <div class="learning-grid" role="list">
+                    <article class="learning-card" data-topic="interfaces" role="listitem">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" class="icon-svg" focusable="false">
                                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                             </svg>
                         </div>
@@ -196,7 +263,7 @@
                                 Like how a job description lists required skills without telling you HOW to do them, 
                                 interfaces define WHAT a class must do, not HOW.
                             </p>
-                            <ul class="card-topics">
+                            <ul class="card-topics" aria-label="Topics covered">
                                 <li>Defining interface signatures</li>
                                 <li>Implementing single interfaces</li>
                                 <li>Multiple interface implementation</li>
@@ -204,18 +271,17 @@
                             </ul>
                             <div class="card-meta">
                                 <span class="difficulty easy">Beginner</span>
-                                <span class="duration">~45 mins</span>
+                                <span class="duration"><time datetime="PT45M">~45 mins</time></span>
                             </div>
                         </div>
-                        <button class="card-action" data-navigate="interfaces">
-                            Start Learning →
+                        <button type="button" class="card-action" data-navigate="interfaces">
+                            Start Learning <span aria-hidden="true">→</span>
                         </button>
                     </article>
 
-                    <!-- Inheritance Card -->
-                    <article class="learning-card" data-topic="inheritance">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" class="icon-svg">
+                    <article class="learning-card" data-topic="inheritance" role="listitem">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" class="icon-svg" focusable="false">
                                 <path d="M12 3v18M5 10l7-7 7 7M5 14l7 7 7-7"/>
                             </svg>
                         </div>
@@ -227,7 +293,7 @@
                                 classes can inherit features from other classes, 
                                 reusing code and creating hierarchies.
                             </p>
-                            <ul class="card-topics">
+                            <ul class="card-topics" aria-label="Topics covered">
                                 <li>Base and derived classes</li>
                                 <li>Protected members</li>
                                 <li>Constructor chaining</li>
@@ -235,18 +301,17 @@
                             </ul>
                             <div class="card-meta">
                                 <span class="difficulty medium">Intermediate</span>
-                                <span class="duration">~60 mins</span>
+                                <span class="duration"><time datetime="PT60M">~60 mins</time></span>
                             </div>
                         </div>
-                        <button class="card-action" data-navigate="inheritance">
-                            Start Learning →
+                        <button type="button" class="card-action" data-navigate="inheritance">
+                            Start Learning <span aria-hidden="true">→</span>
                         </button>
                     </article>
 
-                    <!-- Polymorphism Card -->
-                    <article class="learning-card" data-topic="polymorphism">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" class="icon-svg">
+                    <article class="learning-card" data-topic="polymorphism" role="listitem">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" class="icon-svg" focusable="false">
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12a4 4 0 108 0 4 4 0 00-8 0"/>
                             </svg>
@@ -258,7 +323,7 @@
                                 works with different TVs. The same button (method) produces 
                                 different results based on the device (object) it controls.
                             </p>
-                            <ul class="card-topics">
+                            <ul class="card-topics" aria-label="Topics covered">
                                 <li>Method overriding</li>
                                 <li>Virtual methods</li>
                                 <li>Runtime polymorphism</li>
@@ -266,81 +331,78 @@
                             </ul>
                             <div class="card-meta">
                                 <span class="difficulty medium">Intermediate</span>
-                                <span class="duration">~50 mins</span>
+                                <span class="duration"><time datetime="PT50M">~50 mins</time></span>
                             </div>
                         </div>
-                        <button class="card-action" data-navigate="polymorphism">
-                            Start Learning →
+                        <button type="button" class="card-action" data-navigate="polymorphism">
+                            Start Learning <span aria-hidden="true">→</span>
                         </button>
                     </article>
 
-                    <!-- Classes Card -->
-                    <article class="learning-card" data-topic="classes">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" class="icon-svg">
+                    <article class="learning-card" data-topic="classes" role="listitem">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" class="icon-svg" focusable="false">
                                 <rect x="3" y="3" width="18" height="18" rx="2"/>
                                 <path d="M3 9h18M9 21V9"/>
                             </svg>
                         </div>
                         <div class="card-content">
-                            <h3 class="card-title">Classes & Objects</h3>
+                            <h3 class="card-title">Classes &amp; Objects</h3>
                             <p class="card-description">
                                 Classes are like <strong>cookie cutters</strong>, 
                                 and objects are the <strong>cookies</strong>. 
                                 The class defines the shape; objects are the actual items 
                                 you create from that template.
                             </p>
-                            <ul class="card-topics">
+                            <ul class="card-topics" aria-label="Topics covered">
                                 <li>Class definition</li>
                                 <li>Constructors</li>
-                                <li>Encapsulation & properties</li>
+                                <li>Encapsulation &amp; properties</li>
                                 <li>Namespaces</li>
                             </ul>
                             <div class="card-meta">
                                 <span class="difficulty easy">Beginner</span>
-                                <span class="duration">~40 mins</span>
+                                <span class="duration"><time datetime="PT40M">~40 mins</time></span>
                             </div>
                         </div>
-                        <button class="card-action" data-navigate="classes">
-                            Start Learning →
+                        <button type="button" class="card-action" data-navigate="classes">
+                            Start Learning <span aria-hidden="true">→</span>
                         </button>
                     </article>
 
-                    <!-- Methods Card -->
-                    <article class="learning-card" data-topic="methods">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" class="icon-svg">
+                    <article class="learning-card" data-topic="methods" role="listitem">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" class="icon-svg" focusable="false">
                                 <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
                             </svg>
                         </div>
                         <div class="card-content">
-                            <h3 class="card-title">Methods & Structures</h3>
+                            <h3 class="card-title">Methods &amp; Structures</h3>
                             <p class="card-description">
                                 Methods are <strong>actions</strong> or <strong>verbs</strong> 
                                 your objects can perform. Like recipes that take ingredients (parameters) 
                                 and produce a dish (return value).
                             </p>
-                            <ul class="card-topics">
+                            <ul class="card-topics" aria-label="Topics covered">
                                 <li>Method signatures</li>
-                                <li>Parameters & return types</li>
+                                <li>Parameters &amp; return types</li>
                                 <li>Method overloading</li>
                                 <li>Structures vs classes</li>
                             </ul>
                             <div class="card-meta">
                                 <span class="difficulty easy">Beginner</span>
-                                <span class="duration">~35 mins</span>
+                                <span class="duration"><time datetime="PT35M">~35 mins</time></span>
                             </div>
                         </div>
-                        <button class="card-action" data-navigate="methods">
-                            Start Learning →
+                        <button type="button" class="card-action" data-navigate="methods">
+                            Start Learning <span aria-hidden="true">→</span>
                         </button>
                     </article>
 
-                    <!-- Playground Card -->
-                    <article class="learning-card featured" data-topic="playground">
-                        <div class="featured-badge">⭐ Real Compiler</div>
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" class="icon-svg">
+                    <article class="learning-card featured" data-topic="playground" role="listitem">
+                        <div class="featured-badge"><span aria-hidden="true">⭐</span> Real Compiler</div>
+                        <div class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" class="icon-svg" focusable="false">
                                 <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
                             </svg>
                         </div>
@@ -351,7 +413,7 @@
                                 Write, run, and experiment with C# code using a real compiler. 
                                 See instant results and learn by doing.
                             </p>
-                            <ul class="card-topics">
+                            <ul class="card-topics" aria-label="Features">
                                 <li>Real C# compilation</li>
                                 <li>Syntax highlighting</li>
                                 <li>Error messages</li>
@@ -362,31 +424,29 @@
                                 <span class="duration">Unlimited</span>
                             </div>
                         </div>
-                        <button class="card-action" data-navigate="playground">
-                            Open Playground →
+                        <button type="button" class="card-action" data-navigate="playground">
+                            Open Playground <span aria-hidden="true">→</span>
                         </button>
                     </article>
                 </div>
             </div>
         </section>
 
-        <!-- Interfaces Deep Dive Section -->
-        <section id="interfaces" class="content-section">
+        <section id="interfaces" class="content-section" aria-labelledby="interfaces-title">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">📋 Core Concept</span>
-                    <h2 class="section-title">Understanding Interfaces</h2>
+                <header class="section-header">
+                    <span class="section-badge"><span aria-hidden="true">📋</span> Core Concept</span>
+                    <h2 id="interfaces-title" class="section-title">Understanding Interfaces</h2>
                     <p class="section-description">
                         The foundation of flexible, maintainable code
                     </p>
-                </div>
+                </header>
 
-                <!-- Concept Explanation -->
                 <div class="concept-explainer">
                     <div class="explainer-content">
                         <h3>What is an Interface? (In Plain English)</h3>
-                        <div class="analogy-box">
-                            <div class="analogy-icon">🔌</div>
+                        <aside class="analogy-box" aria-label="Real-world analogy">
+                            <div class="analogy-icon" aria-hidden="true">🔌</div>
                             <div class="analogy-text">
                                 <p><strong>Real-World Analogy:</strong> Think of a power outlet.</p>
                                 <p>Every device that plugs into an outlet must have the right plug shape 
@@ -395,25 +455,25 @@
                                 <p>Similarly, an interface defines <strong>what methods a class must have</strong>, 
                                 but not <strong>how those methods work</strong>.</p>
                             </div>
-                        </div>
+                        </aside>
                         
                         <div class="key-points">
                             <h4>Key Rules to Remember:</h4>
-                            <ul class="rules-list">
+                            <ul class="rules-list" role="list">
                                 <li>
-                                    <span class="rule-icon">✓</span>
+                                    <span class="rule-icon" aria-hidden="true">✓</span>
                                     <span>Interfaces <strong>cannot contain implementation code</strong> – only signatures</span>
                                 </li>
                                 <li>
-                                    <span class="rule-icon">✓</span>
+                                    <span class="rule-icon" aria-hidden="true">✓</span>
                                     <span>Interface names start with capital <strong>"I"</strong> (e.g., ITransactions)</span>
                                 </li>
                                 <li>
-                                    <span class="rule-icon">✓</span>
+                                    <span class="rule-icon" aria-hidden="true">✓</span>
                                     <span>Classes that implement an interface <strong>must provide all methods</strong></span>
                                 </li>
                                 <li>
-                                    <span class="rule-icon">✓</span>
+                                    <span class="rule-icon" aria-hidden="true">✓</span>
                                     <span>A class can implement <strong>multiple interfaces</strong></span>
                                 </li>
                             </ul>
@@ -421,31 +481,29 @@
                     </div>
                 </div>
 
-                <!-- Interactive Code Example 1 -->
-                <div class="interactive-example" id="example-1">
-                    <div class="example-header">
-                        <h3>Example 1: Basic Interface Implementation</h3>
-                        <div class="example-controls">
-                            <button class="btn btn-small btn-outline reset-btn" data-editor="editor-1">Reset</button>
-                            <button class="btn btn-small btn-primary run-btn" data-editor="editor-1">
-                                <span class="run-icon">▶</span> Run Code
+                <article class="interactive-example" id="example-1" aria-labelledby="example-1-title">
+                    <header class="example-header">
+                        <h3 id="example-1-title">Example 1: Basic Interface Implementation</h3>
+                        <div class="example-controls" role="toolbar" aria-label="Code editor controls">
+                            <button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-1" aria-label="Reset code to original">Reset</button>
+                            <button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-1" aria-label="Run code">
+                                <span class="run-icon" aria-hidden="true">▶</span> Run Code
                             </button>
                         </div>
-                    </div>
+                    </header>
                     
                     <div class="code-editor-container">
                         <div class="editor-wrapper">
-                            <div class="line-numbers" id="lines-1"></div>
-                            <textarea class="code-editor" id="editor-1" spellcheck="false">using System;
+                            <div class="line-numbers" id="lines-1" aria-hidden="true"></div>
+                            <label for="editor-1" class="visually-hidden">C# code editor for basic interface example</label>
+                            <textarea class="code-editor" id="editor-1" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-gramm="false" aria-describedby="editor-1-desc">using System;
 
-// Define the Interface - this is the "contract"
 public interface ITransactions
 {
     void ShowTransaction();
     double GetAmount();
 }
 
-// Implement the Interface
 public class Transaction : ITransactions
 {
     private string transactionCode;
@@ -482,34 +540,32 @@ public class Program
         t2.ShowTransaction();
     }
 }</textarea>
+                            <span id="editor-1-desc" class="visually-hidden">Edit the C# code and press Run Code to compile and execute</span>
                         </div>
                         
-                        <div class="editor-output">
-                            <div class="output-header">
-                                <span class="output-title">📤 Output</span>
-                                <div class="output-status" id="status-1"></div>
-                            </div>
-                            <div class="output-content" id="output-1">
-                                <span class="output-placeholder">Click "Run Code" to compile and execute...</span>
-                            </div>
+                        <div class="editor-output" role="region" aria-label="Code output">
+                            <header class="output-header">
+                                <span class="output-title"><span aria-hidden="true">📤</span> Output</span>
+                                <div class="output-status" id="status-1" role="status" aria-live="polite"></div>
+                            </header>
+                            <pre class="output-content" id="output-1" tabindex="0" aria-label="Compilation output"><span class="output-placeholder">Click "Run Code" to compile and execute...</span></pre>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Interactive Code Example 2: Multiple Interfaces -->
-                <div class="interactive-example" id="example-2">
-                    <div class="example-header">
-                        <h3>Example 2: Multiple Interface Implementation</h3>
-                        <div class="example-controls">
-                            <button class="btn btn-small btn-outline reset-btn" data-editor="editor-2">Reset</button>
-                            <button class="btn btn-small btn-primary run-btn" data-editor="editor-2">
-                                <span class="run-icon">▶</span> Run Code
+                <article class="interactive-example" id="example-2" aria-labelledby="example-2-title">
+                    <header class="example-header">
+                        <h3 id="example-2-title">Example 2: Multiple Interface Implementation</h3>
+                        <div class="example-controls" role="toolbar" aria-label="Code editor controls">
+                            <button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-2" aria-label="Reset code to original">Reset</button>
+                            <button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-2" aria-label="Run code">
+                                <span class="run-icon" aria-hidden="true">▶</span> Run Code
                             </button>
                         </div>
-                    </div>
+                    </header>
                     
-                    <div class="visual-diagram">
-                        <div class="diagram-container">
+                    <figure class="visual-diagram" aria-labelledby="diagram-caption">
+                        <div class="diagram-container" role="img" aria-describedby="diagram-desc">
                             <div class="interface-box">
                                 <span class="box-label">ISquare</span>
                                 <code>int GetSquareArea(int side)</code>
@@ -522,7 +578,7 @@ public class Program
                                 <span class="box-label">ITriangle</span>
                                 <code>double GetTriangleArea(double b, double h)</code>
                             </div>
-                            <div class="arrows-container">
+                            <div class="arrows-container" aria-hidden="true">
                                 <div class="connecting-arrow"></div>
                                 <div class="connecting-arrow"></div>
                                 <div class="connecting-arrow"></div>
@@ -532,14 +588,16 @@ public class Program
                                 <code>Implements all three!</code>
                             </div>
                         </div>
-                    </div>
+                        <figcaption id="diagram-caption" class="visually-hidden">Diagram showing ShapeCalculator class implementing ISquare, IRectangle, and ITriangle interfaces</figcaption>
+                        <span id="diagram-desc" class="visually-hidden">Three interface boxes (ISquare, IRectangle, ITriangle) with arrows pointing to a single ShapeCalculator class box, demonstrating multiple interface implementation</span>
+                    </figure>
                     
                     <div class="code-editor-container">
                         <div class="editor-wrapper">
-                            <div class="line-numbers" id="lines-2"></div>
-                            <textarea class="code-editor" id="editor-2" spellcheck="false">using System;
+                            <div class="line-numbers" id="lines-2" aria-hidden="true"></div>
+                            <label for="editor-2" class="visually-hidden">C# code editor for multiple interface example</label>
+                            <textarea class="code-editor" id="editor-2" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-gramm="false">using System;
 
-// Three separate interfaces for different shapes
 public interface ISquare
 {
     int GetSquareArea(int side);
@@ -555,7 +613,6 @@ public interface ITriangle
     double GetTriangleArea(double baseLen, double height);
 }
 
-// One class implementing ALL THREE interfaces!
 public class ShapeCalculator : ISquare, IRectangle, ITriangle
 {
     public int GetSquareArea(int side)
@@ -596,88 +653,84 @@ public class Program
 }</textarea>
                         </div>
                         
-                        <div class="editor-output">
-                            <div class="output-header">
-                                <span class="output-title">📤 Output</span>
-                                <div class="output-status" id="status-2"></div>
-                            </div>
-                            <div class="output-content" id="output-2">
-                                <span class="output-placeholder">Click "Run Code" to compile and execute...</span>
-                            </div>
+                        <div class="editor-output" role="region" aria-label="Code output">
+                            <header class="output-header">
+                                <span class="output-title"><span aria-hidden="true">📤</span> Output</span>
+                                <div class="output-status" id="status-2" role="status" aria-live="polite"></div>
+                            </header>
+                            <pre class="output-content" id="output-2" tabindex="0" aria-label="Compilation output"><span class="output-placeholder">Click "Run Code" to compile and execute...</span></pre>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Quiz Section -->
-                <div class="quiz-section">
-                    <h3>🎯 Quick Check: Test Your Understanding</h3>
+                <section class="quiz-section" aria-labelledby="quiz-title">
+                    <h3 id="quiz-title"><span aria-hidden="true">🎯</span> Quick Check: Test Your Understanding</h3>
                     
-                    <div class="quiz-container" id="interface-quiz">
-                        <div class="quiz-question active" data-question="1">
-                            <p class="question-text">What keyword is used to define an interface in C#?</p>
-                            <div class="quiz-options">
-                                <button class="quiz-option" data-answer="wrong">class</button>
-                                <button class="quiz-option" data-answer="correct">interface</button>
-                                <button class="quiz-option" data-answer="wrong">struct</button>
-                                <button class="quiz-option" data-answer="wrong">abstract</button>
+                    <form class="quiz-container" id="interface-quiz" aria-label="Interface concepts quiz">
+                        <fieldset class="quiz-question active" data-question="1">
+                            <legend class="question-text">What keyword is used to define an interface in C#?</legend>
+                            <div class="quiz-options" role="radiogroup">
+                                <button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">class</button>
+                                <button type="button" class="quiz-option" data-answer="correct" role="radio" aria-checked="false">interface</button>
+                                <button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">struct</button>
+                                <button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">abstract</button>
                             </div>
-                            <div class="quiz-feedback"></div>
-                        </div>
+                            <output class="quiz-feedback" role="status" aria-live="polite"></output>
+                        </fieldset>
                         
-                        <div class="quiz-question" data-question="2">
-                            <p class="question-text">Can interfaces contain implementation code?</p>
-                            <div class="quiz-options">
-                                <button class="quiz-option" data-answer="wrong">Yes, always</button>
-                                <button class="quiz-option" data-answer="correct">No, only signatures</button>
-                                <button class="quiz-option" data-answer="wrong">Only for private methods</button>
-                                <button class="quiz-option" data-answer="wrong">Only with abstract</button>
+                        <fieldset class="quiz-question" data-question="2" hidden>
+                            <legend class="question-text">Can interfaces contain implementation code?</legend>
+                            <div class="quiz-options" role="radiogroup">
+                                <button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Yes, always</button>
+                                <button type="button" class="quiz-option" data-answer="correct" role="radio" aria-checked="false">No, only signatures</button>
+                                <button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Only for private methods</button>
+                                <button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Only with abstract</button>
                             </div>
-                            <div class="quiz-feedback"></div>
-                        </div>
+                            <output class="quiz-feedback" role="status" aria-live="polite"></output>
+                        </fieldset>
                         
-                        <div class="quiz-question" data-question="3">
-                            <p class="question-text">How many interfaces can a class implement?</p>
-                            <div class="quiz-options">
-                                <button class="quiz-option" data-answer="wrong">Only 1</button>
-                                <button class="quiz-option" data-answer="wrong">Maximum 5</button>
-                                <button class="quiz-option" data-answer="correct">Multiple (no limit)</button>
-                                <button class="quiz-option" data-answer="wrong">Depends on size</button>
+                        <fieldset class="quiz-question" data-question="3" hidden>
+                            <legend class="question-text">How many interfaces can a class implement?</legend>
+                            <div class="quiz-options" role="radiogroup">
+                                <button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Only 1</button>
+                                <button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Maximum 5</button>
+                                <button type="button" class="quiz-option" data-answer="correct" role="radio" aria-checked="false">Multiple (no limit)</button>
+                                <button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Depends on size</button>
                             </div>
-                            <div class="quiz-feedback"></div>
-                        </div>
+                            <output class="quiz-feedback" role="status" aria-live="polite"></output>
+                        </fieldset>
                         
-                        <div class="quiz-progress">
-                            <span class="progress-text">Question <span id="current-q">1</span> of 3</span>
-                            <div class="progress-bar">
+                        <div class="quiz-progress" role="group" aria-label="Quiz progress">
+                            <span class="progress-text">Question <span id="current-q" aria-current="step">1</span> of <span>3</span></span>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="Quiz progress: 33%">
                                 <div class="progress-fill" style="width: 33%"></div>
                             </div>
                         </div>
                         
-                        <div class="quiz-navigation">
-                            <button class="btn btn-outline" id="prev-question" disabled>← Previous</button>
-                            <button class="btn btn-primary" id="next-question">Next →</button>
-                        </div>
-                    </div>
-                </div>
+                        <nav class="quiz-navigation" aria-label="Quiz navigation">
+                            <button type="button" class="btn btn-outline" id="prev-question" disabled aria-label="Go to previous question">← Previous</button>
+                            <button type="button" class="btn btn-primary" id="next-question" aria-label="Go to next question">Next →</button>
+                        </nav>
+                    </form>
+                </section>
             </div>
         </section>
 
-        <!-- Inheritance Section -->
-        <section id="inheritance" class="content-section alt-bg">
+        <section id="inheritance" class="content-section alt-bg" aria-labelledby="inheritance-title">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">🌳 Core Concept</span>
-                    <h2 class="section-title">Inheritance: Building Family Trees</h2>
+                <header class="section-header">
+                    <span class="section-badge"><span aria-hidden="true">🌳</span> Core Concept</span>
+                    <h2 id="inheritance-title" class="section-title">Inheritance: Building Family Trees</h2>
                     <p class="section-description">
                         Reuse code by creating specialized versions of existing classes
                     </p>
-                </div>
+                </header>
 
                 <div class="concept-explainer">
                     <div class="explainer-content">
                         <h3>What is Inheritance?</h3>
-                        <div class="analogy-box family">
-                            <div class="analogy-icon">👨‍👩‍👧‍👦</div>
+                        <aside class="analogy-box family" aria-label="Real-world analogy">
+                            <div class="analogy-icon" aria-hidden="true">👨‍👩‍👧‍👦</div>
                             <div class="analogy-text">
                                 <p><strong>Real-World Analogy:</strong> Think of a family.</p>
                                 <p>Children inherit traits from their parents – eye color, height, etc. 
@@ -685,28 +738,27 @@ public class Program
                                 <p>In programming, a <strong>derived class (child)</strong> inherits features from a 
                                 <strong>base class (parent)</strong>, but can add its own!</p>
                             </div>
-                        </div>
+                        </aside>
                     </div>
                 </div>
 
-                <!-- Interactive Inheritance Example -->
-                <div class="interactive-example" id="example-inheritance">
-                    <div class="example-header">
-                        <h3>Person → Student Inheritance</h3>
-                        <div class="example-controls">
-                            <button class="btn btn-small btn-outline reset-btn" data-editor="editor-inheritance">Reset</button>
-                            <button class="btn btn-small btn-primary run-btn" data-editor="editor-inheritance">
-                                <span class="run-icon">▶</span> Run Code
+                <article class="interactive-example" id="example-inheritance" aria-labelledby="example-inheritance-title">
+                    <header class="example-header">
+                        <h3 id="example-inheritance-title">Person → Student Inheritance</h3>
+                        <div class="example-controls" role="toolbar" aria-label="Code editor controls">
+                            <button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-inheritance" aria-label="Reset code to original">Reset</button>
+                            <button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-inheritance" aria-label="Run code">
+                                <span class="run-icon" aria-hidden="true">▶</span> Run Code
                             </button>
                         </div>
-                    </div>
+                    </header>
                     
                     <div class="code-editor-container large">
                         <div class="editor-wrapper">
-                            <div class="line-numbers" id="lines-inheritance"></div>
-                            <textarea class="code-editor" id="editor-inheritance" spellcheck="false">using System;
+                            <div class="line-numbers" id="lines-inheritance" aria-hidden="true"></div>
+                            <label for="editor-inheritance" class="visually-hidden">C# code editor for inheritance example</label>
+                            <textarea class="code-editor" id="editor-inheritance" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-gramm="false">using System;
 
-// BASE CLASS (Parent)
 public class Person
 {
     protected string fullName;
@@ -730,13 +782,11 @@ public class Person
     }
 }
 
-// DERIVED CLASS (Child) - inherits from Person
 public class Student : Person
 {
     private long studentId;
     private string program;
 
-    // Call parent constructor with 'base'
     public Student(string name, int age, long id, string program) 
         : base(name, age)
     {
@@ -749,10 +799,9 @@ public class Student : Person
         Console.WriteLine($"{fullName} is studying {program}...");
     }
 
-    // Override parent method
     public override void DisplayInfo()
     {
-        base.DisplayInfo(); // Call parent's version
+        base.DisplayInfo();
         Console.WriteLine($"Student ID: {studentId}");
         Console.WriteLine($"Program: {program}");
     }
@@ -768,91 +817,87 @@ public class Program
         s1.DisplayInfo();
         
         Console.WriteLine();
-        s1.Walk();  // Inherited from Person
-        s1.Study(); // Student's own method
+        s1.Walk();
+        s1.Study();
     }
 }</textarea>
                         </div>
                         
-                        <div class="editor-output">
-                            <div class="output-header">
-                                <span class="output-title">📤 Output</span>
-                                <div class="output-status" id="status-inheritance"></div>
-                            </div>
-                            <div class="output-content" id="output-inheritance">
-                                <span class="output-placeholder">Click "Run Code" to compile and execute...</span>
-                            </div>
+                        <div class="editor-output" role="region" aria-label="Code output">
+                            <header class="output-header">
+                                <span class="output-title"><span aria-hidden="true">📤</span> Output</span>
+                                <div class="output-status" id="status-inheritance" role="status" aria-live="polite"></div>
+                            </header>
+                            <pre class="output-content" id="output-inheritance" tabindex="0" aria-label="Compilation output"><span class="output-placeholder">Click "Run Code" to compile and execute...</span></pre>
                         </div>
                     </div>
                     
-                    <div class="key-concepts-grid">
-                        <div class="concept-card">
-                            <div class="concept-icon">🔑</div>
+                    <ul class="key-concepts-grid" role="list" aria-label="Key inheritance concepts">
+                        <li class="concept-card">
+                            <div class="concept-icon" aria-hidden="true">🔑</div>
                             <h4>The <code>base</code> Keyword</h4>
                             <p>Call parent constructor or methods from child class</p>
-                        </div>
-                        <div class="concept-card">
-                            <div class="concept-icon">🛡️</div>
+                        </li>
+                        <li class="concept-card">
+                            <div class="concept-icon" aria-hidden="true">🛡️</div>
                             <h4><code>protected</code> Access</h4>
                             <p>Accessible in class AND its children</p>
-                        </div>
-                        <div class="concept-card">
-                            <div class="concept-icon">🔗</div>
+                        </li>
+                        <li class="concept-card">
+                            <div class="concept-icon" aria-hidden="true">🔗</div>
                             <h4>Single Inheritance</h4>
                             <p>One base class, but multiple interfaces allowed</p>
-                        </div>
-                    </div>
-                </div>
+                        </li>
+                    </ul>
+                </article>
             </div>
         </section>
 
-        <!-- Polymorphism Section -->
-        <section id="polymorphism" class="content-section">
+        <section id="polymorphism" class="content-section" aria-labelledby="polymorphism-title">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">🎭 Core Concept</span>
-                    <h2 class="section-title">Polymorphism: Many Forms</h2>
+                <header class="section-header">
+                    <span class="section-badge"><span aria-hidden="true">🎭</span> Core Concept</span>
+                    <h2 id="polymorphism-title" class="section-title">Polymorphism: Many Forms</h2>
                     <p class="section-description">
                         Same method name, different behaviors based on the object
                     </p>
-                </div>
+                </header>
 
                 <div class="concept-explainer">
                     <div class="explainer-content">
                         <h3>What is Polymorphism?</h3>
-                        <div class="analogy-box remote">
-                            <div class="analogy-icon">📺</div>
+                        <aside class="analogy-box remote" aria-label="Real-world analogy">
+                            <div class="analogy-icon" aria-hidden="true">📺</div>
                             <div class="analogy-text">
                                 <p><strong>Real-World Analogy:</strong> Universal remote control.</p>
                                 <p>Same "Power" button, different device behaviors:</p>
                                 <ul>
-                                    <li>📺 TV turns on/off screen</li>
-                                    <li>🔊 Soundbar starts/stops audio</li>
-                                    <li>📀 DVD player opens/closes tray</li>
+                                    <li><span aria-hidden="true">📺</span> TV turns on/off screen</li>
+                                    <li><span aria-hidden="true">🔊</span> Soundbar starts/stops audio</li>
+                                    <li><span aria-hidden="true">📀</span> DVD player opens/closes tray</li>
                                 </ul>
                             </div>
-                        </div>
+                        </aside>
                     </div>
                 </div>
 
-                <!-- Interactive Polymorphism Example -->
-                <div class="interactive-example" id="example-polymorphism">
-                    <div class="example-header">
-                        <h3>Bank Account: Method Overriding</h3>
-                        <div class="example-controls">
-                            <button class="btn btn-small btn-outline reset-btn" data-editor="editor-polymorphism">Reset</button>
-                            <button class="btn btn-small btn-primary run-btn" data-editor="editor-polymorphism">
-                                <span class="run-icon">▶</span> Run Code
+                <article class="interactive-example" id="example-polymorphism" aria-labelledby="example-polymorphism-title">
+                    <header class="example-header">
+                        <h3 id="example-polymorphism-title">Bank Account: Method Overriding</h3>
+                        <div class="example-controls" role="toolbar" aria-label="Code editor controls">
+                            <button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-polymorphism" aria-label="Reset code to original">Reset</button>
+                            <button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-polymorphism" aria-label="Run code">
+                                <span class="run-icon" aria-hidden="true">▶</span> Run Code
                             </button>
                         </div>
-                    </div>
+                    </header>
                     
                     <div class="code-editor-container large">
                         <div class="editor-wrapper">
-                            <div class="line-numbers" id="lines-polymorphism"></div>
-                            <textarea class="code-editor" id="editor-polymorphism" spellcheck="false">using System;
+                            <div class="line-numbers" id="lines-polymorphism" aria-hidden="true"></div>
+                            <label for="editor-polymorphism" class="visually-hidden">C# code editor for polymorphism example</label>
+                            <textarea class="code-editor" id="editor-polymorphism" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-gramm="false">using System;
 
-// Base class with VIRTUAL method
 public class BankAccount
 {
     protected double balance;
@@ -864,7 +909,6 @@ public class BankAccount
         this.accountType = "Basic";
     }
 
-    // 'virtual' = can be overridden
     public virtual void Withdraw(double amount)
     {
         balance -= amount;
@@ -875,7 +919,6 @@ public class BankAccount
     public double GetBalance() => balance;
 }
 
-// Checking account with fees
 public class CheckingAccount : BankAccount
 {
     private double fee = 2.50;
@@ -885,7 +928,6 @@ public class CheckingAccount : BankAccount
         this.accountType = "Checking";
     }
 
-    // 'override' = new implementation
     public override void Withdraw(double amount)
     {
         double total = amount + fee;
@@ -895,7 +937,6 @@ public class CheckingAccount : BankAccount
     }
 }
 
-// Savings account with minimum balance
 public class SavingsAccount : BankAccount
 {
     private double minBalance = 100;
@@ -923,14 +964,12 @@ public class Program
     {
         Console.WriteLine("=== Polymorphism Demo ===\n");
         
-        // Array of different account types
         BankAccount[] accounts = {
             new BankAccount(500),
             new CheckingAccount(500),
             new SavingsAccount(500)
         };
         
-        // Same method call, different behaviors!
         foreach (var account in accounts)
         {
             account.Withdraw(450);
@@ -940,36 +979,33 @@ public class Program
 }</textarea>
                         </div>
                         
-                        <div class="editor-output">
-                            <div class="output-header">
-                                <span class="output-title">📤 Output</span>
-                                <div class="output-status" id="status-polymorphism"></div>
-                            </div>
-                            <div class="output-content" id="output-polymorphism">
-                                <span class="output-placeholder">Click "Run Code" to compile and execute...</span>
-                            </div>
+                        <div class="editor-output" role="region" aria-label="Code output">
+                            <header class="output-header">
+                                <span class="output-title"><span aria-hidden="true">📤</span> Output</span>
+                                <div class="output-status" id="status-polymorphism" role="status" aria-live="polite"></div>
+                            </header>
+                            <pre class="output-content" id="output-polymorphism" tabindex="0" aria-label="Compilation output"><span class="output-placeholder">Click "Run Code" to compile and execute...</span></pre>
                         </div>
                     </div>
-                </div>
+                </article>
             </div>
         </section>
 
-        <!-- Code Playground Section -->
-        <section id="playground" class="content-section playground-section">
+        <section id="playground" class="content-section playground-section" aria-labelledby="playground-title">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">🎮 Practice Zone</span>
-                    <h2 class="section-title">Interactive Code Playground</h2>
+                <header class="section-header">
+                    <span class="section-badge"><span aria-hidden="true">🎮</span> Practice Zone</span>
+                    <h2 id="playground-title" class="section-title">Interactive Code Playground</h2>
                     <p class="section-description">
                         Write, test, and experiment with C# code using a <strong>real compiler</strong>
                     </p>
-                </div>
+                </header>
 
                 <div class="playground-container">
-                    <div class="playground-toolbar">
+                    <div class="playground-toolbar" role="toolbar" aria-label="Playground controls">
                         <div class="template-selector">
                             <label for="code-template">Load Template:</label>
-                            <select id="code-template">
+                            <select id="code-template" autocomplete="off">
                                 <option value="blank">Blank Slate</option>
                                 <option value="hello">Hello World</option>
                                 <option value="interface">Interface Example</option>
@@ -980,28 +1016,26 @@ public class Program
                                 <option value="async">Async/Await</option>
                             </select>
                         </div>
-                        <div class="playground-actions">
-                            <button class="btn btn-outline" id="clear-playground">Clear</button>
-                            <button class="btn btn-outline" id="format-code">Format</button>
-                            <button class="btn btn-outline" id="save-code">💾 Save</button>
-                            <button class="btn btn-primary btn-large" id="run-playground">
-                                ▶ Run Code
+                        <div class="playground-actions" role="group" aria-label="Editor actions">
+                            <button type="button" class="btn btn-outline" id="clear-playground" aria-label="Clear editor">Clear</button>
+                            <button type="button" class="btn btn-outline" id="format-code" aria-label="Format code">Format</button>
+                            <button type="button" class="btn btn-outline" id="save-code" aria-label="Save code to browser storage"><span aria-hidden="true">💾</span> Save</button>
+                            <button type="button" class="btn btn-primary btn-large" id="run-playground" aria-keyshortcuts="Ctrl+Enter">
+                                <span aria-hidden="true">▶</span> Run Code
                             </button>
                         </div>
                     </div>
                     
                     <div class="playground-editor">
                         <div class="editor-pane">
-                            <div class="pane-header">
-                                <span>📝 Code Editor</span>
+                            <header class="pane-header">
+                                <span><span aria-hidden="true">📝</span> Code Editor</span>
                                 <span class="file-indicator">Program.cs</span>
-                            </div>
+                            </header>
                             <div class="editor-wrapper full">
-                                <div class="line-numbers" id="lines-playground"></div>
-                                <textarea class="code-editor large" id="playground-editor" spellcheck="false">using System;
-
-// Welcome to the C# Playground! 🎮
-// This uses a REAL C# compiler via Piston API
+                                <div class="line-numbers" id="lines-playground" aria-hidden="true"></div>
+                                <label for="playground-editor" class="visually-hidden">C# code editor - main playground</label>
+                                <textarea class="code-editor large" id="playground-editor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-gramm="false" aria-describedby="playground-hint">using System;
 
 public class Program
 {
@@ -1010,7 +1044,6 @@ public class Program
         Console.WriteLine("Hello, C# World!");
         Console.WriteLine("Your code runs on a real compiler!");
         
-        // Try some C# features:
         int[] numbers = { 1, 2, 3, 4, 5 };
         
         Console.WriteLine("\nNumbers squared:");
@@ -1022,177 +1055,174 @@ public class Program
         Console.WriteLine("\n✓ Compilation successful!");
     }
 }</textarea>
+                                <span id="playground-hint" class="visually-hidden">Press Ctrl+Enter to run code. Code auto-saves to browser storage.</span>
                             </div>
                         </div>
                         
-                        <div class="output-pane">
-                            <div class="pane-header">
-                                <span>📤 Output Console</span>
-                                <div class="output-status" id="status-playground"></div>
-                                <button class="btn btn-tiny" id="clear-console">Clear</button>
-                            </div>
-                            <div class="console-output" id="playground-output">
-                                <div class="console-welcome">
-                                    <p>👋 Welcome to the C# Playground!</p>
-                                    <p>Write code on the left and click <strong>"Run Code"</strong> to execute.</p>
-                                    <p class="compiler-info">🔴 Powered by real C# compiler (Mono)</p>
-                                </div>
-                            </div>
+                        <div class="output-pane" role="region" aria-label="Output console">
+                            <header class="pane-header">
+                                <span><span aria-hidden="true">📤</span> Output Console</span>
+                                <div class="output-status" id="status-playground" role="status" aria-live="polite"></div>
+                                <button type="button" class="btn btn-tiny" id="clear-console" aria-label="Clear console output">Clear</button>
+                            </header>
+                            <pre class="console-output" id="playground-output" tabindex="0" aria-label="Console output" aria-live="polite"><span class="console-welcome"><span>👋 Welcome to the C# Playground!</span>
+<span>Write code on the left and click <strong>"Run Code"</strong> to execute.</span>
+<span class="compiler-info">🔴 Powered by real C# compiler (Mono)</span></span></pre>
                         </div>
                     </div>
                     
-                    <div class="playground-tips">
-                        <h4>💡 Quick Tips:</h4>
+                    <aside class="playground-tips" aria-labelledby="tips-title">
+                        <h4 id="tips-title"><span aria-hidden="true">💡</span> Quick Tips:</h4>
                         <ul>
                             <li><code>Console.WriteLine()</code> - Print output</li>
                             <li><code>Console.ReadLine()</code> - Read input (not supported in web)</li>
                             <li>Errors will show line numbers</li>
                             <li>Code auto-saves to browser storage</li>
+                            <li><kbd>Ctrl</kbd> + <kbd>Enter</kbd> to run code</li>
                         </ul>
-                    </div>
+                    </aside>
                 </div>
             </div>
         </section>
 
-        <!-- Progress Tracking Section -->
-        <section id="progress" class="content-section alt-bg">
+        <section id="progress" class="content-section alt-bg" aria-labelledby="progress-title">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">📊 Your Journey</span>
-                    <h2 class="section-title">Learning Progress</h2>
-                </div>
+                <header class="section-header">
+                    <span class="section-badge"><span aria-hidden="true">📊</span> Your Journey</span>
+                    <h2 id="progress-title" class="section-title">Learning Progress</h2>
+                </header>
 
                 <div class="progress-dashboard">
-                    <div class="overall-progress">
-                        <div class="progress-ring-container">
-                            <svg class="progress-ring" width="200" height="200">
-                                <circle class="progress-ring-bg" cx="100" cy="100" r="90"/>
-                                <circle class="progress-ring-fill" cx="100" cy="100" r="90" 
-                                        stroke-dasharray="565.48" stroke-dashoffset="400"/>
-                            </svg>
-                            <div class="progress-percentage">
-                                <span class="percentage-number" id="overall-percentage">29</span>
-                                <span class="percentage-symbol">%</span>
-                            </div>
+                    <figure class="overall-progress">
+                        <svg class="progress-ring" width="200" height="200" role="img" aria-labelledby="progress-ring-title">
+                            <title id="progress-ring-title">Overall learning progress: 29%</title>
+                            <circle class="progress-ring-bg" cx="100" cy="100" r="90"/>
+                            <circle class="progress-ring-fill" cx="100" cy="100" r="90" 
+                                    stroke-dasharray="565.48" stroke-dashoffset="400"/>
+                        </svg>
+                        <div class="progress-percentage" aria-hidden="true">
+                            <span class="percentage-number" id="overall-percentage">29</span>
+                            <span class="percentage-symbol">%</span>
                         </div>
-                        <h3>Overall Progress</h3>
-                    </div>
+                        <figcaption><h3>Overall Progress</h3></figcaption>
+                    </figure>
 
-                    <div class="topic-progress-list">
-                        <div class="topic-progress-item">
+                    <div class="topic-progress-list" role="list" aria-label="Progress by topic">
+                        <div class="topic-progress-item" role="listitem">
                             <div class="topic-info">
-                                <span class="topic-name">Interfaces</span>
-                                <span class="topic-percentage">45%</span>
+                                <span class="topic-name" id="topic-interfaces">Interfaces</span>
+                                <span class="topic-percentage" aria-hidden="true">45%</span>
                             </div>
-                            <div class="topic-bar">
+                            <div class="topic-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-interfaces">
                                 <div class="topic-fill" style="width: 45%"></div>
                             </div>
                         </div>
-                        <div class="topic-progress-item">
+                        <div class="topic-progress-item" role="listitem">
                             <div class="topic-info">
-                                <span class="topic-name">Inheritance</span>
-                                <span class="topic-percentage">30%</span>
+                                <span class="topic-name" id="topic-inheritance">Inheritance</span>
+                                <span class="topic-percentage" aria-hidden="true">30%</span>
                             </div>
-                            <div class="topic-bar">
+                            <div class="topic-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-inheritance">
                                 <div class="topic-fill" style="width: 30%"></div>
                             </div>
                         </div>
-                        <div class="topic-progress-item">
+                        <div class="topic-progress-item" role="listitem">
                             <div class="topic-info">
-                                <span class="topic-name">Polymorphism</span>
-                                <span class="topic-percentage">20%</span>
+                                <span class="topic-name" id="topic-polymorphism">Polymorphism</span>
+                                <span class="topic-percentage" aria-hidden="true">20%</span>
                             </div>
-                            <div class="topic-bar">
+                            <div class="topic-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-polymorphism">
                                 <div class="topic-fill" style="width: 20%"></div>
                             </div>
                         </div>
-                        <div class="topic-progress-item">
+                        <div class="topic-progress-item" role="listitem">
                             <div class="topic-info">
-                                <span class="topic-name">Classes & Objects</span>
-                                <span class="topic-percentage">35%</span>
+                                <span class="topic-name" id="topic-classes">Classes &amp; Objects</span>
+                                <span class="topic-percentage" aria-hidden="true">35%</span>
                             </div>
-                            <div class="topic-bar">
+                            <div class="topic-bar" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-classes">
                                 <div class="topic-fill" style="width: 35%"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="achievements">
-                        <h4>🏆 Achievements</h4>
-                        <div class="achievement-grid">
-                            <div class="achievement unlocked" title="Completed first lesson">
-                                <span class="achievement-icon">🎯</span>
+                    <section class="achievements" aria-labelledby="achievements-title">
+                        <h4 id="achievements-title"><span aria-hidden="true">🏆</span> Achievements</h4>
+                        <ul class="achievement-grid" role="list">
+                            <li class="achievement unlocked" aria-label="First Steps achievement - Unlocked: Completed first lesson">
+                                <span class="achievement-icon" aria-hidden="true">🎯</span>
                                 <span class="achievement-name">First Steps</span>
-                            </div>
-                            <div class="achievement unlocked" title="Ran first code">
-                                <span class="achievement-icon">▶️</span>
+                            </li>
+                            <li class="achievement unlocked" aria-label="Code Runner achievement - Unlocked: Ran first code">
+                                <span class="achievement-icon" aria-hidden="true">▶️</span>
                                 <span class="achievement-name">Code Runner</span>
-                            </div>
-                            <div class="achievement" title="Complete all interface lessons">
-                                <span class="achievement-icon">🔌</span>
+                            </li>
+                            <li class="achievement" aria-label="Interface Master achievement - Locked: Complete all interface lessons">
+                                <span class="achievement-icon" aria-hidden="true">🔌</span>
                                 <span class="achievement-name">Interface Master</span>
-                            </div>
-                            <div class="achievement" title="Complete all inheritance lessons">
-                                <span class="achievement-icon">🌳</span>
+                            </li>
+                            <li class="achievement" aria-label="Inheritance Hero achievement - Locked: Complete all inheritance lessons">
+                                <span class="achievement-icon" aria-hidden="true">🌳</span>
                                 <span class="achievement-name">Inheritance Hero</span>
-                            </div>
-                            <div class="achievement" title="Complete all lessons">
-                                <span class="achievement-icon">🏅</span>
+                            </li>
+                            <li class="achievement" aria-label="OOP Champion achievement - Locked: Complete all lessons">
+                                <span class="achievement-icon" aria-hidden="true">🏅</span>
                                 <span class="achievement-name">OOP Champion</span>
-                            </div>
-                        </div>
-                    </div>
+                            </li>
+                        </ul>
+                    </section>
                 </div>
             </div>
         </section>
 
-        <!-- Resources Section -->
-        <section id="resources" class="content-section">
+        <section id="resources" class="content-section" aria-labelledby="resources-title">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">📚 Additional Learning</span>
-                    <h2 class="section-title">Resources & References</h2>
-                </div>
+                <header class="section-header">
+                    <span class="section-badge"><span aria-hidden="true">📚</span> Additional Learning</span>
+                    <h2 id="resources-title" class="section-title">Resources &amp; References</h2>
+                </header>
 
-                <div class="resources-grid">
-                    <div class="resource-card">
-                        <h4>📖 Quick Reference</h4>
+                <nav class="resources-grid" aria-label="Learning resources">
+                    <section class="resource-card" aria-labelledby="quick-ref-title">
+                        <h4 id="quick-ref-title"><span aria-hidden="true">📖</span> Quick Reference</h4>
                         <ul>
-                            <li><a href="#" class="resource-link">C# Keywords Cheat Sheet</a></li>
-                            <li><a href="#" class="resource-link">OOP Concepts Summary</a></li>
-                            <li><a href="#" class="resource-link">Common Patterns</a></li>
+                            <li><a href="#cheatsheet" class="resource-link">C# Keywords Cheat Sheet</a></li>
+                            <li><a href="#oop-summary" class="resource-link">OOP Concepts Summary</a></li>
+                            <li><a href="#patterns" class="resource-link">Common Patterns</a></li>
                         </ul>
-                    </div>
-                    <div class="resource-card">
-                        <h4>🔗 Official Documentation</h4>
+                    </section>
+                    <section class="resource-card" aria-labelledby="docs-title">
+                        <h4 id="docs-title"><span aria-hidden="true">🔗</span> Official Documentation</h4>
                         <ul>
-                            <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank" rel="noopener" class="resource-link">Microsoft C# Docs</a></li>
-                            <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interfaces/" target="_blank" rel="noopener" class="resource-link">Interfaces Guide</a></li>
+                            <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank" rel="noopener noreferrer" class="resource-link">Microsoft C# Docs <span class="visually-hidden">(opens in new tab)</span></a></li>
+                            <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interfaces/" target="_blank" rel="noopener noreferrer" class="resource-link">Interfaces Guide <span class="visually-hidden">(opens in new tab)</span></a></li>
                         </ul>
-                    </div>
-                    <div class="resource-card">
-                        <h4>🔧 Compiler Info</h4>
-                        <ul>
-                            <li><span class="resource-link">Using: Piston API</span></li>
-                            <li><span class="resource-link">Runtime: Mono C#</span></li>
-                            <li><span class="resource-link">Version: Latest</span></li>
-                        </ul>
-                    </div>
-                </div>
+                    </section>
+                    <section class="resource-card" aria-labelledby="compiler-info-title">
+                        <h4 id="compiler-info-title"><span aria-hidden="true">🔧</span> Compiler Info</h4>
+                        <dl>
+                            <dt class="visually-hidden">API</dt>
+                            <dd class="resource-link">Using: Piston API</dd>
+                            <dt class="visually-hidden">Runtime</dt>
+                            <dd class="resource-link">Runtime: Mono C#</dd>
+                            <dt class="visually-hidden">Version</dt>
+                            <dd class="resource-link">Version: Latest</dd>
+                        </dl>
+                    </section>
+                </nav>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <span class="logo-icon">⚡</span>
+                    <span class="logo-icon" aria-hidden="true">⚡</span>
                     <span class="logo-text">C# Mastery</span>
                     <p>Interactive learning with real compilation</p>
                 </div>
-                <div class="footer-links">
+                <nav class="footer-links" aria-label="Footer navigation">
                     <div class="footer-column">
                         <h4>Learn</h4>
                         <ul>
@@ -1208,20 +1238,18 @@ public class Program
                             <li><a href="#progress">My Progress</a></li>
                         </ul>
                     </div>
-                </div>
+                </nav>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 C# Mastery. Built for learning. Compiler by Piston API.</p>
+                <p><small>&copy; <time datetime="2026">2026</time> C# Mastery. Built for learning. Compiler by Piston API.</small></p>
             </div>
         </div>
     </footer>
 
-    <!-- Toast Container -->
-    <div id="toast-container"></div>
+    <div id="toast-container" role="region" aria-live="polite" aria-label="Notifications"></div>
 
-    <!-- Scripts -->
-    <script src="js/compiler.js"></script>
-    <script src="js/codeEditor.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/compiler.js" defer></script>
+    <script src="js/codeEditor.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
