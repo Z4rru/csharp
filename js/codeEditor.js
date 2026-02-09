@@ -799,8 +799,21 @@ public class Program
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    CodeEditor.init();
-    CodeEditor.startAutoSave();
+    // Only init if not already handled by inline bridge script
+    if (!window.PlatformBridge) {
+        CodeEditor.init();
+        CodeEditor.startAutoSave();
+    } else {
+        // Make CodeEditor templates available via bridge
+        if (window.PlatformBridge.templates) {
+            Object.keys(CodeEditor.templates).forEach(function(key) {
+                if (!window.PlatformBridge.templates[key]) {
+                    window.PlatformBridge.templates[key] = CodeEditor.templates[key];
+                }
+            });
+        }
+        console.log('CodeEditor.js loaded - platform bridge detected, skipping duplicate init');
+    }
 });
 
 // Make globally available
