@@ -487,7 +487,12 @@ const App = {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    App.init();
+    // Only init if not already handled by inline bridge script
+    if (!window.PlatformBridge) {
+        App.init();
+    } else {
+        console.log('App.js loaded - platform bridge detected, skipping duplicate init');
+    }
 });
 
 // Make globally available
