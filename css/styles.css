@@ -1182,12 +1182,8 @@ body {
 
 /* Line Numbers - FIXED */
 .line-numbers {
-    position: absolute;
-    left: 0;
-    top: 0;
     width: 50px;
-    height: 100%;
-    padding: var(--spacing-md) var(--spacing-sm);
+    padding: var(--spacing-md) 0;
     background: rgba(0, 0, 0, 0.4);
     color: var(--color-text-muted);
     font-family: var(--font-mono);
@@ -1196,13 +1192,16 @@ body {
     text-align: right;
     user-select: none;
     border-right: 1px solid rgba(255, 255, 255, 0.15);
-    overflow-y: auto;
-    overflow-x: hidden;
-    white-space: pre;
-    pointer-events: none;
+    overflow: hidden;
+    flex-shrink: 0;
     z-index: 2;
     scrollbar-width: none;
     -ms-overflow-style: none;
+}
+
+.line-numbers span {
+    display: block;
+    padding: 0 12px 0 0;
 }
 
 .line-numbers::-webkit-scrollbar {
