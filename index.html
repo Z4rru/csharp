@@ -1550,13 +1550,19 @@ public class Program
 
 <div id="toast-container" role="status" aria-live="polite" aria-label="Notifications"></div>
 
+<script src="app.js"></script>
+<script src="code-editor.js"></script>
 <script>
 (function(){
 "use strict";
+
+// ===== Piston API Compiler (real compilation - not in external JS files) =====
 var PISTON_URL="https://emkc.org/api/v2/piston/execute";
 var originalCode={};
 var progress={interfaces:0,inheritance:0,polymorphism:0,classes:0,codesRun:0,quizAnswers:{},achievements:[]};
 var quizState={current:1,total:3,answers:{}};
+
+// ===== Code Templates =====
 var templates={
 blank:'using System;\n\npublic class Program\n{\n    public static void Main()\n    {\n        \n    }\n}',
 hello:'using System;\n\npublic class Program\n{\n    public static void Main()\n    {\n        Console.WriteLine("Hello, World!");\n    }\n}',
@@ -1568,14 +1574,36 @@ linq:'using System;\nusing System.Linq;\nusing System.Collections.Generic;\n\npu
 async:'using System;\nusing System.Threading.Tasks;\n\npublic class Program\n{\n    public static async Task Main()\n    {\n        Console.WriteLine("=== Async/Await Demo ===\\n");\n        Console.WriteLine("Starting tasks...");\n\n        var task1 = SimulateDownload("File1.txt", 200);\n        var task2 = SimulateDownload("File2.dat", 150);\n        var task3 = SimulateDownload("File3.log", 300);\n\n        var results = await Task.WhenAll(task1, task2, task3);\n\n        Console.WriteLine("\\nAll downloads complete!");\n        foreach (var r in results)\n            Console.WriteLine($"  \\u2713 {r}");\n\n        Console.WriteLine($"\\nTotal size: {results.Length} files processed");\n    }\n\n    static async Task<string> SimulateDownload(string filename, int ms)\n    {\n        Console.WriteLine($"  Downloading {filename}...");\n        await Task.Delay(ms);\n        Console.WriteLine($"  Completed {filename} ({ms}ms)");\n        return $"{filename} - {ms}ms";\n    }\n}'
 };
 
+// ===== Utility Functions =====
 function loadProgress(){
 try{var s=localStorage.getItem("csharp-mastery-progress");if(s){var parsed=JSON.parse(s);if(parsed&&typeof parsed==="object"){for(var k in parsed){if(parsed.hasOwnProperty(k))progress[k]=parsed[k]}if(!Array.isArray(progress.achievements))progress.achievements=[];if(typeof progress.quizAnswers!=="object"||progress.quizAnswers===null)progress.quizAnswers={}}}}catch(e){progress={interfaces:0,inheritance:0,polymorphism:0,classes:0,codesRun:0,quizAnswers:{},achievements:[]}}
 }
-
 function saveProgress(){
 try{localStorage.setItem("csharp-mastery-progress",JSON.stringify(progress))}catch(e){}
 }
+function showToast(msg,type){
+var c=document.getElementById("toast-container");
+if(!c)return;
+var t=document.createElement("div");
+t.className="toast "+(type||"info");
+t.setAttribute("role","alert");
+t.textContent=msg;
+c.appendChild(t);
+setTimeout(function(){t.classList.add("removing");setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},300)},3500);
+}
+function announce(msg){
+var a=document.getElementById("announcer");
+if(!a)return;
+a.textContent="";
+setTimeout(function(){a.textContent=msg},50);
+}
+function escapeHtml(s){
+var d=document.createElement("div");
+d.textContent=s;
+return d.innerHTML;
+}
 
+// ===== Progress UI =====
 function updateProgressUI(){
 var topics=["interfaces","inheritance","polymorphism","classes"];
 var total=0;
@@ -1611,7 +1639,6 @@ ach.setAttribute("aria-label",(name?name.textContent:"Achievement")+" – Unlock
 }
 });
 }
-
 function unlockAchievement(id){
 if(progress.achievements.indexOf(id)===-1){
 progress.achievements.push(id);
@@ -1622,7 +1649,6 @@ var name=ach?ach.querySelector(".achievement-name"):null;
 showToast("\uD83C\uDFC6 Achievement Unlocked: "+(name?name.textContent:id),"success");
 }
 }
-
 function addTopicProgress(topic,amount){
 if(typeof progress[topic]==="undefined")progress[topic]=0;
 progress[topic]=Math.min(100,progress[topic]+amount);
@@ -1637,24 +1663,7 @@ var allDone=topics.every(function(t){return(progress[t]||0)>=100});
 if(allDone)unlockAchievement("oop-champion");
 }
 
-function showToast(msg,type){
-var c=document.getElementById("toast-container");
-if(!c)return;
-var t=document.createElement("div");
-t.className="toast "+(type||"info");
-t.setAttribute("role","alert");
-t.textContent=msg;
-c.appendChild(t);
-setTimeout(function(){t.classList.add("removing");setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},300)},3500);
-}
-
-function announce(msg){
-var a=document.getElementById("announcer");
-if(!a)return;
-a.textContent="";
-setTimeout(function(){a.textContent=msg},50);
-}
-
+// ===== Line Numbers =====
 function updateLineNumbers(editorId){
 var editor=document.getElementById(editorId);
 if(!editor)return;
@@ -1668,11 +1677,12 @@ var html="";
 for(var i=1;i<=count;i++)html+="<span>"+i+"</span>";
 linesEl.innerHTML=html;
 }
-
 function storeOriginal(id){
 var el=document.getElementById(id);
 if(el)originalCode[id]=el.value;
 }
+
+// ===== Compiler Status =====
 function setCompilerStatus(status,text){
 var el=document.getElementById("compiler-status");
 el.className="compiler-status "+status;
@@ -1687,11 +1697,12 @@ s.style.color=status==="success"?"var(--success)":status==="error"?"var(--error)
 s.textContent=text;
 el.appendChild(s);
 }
+
+// ===== Real Piston API Compilation =====
 async function compileAndRun(code,outputId,statusId){
 var outputEl=document.getElementById(outputId);
-var statusEl=document.getElementById(statusId);
 outputEl.innerHTML="";
-setOutputStatus(statusId,"compiling","⏳ Compiling...");
+setOutputStatus(statusId,"compiling","\u23F3 Compiling...");
 setCompilerStatus("compiling","Compiling...");
 announce("Compiling code...");
 try{
@@ -1704,10 +1715,8 @@ if(!resp.ok)throw new Error("HTTP "+resp.status);
 var data=await resp.json();
 var out="";
 var isError=false;
-if(data.compile&&data.compile.stderr){
-out=data.compile.stderr;
-isError=true;
-}else if(data.run){
+if(data.compile&&data.compile.stderr){out=data.compile.stderr;isError=true}
+else if(data.run){
 if(data.run.stderr){out+=data.run.stderr;isError=true}
 if(data.run.stdout)out+=(out?"\n":"")+data.run.stdout;
 if(data.run.signal)out+="\nProcess terminated: "+data.run.signal;
@@ -1715,79 +1724,72 @@ if(data.run.signal)out+="\nProcess terminated: "+data.run.signal;
 if(!out)out="(No output)";
 if(isError){
 outputEl.innerHTML='<span class="output-error">'+escapeHtml(out)+'</span>';
-setOutputStatus(statusId,"error","✗ Compilation Error");
+setOutputStatus(statusId,"error","\u2717 Compilation Error");
 setCompilerStatus("error","Error");
 announce("Compilation error. Check output for details.");
-setTimeout(function(){setCompilerStatus("","Compiler Ready")},3000);
 }else{
 outputEl.innerHTML='<span class="output-success">'+escapeHtml(out)+'</span>';
-setOutputStatus(statusId,"success","✓ Success ("+data.run.code+")");
+setOutputStatus(statusId,"success","\u2713 Success ("+data.run.code+")");
 setCompilerStatus("success","Success");
 announce("Code executed successfully.");
 progress.codesRun=(progress.codesRun||0)+1;
 if(progress.codesRun===1)unlockAchievement("code-runner");
 saveProgress();
-setTimeout(function(){setCompilerStatus("","Compiler Ready")},3000);
 }
+setTimeout(function(){setCompilerStatus("","Compiler Ready")},3000);
 }catch(e){
 outputEl.innerHTML='<span class="output-error">Network error: '+escapeHtml(e.message)+'\nPlease check your internet connection and try again.</span>';
-setOutputStatus(statusId,"error","✗ Network Error");
+setOutputStatus(statusId,"error","\u2717 Network Error");
 setCompilerStatus("error","Offline");
 announce("Network error. Please check connection.");
 setTimeout(function(){setCompilerStatus("","Compiler Ready")},5000);
 }
 }
-function escapeHtml(s){
-var d=document.createElement("div");
-d.textContent=s;
-return d.innerHTML;
-}
+
+// ===== Tab Handler & Code Formatter =====
 function handleTab(e){
 if(e.key==="Tab"){
 e.preventDefault();
-var t=e.target;
-var s=t.selectionStart;
-var end=t.selectionEnd;
+var t=e.target;var s=t.selectionStart;var end=t.selectionEnd;
 t.value=t.value.substring(0,s)+"    "+t.value.substring(end);
 t.selectionStart=t.selectionEnd=s+4;
 updateLineNumbers(t.id);
 }
 }
 function formatCode(code){
-var lines=code.split("\n");
-var indent=0;
-var result=[];
+var lines=code.split("\n");var indent=0;var result=[];
 lines.forEach(function(line){
 var trimmed=line.trim();
 if(!trimmed){result.push("");return}
 if(trimmed.startsWith("}")||trimmed.startsWith("]"))indent=Math.max(0,indent-1);
-var spaces="";
-for(var i=0;i<indent;i++)spaces+="    ";
+var spaces="";for(var i=0;i<indent;i++)spaces+="    ";
 result.push(spaces+trimmed);
 if(trimmed.endsWith("{")||trimmed.endsWith("["))indent++;
 });
 return result.join("\n");
 }
+
+// ===== Loading Screen =====
 function initLoading(){
 window.addEventListener("load",function(){
 setTimeout(function(){
-var ls=document.getElementById("loading-screen");
-ls.classList.add("hidden");
+document.getElementById("loading-screen").classList.add("hidden");
 unlockAchievement("first-steps");
 },800);
 });
 }
+
+// ===== Theme =====
 function initTheme(){
 var saved=localStorage.getItem("csharp-mastery-theme");
 var prefersDark=window.matchMedia("(prefers-color-scheme: dark)").matches;
-var theme=saved||(prefersDark?"dark":"light");
-applyTheme(theme);
+applyTheme(saved||(prefersDark?"dark":"light"));
 document.getElementById("theme-toggle").addEventListener("click",function(){
 var current=document.documentElement.getAttribute("data-theme")||"light";
 var next=current==="dark"?"light":"dark";
 applyTheme(next);
 localStorage.setItem("csharp-mastery-theme",next);
-showToast(next==="dark"?"🌙 Dark mode enabled":"☀️ Light mode enabled","info");
+showToast(next==="dark"?"\uD83C\uDF19 Dark mode enabled":"\u2600\uFE0F Light mode enabled","info");
 });
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(e){
 if(!localStorage.getItem("csharp-mastery-theme"))applyTheme(e.matches?"dark":"light");
@@ -1795,16 +1797,15 @@ if(!localStorage.getItem("csharp-mastery-theme"))applyTheme(e.matches?"dark":"li
 }
 function applyTheme(theme){
 document.documentElement.setAttribute("data-theme",theme);
-var btn=document.getElementById("theme-toggle");
-btn.setAttribute("aria-pressed",theme==="dark"?"true":"false");
+document.getElementById("theme-toggle").setAttribute("aria-pressed",theme==="dark"?"true":"false");
 }
+
+// ===== Navigation =====
 function initNav(){
 var header=document.querySelector(".header");
 var toggle=document.querySelector(".mobile-menu-toggle");
 var links=document.getElementById("nav-links");
-window.addEventListener("scroll",function(){
-header.classList.toggle("scrolled",window.scrollY>10);
-},{ passive:true });
+window.addEventListener("scroll",function(){header.classList.toggle("scrolled",window.scrollY>10)},{passive:true});
 toggle.addEventListener("click",function(){
 var expanded=this.getAttribute("aria-expanded")==="true";
 this.setAttribute("aria-expanded",!expanded);
@@ -1815,12 +1816,7 @@ link.addEventListener("click",function(e){
 e.preventDefault();
 var target=this.getAttribute("data-navigate")||this.getAttribute("href").replace("#","");
 var el=document.getElementById(target);
-if(el){
-el.scrollIntoView({behavior:"smooth",block:"start"});
-toggle.setAttribute("aria-expanded","false");
-links.classList.remove("open");
-document.querySelectorAll(".dropdown-menu").forEach(function(m){m.classList.remove("show")});
-}
+if(el){el.scrollIntoView({behavior:"smooth",block:"start"});toggle.setAttribute("aria-expanded","false");links.classList.remove("open");document.querySelectorAll(".dropdown-menu").forEach(function(m){m.classList.remove("show")})}
 });
 });
 var dropdownBtn=document.querySelector(".dropdown-toggle");
@@ -1838,42 +1834,33 @@ document.querySelectorAll(".dropdown-menu").forEach(function(m){m.classList.remo
 document.querySelectorAll(".dropdown-toggle").forEach(function(b){b.setAttribute("aria-expanded","false")});
 }
 });
+// Active section tracking
 var sections=document.querySelectorAll("section[id]");
 var navObserver=new IntersectionObserver(function(entries){
 entries.forEach(function(entry){
 if(entry.isIntersecting){
 var id=entry.target.id;
-document.querySelectorAll(".nav-link[data-section]").forEach(function(l){
-l.classList.remove("active");
-l.removeAttribute("aria-current");
-});
+document.querySelectorAll(".nav-link[data-section]").forEach(function(l){l.classList.remove("active");l.removeAttribute("aria-current")});
 var active=document.querySelector('.nav-link[data-section="'+id+'"]');
 if(active){active.classList.add("active");active.setAttribute("aria-current","page")}
 }
 });
 },{rootMargin:"-40% 0px -60% 0px",threshold:0});
 sections.forEach(function(s){navObserver.observe(s)});
-document.getElementById("start-learning-btn").addEventListener("click",function(){
-document.getElementById("interfaces").scrollIntoView({behavior:"smooth"});
-});
-document.getElementById("begin-journey-btn").addEventListener("click",function(){
-document.getElementById("interfaces").scrollIntoView({behavior:"smooth"});
-addTopicProgress("interfaces",5);
-});
-document.getElementById("test-compiler-btn").addEventListener("click",function(){
-document.getElementById("playground").scrollIntoView({behavior:"smooth"});
-});
+// Hero buttons
+document.getElementById("start-learning-btn").addEventListener("click",function(){document.getElementById("interfaces").scrollIntoView({behavior:"smooth"})});
+document.getElementById("begin-journey-btn").addEventListener("click",function(){document.getElementById("interfaces").scrollIntoView({behavior:"smooth"});addTopicProgress("interfaces",5)});
+document.getElementById("test-compiler-btn").addEventListener("click",function(){document.getElementById("playground").scrollIntoView({behavior:"smooth"})});
 }
+
+// ===== Code Editors =====
 function initEditors(){
-var editors=document.querySelectorAll(".code-editor");
-editors.forEach(function(editor){
+document.querySelectorAll(".code-editor").forEach(function(editor){
 storeOriginal(editor.id);
 updateLineNumbers(editor.id);
 editor.addEventListener("input",function(){
 updateLineNumbers(this.id);
-if(this.id==="playground-editor"){
-try{localStorage.setItem("csharp-mastery-playground",this.value)}catch(e){}
-}
+if(this.id==="playground-editor"){try{localStorage.setItem("csharp-mastery-playground",this.value)}catch(e){}}
 });
 editor.addEventListener("keydown",handleTab);
 editor.addEventListener("scroll",function(){
@@ -1882,13 +1869,10 @@ var linesEl=document.getElementById(linesId);
 if(linesEl)linesEl.style.transform="translateY(-"+this.scrollTop+"px)";
 });
 });
-var saved=null;
-try{saved=localStorage.getItem("csharp-mastery-playground")}catch(e){}
-if(saved){
-var pe=document.getElementById("playground-editor");
-pe.value=saved;
-updateLineNumbers("playground-editor");
-}
+// Load saved playground code
+var saved=null;try{saved=localStorage.getItem("csharp-mastery-playground")}catch(e){}
+if(saved){var pe=document.getElementById("playground-editor");pe.value=saved;updateLineNumbers("playground-editor")}
+// Run buttons
 document.querySelectorAll(".run-btn").forEach(function(btn){
 btn.addEventListener("click",function(){
 var editorId=this.getAttribute("data-editor");
@@ -1896,77 +1880,56 @@ var editor=document.getElementById(editorId);
 var outputId=editorId.replace("editor-","output-");
 var statusId=editorId.replace("editor-","status-");
 this.disabled=true;
-this.innerHTML='<span class="run-icon" aria-hidden="true">⏳</span> Running...';
+this.innerHTML='<span class="run-icon" aria-hidden="true">\u23F3</span> Running...';
 var self=this;
 compileAndRun(editor.value,outputId,statusId).then(function(){
 self.disabled=false;
-self.innerHTML='<span class="run-icon" aria-hidden="true">▶</span> Run Code';
+self.innerHTML='<span class="run-icon" aria-hidden="true">\u25B6</span> Run Code';
 if(editorId==="editor-1"||editorId==="editor-2")addTopicProgress("interfaces",10);
 if(editorId==="editor-inheritance")addTopicProgress("inheritance",15);
 if(editorId==="editor-polymorphism")addTopicProgress("polymorphism",15);
 });
 });
 });
+// Reset buttons
 document.querySelectorAll(".reset-btn").forEach(function(btn){
 btn.addEventListener("click",function(){
 var editorId=this.getAttribute("data-editor");
 var editor=document.getElementById(editorId);
-if(originalCode[editorId]){
-editor.value=originalCode[editorId];
-updateLineNumbers(editorId);
-showToast("Code reset to original","info");
-announce("Code reset to original");
-}
+if(originalCode[editorId]){editor.value=originalCode[editorId];updateLineNumbers(editorId);showToast("Code reset to original","info");announce("Code reset to original")}
 });
 });
 }
+
+// ===== Playground =====
 function initPlayground(){
 document.getElementById("run-playground").addEventListener("click",function(){
 var editor=document.getElementById("playground-editor");
-this.disabled=true;
-this.innerHTML='<span aria-hidden="true">⏳</span> Running...';
+this.disabled=true;this.innerHTML='<span aria-hidden="true">\u23F3</span> Running...';
 var self=this;
 compileAndRun(editor.value,"playground-output","status-playground").then(function(){
-self.disabled=false;
-self.innerHTML='<span aria-hidden="true">▶</span> Run Code';
+self.disabled=false;self.innerHTML='<span aria-hidden="true">\u25B6</span> Run Code';
 });
 });
+// Ctrl+Enter shortcut
 document.addEventListener("keydown",function(e){
 if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){
 e.preventDefault();
 var focused=document.activeElement;
 if(focused&&focused.classList.contains("code-editor")){
-var editorId=focused.id;
-if(editorId==="playground-editor"){
-document.getElementById("run-playground").click();
-}else{
-var runBtn=document.querySelector('.run-btn[data-editor="'+editorId+'"]');
-if(runBtn)runBtn.click();
-}
-}else{
-document.getElementById("run-playground").click();
-}
+if(focused.id==="playground-editor")document.getElementById("run-playground").click();
+else{var runBtn=document.querySelector('.run-btn[data-editor="'+focused.id+'"]');if(runBtn)runBtn.click()}
+}else document.getElementById("run-playground").click();
 }
 });
 document.getElementById("clear-playground").addEventListener("click",function(){
-var editor=document.getElementById("playground-editor");
-editor.value=templates.blank;
-updateLineNumbers("playground-editor");
-showToast("Editor cleared","info");
+document.getElementById("playground-editor").value=templates.blank;updateLineNumbers("playground-editor");showToast("Editor cleared","info");
 });
 document.getElementById("format-code").addEventListener("click",function(){
-var editor=document.getElementById("playground-editor");
-editor.value=formatCode(editor.value);
-updateLineNumbers("playground-editor");
-showToast("Code formatted","success");
+var editor=document.getElementById("playground-editor");editor.value=formatCode(editor.value);updateLineNumbers("playground-editor");showToast("Code formatted","success");
 });
 document.getElementById("save-code").addEventListener("click",function(){
-try{
-localStorage.setItem("csharp-mastery-playground",document.getElementById("playground-editor").value);
-showToast("💾 Code saved to browser storage","success");
-}catch(e){
-showToast("Failed to save code","error");
-}
+try{localStorage.setItem("csharp-mastery-playground",document.getElementById("playground-editor").value);showToast("\uD83D\uDCBE Code saved to browser storage","success")}catch(e){showToast("Failed to save code","error")}
 });
 document.getElementById("clear-console").addEventListener("click",function(){
 document.getElementById("playground-output").innerHTML='<span class="output-placeholder">Console cleared. Run code to see output.</span>';
@@ -1974,45 +1937,31 @@ document.getElementById("status-playground").innerHTML="";
 });
 document.getElementById("code-template").addEventListener("change",function(){
 var val=this.value;
-if(templates[val]){
-document.getElementById("playground-editor").value=templates[val];
-updateLineNumbers("playground-editor");
-showToast("Template loaded: "+this.options[this.selectedIndex].text,"info");
-}
+if(templates[val]){document.getElementById("playground-editor").value=templates[val];updateLineNumbers("playground-editor");showToast("Template loaded: "+this.options[this.selectedIndex].text,"info")}
 });
 }
+
+// ===== Quiz =====
 function initQuiz(){
-var quiz=document.getElementById("interface-quiz");
-if(!quiz)return;
+var quiz=document.getElementById("interface-quiz");if(!quiz)return;
 quiz.addEventListener("click",function(e){
-var opt=e.target.closest(".quiz-option");
-if(!opt)return;
+var opt=e.target.closest(".quiz-option");if(!opt)return;
 var fieldset=opt.closest(".quiz-question");
 var qNum=parseInt(fieldset.getAttribute("data-question"));
 if(quizState.answers[qNum])return;
 var isCorrect=opt.getAttribute("data-answer")==="correct";
 quizState.answers[qNum]=true;
-var options=fieldset.querySelectorAll(".quiz-option");
-options.forEach(function(o){
-o.classList.add("disabled");
-o.setAttribute("aria-checked","false");
+fieldset.querySelectorAll(".quiz-option").forEach(function(o){
+o.classList.add("disabled");o.setAttribute("aria-checked","false");
 if(o.getAttribute("data-answer")==="correct")o.classList.add("correct");
 });
 opt.setAttribute("aria-checked","true");
 if(!isCorrect)opt.classList.add("wrong");
 var feedback=fieldset.querySelector(".quiz-feedback");
-if(isCorrect){
-feedback.textContent="✓ Correct! Well done!";
-feedback.style.color="var(--success)";
-addTopicProgress("interfaces",10);
-}else{
-feedback.textContent="✗ Not quite. The correct answer is highlighted.";
-feedback.style.color="var(--error)";
-addTopicProgress("interfaces",3);
-}
+if(isCorrect){feedback.textContent="\u2713 Correct! Well done!";feedback.style.color="var(--success)";addTopicProgress("interfaces",10)}
+else{feedback.textContent="\u2717 Not quite. The correct answer is highlighted.";feedback.style.color="var(--error)";addTopicProgress("interfaces",3)}
 announce(feedback.textContent);
-progress.quizAnswers["q"+qNum]=isCorrect;
-saveProgress();
+progress.quizAnswers["q"+qNum]=isCorrect;saveProgress();
 });
 document.getElementById("next-question").addEventListener("click",function(){
 if(quizState.current<quizState.total){
@@ -2020,18 +1969,15 @@ document.querySelector('.quiz-question[data-question="'+quizState.current+'"]').
 document.querySelector('.quiz-question[data-question="'+quizState.current+'"]').classList.remove("active");
 quizState.current++;
 var next=document.querySelector('.quiz-question[data-question="'+quizState.current+'"]');
-next.hidden=false;
-next.classList.add("active");
+next.hidden=false;next.classList.add("active");
 document.getElementById("current-q").textContent=quizState.current;
 var pct=Math.round((quizState.current/quizState.total)*100);
-var bar=quiz.querySelector(".progress-fill");
-bar.style.width=pct+"%";
+quiz.querySelector(".progress-fill").style.width=pct+"%";
 quiz.querySelector(".progress-bar").setAttribute("aria-valuenow",pct);
 document.getElementById("prev-question").disabled=false;
 if(quizState.current===quizState.total)this.textContent="Finish";
 }else{
-var correct=0;
-for(var k in progress.quizAnswers)if(progress.quizAnswers[k])correct++;
+var correct=0;for(var k in progress.quizAnswers)if(progress.quizAnswers[k])correct++;
 showToast("Quiz complete! "+correct+"/"+quizState.total+" correct","success");
 announce("Quiz complete. You got "+correct+" out of "+quizState.total+" correct.");
 }
@@ -2042,29 +1988,27 @@ document.querySelector('.quiz-question[data-question="'+quizState.current+'"]').
 document.querySelector('.quiz-question[data-question="'+quizState.current+'"]').classList.remove("active");
 quizState.current--;
 var prev=document.querySelector('.quiz-question[data-question="'+quizState.current+'"]');
-prev.hidden=false;
-prev.classList.add("active");
+prev.hidden=false;prev.classList.add("active");
 document.getElementById("current-q").textContent=quizState.current;
 var pct=Math.round((quizState.current/quizState.total)*100);
-var bar=quiz.querySelector(".progress-fill");
-bar.style.width=pct+"%";
+quiz.querySelector(".progress-fill").style.width=pct+"%";
 quiz.querySelector(".progress-bar").setAttribute("aria-valuenow",pct);
-document.getElementById("next-question").textContent="Next →";
+document.getElementById("next-question").textContent="Next \u2192";
 if(quizState.current===1)this.disabled=true;
 }
 });
 }
+
+// ===== Animations (delegated to external App.js via intersection observers) =====
 function initCountUp(){
 var observer=new IntersectionObserver(function(entries){
 entries.forEach(function(entry){
 if(entry.isIntersecting){
 entry.target.querySelectorAll(".stat-number").forEach(function(el){
 var target=parseInt(el.getAttribute("data-count"));
-var duration=1200;
-var start=performance.now();
+var duration=1200;var start=performance.now();
 function step(now){
-var elapsed=now-start;
-var pct=Math.min(elapsed/duration,1);
+var elapsed=now-start;var pct=Math.min(elapsed/duration,1);
 var ease=1-Math.pow(1-pct,3);
 el.textContent=Math.round(target*ease);
 if(pct<1)requestAnimationFrame(step);
@@ -2078,37 +2022,35 @@ observer.unobserve(entry.target);
 var stats=document.querySelector(".hero-stats");
 if(stats)observer.observe(stats);
 }
+
 function initScrollReveal(){
 if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
 var reveals=document.querySelectorAll(".learning-card,.interactive-example,.concept-explainer,.quiz-section,.resource-card,.progress-dashboard");
 var revealObserver=new IntersectionObserver(function(entries){
 entries.forEach(function(entry){
 if(entry.isIntersecting){
-entry.target.style.opacity="1";
-entry.target.style.transform="translateY(0)";
+entry.target.style.opacity="1";entry.target.style.transform="translateY(0)";
 revealObserver.unobserve(entry.target);
 }
 });
 },{threshold:0.1,rootMargin:"0px 0px -40px 0px"});
 reveals.forEach(function(el){
-el.style.opacity="0";
-el.style.transform="translateY(24px)";
+el.style.opacity="0";el.style.transform="translateY(24px)";
 el.style.transition="opacity .6s ease, transform .6s ease";
 revealObserver.observe(el);
 });
 }
+
 function initProgressRingAnimation(){
 var observer=new IntersectionObserver(function(entries){
 entries.forEach(function(entry){
-if(entry.isIntersecting){
-updateProgressUI();
-observer.unobserve(entry.target);
-}
+if(entry.isIntersecting){updateProgressUI();observer.unobserve(entry.target)}
 });
 },{threshold:0.3});
 var dashboard=document.querySelector(".progress-dashboard");
 if(dashboard)observer.observe(dashboard);
 }
+
 function initSectionTracking(){
 var sectionObserver=new IntersectionObserver(function(entries){
 entries.forEach(function(entry){
@@ -2122,10 +2064,11 @@ sectionObserver.unobserve(entry.target);
 });
 },{threshold:0.3});
 ["interfaces","inheritance","polymorphism"].forEach(function(id){
-var el=document.getElementById(id);
-if(el)sectionObserver.observe(el);
+var el=document.getElementById(id);if(el)sectionObserver.observe(el);
 });
 }
+
+// ===== Initialize Everything =====
 loadProgress();
 initLoading();
 initTheme();
@@ -2137,6 +2080,19 @@ initCountUp();
 initScrollReveal();
 initProgressRingAnimation();
 initSectionTracking();
+
+// Expose to external JS modules for interop
+window.PlatformBridge = {
+    showToast: showToast,
+    announce: announce,
+    addTopicProgress: addTopicProgress,
+    unlockAchievement: unlockAchievement,
+    compileAndRun: compileAndRun,
+    updateLineNumbers: updateLineNumbers,
+    templates: templates,
+    formatCode: formatCode,
+    progress: progress
+};
 })();
 </script>
 </body>
