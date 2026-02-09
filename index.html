@@ -5,14 +5,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Learn C# interfaces, inheritance, polymorphism and OOP concepts with interactive examples and real-time code execution">
+<meta name="keywords" content="C#, interfaces, OOP, programming, learning, tutorial, inheritance, polymorphism">
+<meta name="author" content="C# Mastery">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#6366f1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1e1b4b" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="C# Mastery">
+<meta name="application-name" content="C# Mastery">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://csharp-mastery.dev/">
+<meta property="og:title" content="C# OOP Mastery | Interactive Learning Platform">
+<meta property="og:description" content="Learn C# interfaces, inheritance, polymorphism and OOP concepts with interactive examples and real-time code execution">
+<meta property="og:image" content="https://csharp-mastery.dev/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="C# Mastery">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C# OOP Mastery | Interactive Learning Platform">
+<meta name="twitter:description" content="Learn C# interfaces, inheritance, polymorphism and OOP concepts with interactive examples and real-time code execution">
+<meta name="twitter:image" content="https://csharp-mastery.dev/images/twitter-card.png">
 <title>C# OOP Mastery | Interactive Learning Platform 2026</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<link rel="canonical" href="https://csharp-mastery.dev/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://emkc.org" crossorigin>
+<link rel="dns-prefetch" href="https://emkc.org">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "C# OOP Mastery",
+    "description": "Interactive C# learning platform with real-time code execution",
+    "url": "https://csharp-mastery.dev/",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://csharp-mastery.dev/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "C# OOP Mastery",
+    "description": "Learn C# interfaces, inheritance, polymorphism and OOP concepts",
+    "provider": {
+        "@type": "Organization",
+        "name": "C# Mastery"
+    },
+    "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online"
+    }
+}
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f8fafc;--bg-alt:#f1f5f9;--surface:#fff;--surface-2:#f8fafc;--text:#0f172a;--text-2:#475569;--text-3:#94a3b8;--border:#e2e8f0;--border-2:#cbd5e1;--primary:#6366f1;--primary-hover:#4f46e5;--primary-light:#eef2ff;--primary-glow:rgba(99,102,241,.3);--success:#10b981;--success-light:#d1fae5;--error:#ef4444;--error-light:#fee2e2;--warning:#f59e0b;--warning-light:#fef3c7;--gradient:linear-gradient(135deg,#6366f1,#8b5cf6,#a78bfa);--gradient-text:linear-gradient(135deg,#6366f1,#ec4899);--shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow:0 4px 6px -1px rgba(0,0,0,.07),0 2px 4px -2px rgba(0,0,0,.05);--shadow-lg:0 20px 40px -8px rgba(0,0,0,.1);--shadow-xl:0 25px 50px -12px rgba(0,0,0,.15);--radius:8px;--radius-lg:16px;--radius-xl:24px;--font-sans:'Inter',system-ui,-apple-system,sans-serif;--font-mono:'JetBrains Mono','Fira Code',monospace;--header-h:64px;--transition:all .3s cubic-bezier(.4,0,.2,1)}
@@ -61,7 +119,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-he
 .nav-link.active{color:var(--primary);background:var(--primary-light)}
 .dropdown{position:relative}
 .dropdown-arrow{font-size:8px;transition:transform .2s}
-.dropdown[aria-expanded="true"] .dropdown-arrow{transform:rotate(180deg)}
+.dropdown-toggle[aria-expanded="true"] .dropdown-arrow{transform:rotate(180deg)}
 .dropdown-menu{position:absolute;top:100%;left:0;min-width:220px;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);opacity:0;visibility:hidden;transform:translateY(8px);transition:var(--transition);list-style:none;z-index:100}
 .dropdown-menu.show{opacity:1;visibility:visible;transform:translateY(0)}
 .dropdown-menu a{display:block;padding:10px 16px;color:var(--text-2);text-decoration:none;font-size:14px;border-radius:var(--radius);transition:var(--transition)}
@@ -83,7 +141,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-he
 .btn-outline:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
 .btn-large{padding:14px 28px;font-size:16px;border-radius:var(--radius-lg)}
 .btn-small{padding:6px 12px;font-size:12px}
-.btn-tiny{padding:4px 8px;font-size:11px;border:1px solid var(--border);background:transparent;color:var(--text-3);border-radius:4px;cursor:pointer}
+.btn-tiny{padding:4px 8px;font-size:11px;border:1px solid var(--border);background:transparent;color:var(--text-3);border-radius:4px;cursor:pointer;font-family:var(--font-sans)}
 .hero-section{min-height:100vh;display:flex;align-items:center;padding:calc(var(--header-h) + 40px) 24px 60px;position:relative;overflow:hidden}
 .hero-background{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .floating-shapes{position:absolute;inset:0}
@@ -98,7 +156,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-he
 .hero-title{font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.1;margin-bottom:20px;letter-spacing:-.02em}
 .gradient-text{background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-description{font-size:18px;color:var(--text-2);line-height:1.7;margin-bottom:32px;max-width:540px}
-.hero-stats{display:flex;gap:32px;margin-bottom:36px}
+.hero-stats{display:flex;gap:32px;margin-bottom:36px;list-style:none}
 .stat-item{text-align:center}
 .stat-number{display:block;font-size:32px;font-weight:800;color:var(--primary)}
 .stat-label{font-size:13px;color:var(--text-3);font-weight:500}
@@ -161,6 +219,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-he
 .duration{color:var(--text-3)}
 .card-action{width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius);font-weight:600;font-size:14px;cursor:pointer;transition:var(--transition);font-family:var(--font-sans)}
 .card-action:hover{background:var(--primary-hover)}
+.card-action:focus-visible{box-shadow:0 0 0 3px var(--primary-glow)}
 .concept-explainer{margin-bottom:40px}
 .analogy-box{display:flex;gap:20px;padding:24px;background:var(--primary-light);border:1px solid rgba(99,102,241,.2);border-radius:var(--radius-xl);margin:24px 0}
 .analogy-icon{font-size:40px;flex-shrink:0}
@@ -233,7 +292,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-he
 .playground-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:12px 16px;background:var(--bg-alt);border-bottom:1px solid var(--border)}
 .template-selector{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500}
 .template-selector select{padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);font-size:13px;font-family:var(--font-sans);cursor:pointer}
-.playground-actions{display:flex;gap:8px}
+.playground-actions{display:flex;gap:8px;flex-wrap:wrap}
 .playground-editor{display:grid;grid-template-columns:1fr 1fr;min-height:500px}
 .editor-pane,.output-pane{display:flex;flex-direction:column}
 .pane-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--bg-alt);border-bottom:1px solid var(--border);font-size:13px;font-weight:600;gap:8px}
@@ -269,9 +328,10 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-he
 .resources-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
 .resource-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px}
 .resource-card h4{font-size:16px;margin-bottom:16px}
-.resource-card ul,.resource-card dl{list-style:none}
+.resource-card ul{list-style:none}
 .resource-link{display:block;padding:8px 12px;color:var(--primary);text-decoration:none;font-size:14px;border-radius:var(--radius);transition:var(--transition)}
-.resource-link:hover{background:var(--primary-light)}
+a.resource-link:hover{background:var(--primary-light)}
+.resource-info{display:block;padding:8px 12px;font-size:14px;color:var(--text-2)}
 .footer{padding:60px 0 24px;background:var(--bg-alt);border-top:1px solid var(--border)}
 .footer-content{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:32px}
 .footer-brand{max-width:300px}
@@ -282,8 +342,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-he
 .footer-column a{display:block;padding:4px 0;color:var(--text-2);text-decoration:none;font-size:13px;transition:color .2s}
 .footer-column a:hover{color:var(--primary)}
 .footer-bottom{padding-top:24px;border-top:1px solid var(--border);text-align:center;color:var(--text-3);font-size:12px}
-#toast-container{position:fixed;top:80px;right:20px;z-index:10000;display:flex;flex-direction:column;gap:8px}
-.toast{padding:12px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);font-size:13px;font-weight:500;animation:toast-in .3s ease;display:flex;align-items:center;gap:8px;max-width:360px}
+#toast-container{position:fixed;top:80px;right:20px;z-index:10000;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{padding:12px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);font-size:13px;font-weight:500;animation:toast-in .3s ease;display:flex;align-items:center;gap:8px;max-width:360px;pointer-events:auto}
 .toast.success{border-left:4px solid var(--success)}
 .toast.error{border-left:4px solid var(--error)}
 .toast.info{border-left:4px solid var(--primary)}
@@ -316,6 +376,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-he
 .analogy-box{flex-direction:column;gap:12px}
 .quiz-options{grid-template-columns:1fr}
 .playground-toolbar{flex-direction:column}
+.playground-actions{width:100%;justify-content:flex-end}
 .footer-links{gap:32px}
 .footer-content{flex-direction:column}
 .resources-grid{grid-template-columns:1fr}
@@ -330,50 +391,58 @@ html{scroll-behavior:auto}
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <a href="#playground" class="skip-link">Skip to code playground</a>
-<div id="loading-screen" class="loading-screen" role="progressbar" aria-label="Loading application">
+
+<div id="loading-screen" class="loading-screen" role="status" aria-label="Loading application">
 <div class="loader">
 <div class="loader-ring" aria-hidden="true"></div>
 <div class="loader-text">Loading C# Learning Platform...</div>
 </div>
 </div>
+
 <noscript>
 <div class="noscript-warning" role="alert">
 <h2>JavaScript Required</h2>
-<p>This interactive C# learning platform requires JavaScript. Please enable JavaScript in your browser.</p>
+<p>This interactive C# learning platform requires JavaScript to run code examples. Please enable JavaScript in your browser settings.</p>
 </div>
 </noscript>
+
 <div id="compiler-status" class="compiler-status" role="status" aria-live="polite" aria-atomic="true">
 <span class="status-dot" aria-hidden="true"></span>
 <span class="status-text">Compiler Ready</span>
 </div>
+
 <div id="announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+
 <header class="header" role="banner">
-<nav class="nav-container" role="navigation" aria-label="Main navigation">
+<nav class="nav-container" aria-label="Main navigation">
 <a href="#home" class="logo" aria-label="C# Mastery - Home">
 <span class="logo-icon" aria-hidden="true">⚡</span>
 <span class="logo-text">C# <span class="highlight">Mastery</span></span>
 </a>
+
 <button type="button" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
 <span class="hamburger" aria-hidden="true"></span>
 </button>
-<ul class="nav-links" id="nav-links" role="menubar">
-<li role="none"><a href="#home" class="nav-link active" data-section="home" role="menuitem" aria-current="page">Home</a></li>
-<li class="dropdown" role="none">
-<button type="button" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="concepts-menu" role="menuitem">
+
+<ul class="nav-links" id="nav-links">
+<li><a href="#home" class="nav-link active" data-section="home" aria-current="page">Home</a></li>
+<li class="dropdown">
+<button type="button" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="concepts-menu">
 Concepts <span class="dropdown-arrow" aria-hidden="true">▼</span>
 </button>
-<ul class="dropdown-menu" id="concepts-menu" role="menu" aria-label="Concepts submenu">
-<li role="none"><a href="#interfaces" role="menuitem" tabindex="-1">Interfaces</a></li>
-<li role="none"><a href="#inheritance" role="menuitem" tabindex="-1">Inheritance</a></li>
-<li role="none"><a href="#polymorphism" role="menuitem" tabindex="-1">Polymorphism</a></li>
-<li role="none"><a href="#classes" role="menuitem" tabindex="-1">Classes &amp; Objects</a></li>
-<li role="none"><a href="#methods" role="menuitem" tabindex="-1">Methods &amp; Structures</a></li>
+<ul class="dropdown-menu" id="concepts-menu" aria-label="Concepts submenu">
+<li><a href="#interfaces">Interfaces</a></li>
+<li><a href="#inheritance">Inheritance</a></li>
+<li><a href="#polymorphism">Polymorphism</a></li>
+<li><a href="#classes">Classes &amp; Objects</a></li>
+<li><a href="#methods">Methods &amp; Structures</a></li>
 </ul>
 </li>
-<li role="none"><a href="#playground" class="nav-link" data-section="playground" role="menuitem">Code Playground</a></li>
-<li role="none"><a href="#progress" class="nav-link" data-section="progress" role="menuitem">My Progress</a></li>
-<li role="none"><a href="#resources" class="nav-link" data-section="resources" role="menuitem">Resources</a></li>
+<li><a href="#playground" class="nav-link" data-section="playground">Code Playground</a></li>
+<li><a href="#progress" class="nav-link" data-section="progress">My Progress</a></li>
+<li><a href="#resources" class="nav-link" data-section="resources">Resources</a></li>
 </ul>
+
 <div class="nav-actions">
 <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" aria-pressed="false">
 <span class="sun-icon" aria-hidden="true">☀️</span>
@@ -383,7 +452,9 @@ Concepts <span class="dropdown-arrow" aria-hidden="true">▼</span>
 </div>
 </nav>
 </header>
+
 <main id="main-content" tabindex="-1">
+
 <section id="home" class="hero-section" aria-labelledby="hero-title">
 <div class="hero-background" aria-hidden="true">
 <div class="floating-shapes">
@@ -393,25 +464,55 @@ Concepts <span class="dropdown-arrow" aria-hidden="true">▼</span>
 <div class="shape shape-4"></div>
 </div>
 </div>
+
 <div class="hero-content">
 <div class="hero-text">
 <span class="hero-badge"><span aria-hidden="true">🚀</span> Real C# Compiler - Updated <time datetime="2026">2026</time></span>
-<h1 id="hero-title" class="hero-title">Master <span class="gradient-text">C# Interfaces</span> &amp; <span class="gradient-text">OOP</span> Like a Pro</h1>
-<p class="hero-description">Learn object-oriented programming concepts through <strong>interactive examples</strong>, <strong>real-time code execution</strong>, and <strong>visual explanations</strong>. <em>Code runs on a real C# compiler!</em></p>
-<dl class="hero-stats" role="group" aria-label="Platform statistics">
-<div class="stat-item"><dd><span class="stat-number" data-count="15" aria-label="15 Chapters">0</span></dd><dt class="stat-label">Chapters</dt></div>
-<div class="stat-item"><dd><span class="stat-number" data-count="50" aria-label="50 Examples">0</span></dd><dt class="stat-label">Examples</dt></div>
-<div class="stat-item"><dd><span class="stat-number" data-count="100" aria-label="100 Exercises">0</span></dd><dt class="stat-label">Exercises</dt></div>
-</dl>
+<h1 id="hero-title" class="hero-title">
+Master <span class="gradient-text">C# Interfaces</span> &amp;
+<span class="gradient-text">OOP</span> Like a Pro
+</h1>
+<p class="hero-description">
+Learn object-oriented programming concepts through <strong>interactive examples</strong>,
+<strong>real-time code execution</strong>, and <strong>visual explanations</strong>.
+<em>Code runs on a real C# compiler!</em>
+</p>
+
+<div class="hero-stats" role="group" aria-label="Platform statistics">
+<div class="stat-item">
+<span class="stat-number" data-count="15" aria-label="15 Chapters">0</span>
+<span class="stat-label">Chapters</span>
+</div>
+<div class="stat-item">
+<span class="stat-number" data-count="50" aria-label="50 Examples">0</span>
+<span class="stat-label">Examples</span>
+</div>
+<div class="stat-item">
+<span class="stat-number" data-count="100" aria-label="100 Exercises">0</span>
+<span class="stat-label">Exercises</span>
+</div>
+</div>
+
 <div class="hero-actions" role="group" aria-label="Get started actions">
-<button type="button" class="btn btn-large btn-primary" id="begin-journey-btn"><span>Begin Your Journey</span><span class="btn-arrow" aria-hidden="true">→</span></button>
-<button type="button" class="btn btn-large btn-secondary" id="test-compiler-btn"><span class="play-icon" aria-hidden="true">▶</span><span>Test Compiler</span></button>
+<button type="button" class="btn btn-large btn-primary" id="begin-journey-btn">
+<span>Begin Your Journey</span>
+<span class="btn-arrow" aria-hidden="true">→</span>
+</button>
+<button type="button" class="btn btn-large btn-secondary" id="test-compiler-btn">
+<span class="play-icon" aria-hidden="true">▶</span>
+<span>Test Compiler</span>
+</button>
 </div>
 </div>
+
 <div class="hero-visual" aria-hidden="true">
-<figure class="code-preview-card">
+<div class="code-preview-card">
 <div class="code-header">
-<div class="window-controls"><span class="control red"></span><span class="control yellow"></span><span class="control green"></span></div>
+<div class="window-controls">
+<span class="control red"></span>
+<span class="control yellow"></span>
+<span class="control green"></span>
+</div>
 <span class="file-name">ITransactions.cs</span>
 <span class="compiler-badge">🔴 Live Compiler</span>
 </div>
@@ -432,86 +533,216 @@ Concepts <span class="dropdown-arrow" aria-hidden="true">▼</span>
     }
 }</code></pre>
 <div class="code-footer">
-<span class="typing-indicator"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+<span class="typing-indicator">
+<span class="dot"></span>
+<span class="dot"></span>
+<span class="dot"></span>
+</span>
 <span class="status">Interface implemented successfully ✓</span>
 </div>
-</figure>
 </div>
 </div>
-<div class="scroll-indicator" aria-hidden="true"><span class="scroll-text">Scroll to explore</span><div class="scroll-arrow">↓</div></div>
+</div>
+
+<div class="scroll-indicator" aria-hidden="true">
+<span class="scroll-text">Scroll to explore</span>
+<div class="scroll-arrow">↓</div>
+</div>
 </section>
+
 <section id="learning-path" class="learning-path-section" aria-labelledby="learning-path-title">
 <div class="container">
 <header class="section-header">
 <span class="section-badge"><span aria-hidden="true">📚</span> Learning Path</span>
 <h2 id="learning-path-title" class="section-title">What You'll Master</h2>
-<p class="section-description">A structured curriculum designed to take you from beginner to confident C# developer</p>
+<p class="section-description">
+A structured curriculum designed to take you from beginner to confident C# developer
+</p>
 </header>
+
 <div class="learning-grid" role="list">
 <article class="learning-card" data-topic="interfaces" role="listitem">
-<div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" class="icon-svg" focusable="false"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+<div class="card-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" class="icon-svg" focusable="false" aria-hidden="true">
+<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+</svg>
+</div>
 <div class="card-content">
 <h3 class="card-title">Interfaces</h3>
-<p class="card-description">Think of interfaces as <strong>contracts</strong>. Like how a job description lists required skills without telling you HOW to do them.</p>
-<ul class="card-topics" aria-label="Topics covered"><li>Defining interface signatures</li><li>Implementing single interfaces</li><li>Multiple interface implementation</li><li>Interface properties</li></ul>
-<div class="card-meta"><span class="difficulty easy">Beginner</span><span class="duration"><time datetime="PT45M">~45 mins</time></span></div>
+<p class="card-description">
+Think of interfaces as <strong>contracts</strong> or <strong>blueprints</strong>.
+Like how a job description lists required skills without telling you HOW to do them,
+interfaces define WHAT a class must do, not HOW.
+</p>
+<ul class="card-topics" aria-label="Topics covered">
+<li>Defining interface signatures</li>
+<li>Implementing single interfaces</li>
+<li>Multiple interface implementation</li>
+<li>Interface properties</li>
+</ul>
+<div class="card-meta">
+<span class="difficulty easy">Beginner</span>
+<span class="duration"><time datetime="PT45M">~45 mins</time></span>
 </div>
-<button type="button" class="card-action" data-navigate="interfaces">Start Learning <span aria-hidden="true">→</span></button>
+</div>
+<button type="button" class="card-action" data-navigate="interfaces">
+Start Learning <span aria-hidden="true">→</span>
+</button>
 </article>
+
 <article class="learning-card" data-topic="inheritance" role="listitem">
-<div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" class="icon-svg" focusable="false"><path d="M12 3v18M5 10l7-7 7 7M5 14l7 7 7-7"/></svg></div>
+<div class="card-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" class="icon-svg" focusable="false" aria-hidden="true">
+<path d="M12 3v18M5 10l7-7 7 7M5 14l7 7 7-7"/>
+</svg>
+</div>
 <div class="card-content">
 <h3 class="card-title">Inheritance</h3>
-<p class="card-description">Like a <strong>family tree</strong>. Children inherit traits from parents, classes inherit features from base classes.</p>
-<ul class="card-topics" aria-label="Topics covered"><li>Base and derived classes</li><li>Protected members</li><li>Constructor chaining</li><li>Abstract classes</li></ul>
-<div class="card-meta"><span class="difficulty medium">Intermediate</span><span class="duration"><time datetime="PT60M">~60 mins</time></span></div>
+<p class="card-description">
+Inheritance is like a <strong>family tree</strong>.
+Just as children inherit traits from parents,
+classes can inherit features from other classes,
+reusing code and creating hierarchies.
+</p>
+<ul class="card-topics" aria-label="Topics covered">
+<li>Base and derived classes</li>
+<li>Protected members</li>
+<li>Constructor chaining</li>
+<li>Abstract classes</li>
+</ul>
+<div class="card-meta">
+<span class="difficulty medium">Intermediate</span>
+<span class="duration"><time datetime="PT60M">~60 mins</time></span>
 </div>
-<button type="button" class="card-action" data-navigate="inheritance">Start Learning <span aria-hidden="true">→</span></button>
+</div>
+<button type="button" class="card-action" data-navigate="inheritance">
+Start Learning <span aria-hidden="true">→</span>
+</button>
 </article>
+
 <article class="learning-card" data-topic="polymorphism" role="listitem">
-<div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" class="icon-svg" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M8 12a4 4 0 108 0 4 4 0 00-8 0"/></svg></div>
+<div class="card-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" class="icon-svg" focusable="false" aria-hidden="true">
+<circle cx="12" cy="12" r="10"/>
+<path d="M8 12a4 4 0 108 0 4 4 0 00-8 0"/>
+</svg>
+</div>
 <div class="card-content">
 <h3 class="card-title">Polymorphism</h3>
-<p class="card-description">"Many forms" – like a <strong>universal remote</strong>. Same button, different behaviors per device.</p>
-<ul class="card-topics" aria-label="Topics covered"><li>Method overriding</li><li>Virtual methods</li><li>Runtime polymorphism</li><li>Method overloading</li></ul>
-<div class="card-meta"><span class="difficulty medium">Intermediate</span><span class="duration"><time datetime="PT50M">~50 mins</time></span></div>
+<p class="card-description">
+"Many forms" – like how a <strong>universal remote</strong>
+works with different TVs. The same button (method) produces
+different results based on the device (object) it controls.
+</p>
+<ul class="card-topics" aria-label="Topics covered">
+<li>Method overriding</li>
+<li>Virtual methods</li>
+<li>Runtime polymorphism</li>
+<li>Method overloading</li>
+</ul>
+<div class="card-meta">
+<span class="difficulty medium">Intermediate</span>
+<span class="duration"><time datetime="PT50M">~50 mins</time></span>
 </div>
-<button type="button" class="card-action" data-navigate="polymorphism">Start Learning <span aria-hidden="true">→</span></button>
+</div>
+<button type="button" class="card-action" data-navigate="polymorphism">
+Start Learning <span aria-hidden="true">→</span>
+</button>
 </article>
+
 <article class="learning-card" data-topic="classes" role="listitem">
-<div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" class="icon-svg" focusable="false"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+<div class="card-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" class="icon-svg" focusable="false" aria-hidden="true">
+<rect x="3" y="3" width="18" height="18" rx="2"/>
+<path d="M3 9h18M9 21V9"/>
+</svg>
+</div>
 <div class="card-content">
 <h3 class="card-title">Classes &amp; Objects</h3>
-<p class="card-description">Classes are <strong>cookie cutters</strong>, objects are the <strong>cookies</strong>. Template vs instance.</p>
-<ul class="card-topics" aria-label="Topics covered"><li>Class definition</li><li>Constructors</li><li>Encapsulation &amp; properties</li><li>Namespaces</li></ul>
-<div class="card-meta"><span class="difficulty easy">Beginner</span><span class="duration"><time datetime="PT40M">~40 mins</time></span></div>
+<p class="card-description">
+Classes are like <strong>cookie cutters</strong>,
+and objects are the <strong>cookies</strong>.
+The class defines the shape; objects are the actual items
+you create from that template.
+</p>
+<ul class="card-topics" aria-label="Topics covered">
+<li>Class definition</li>
+<li>Constructors</li>
+<li>Encapsulation &amp; properties</li>
+<li>Namespaces</li>
+</ul>
+<div class="card-meta">
+<span class="difficulty easy">Beginner</span>
+<span class="duration"><time datetime="PT40M">~40 mins</time></span>
 </div>
-<button type="button" class="card-action" data-navigate="classes">Start Learning <span aria-hidden="true">→</span></button>
+</div>
+<button type="button" class="card-action" data-navigate="classes">
+Start Learning <span aria-hidden="true">→</span>
+</button>
 </article>
+
 <article class="learning-card" data-topic="methods" role="listitem">
-<div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" class="icon-svg" focusable="false"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+<div class="card-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" class="icon-svg" focusable="false" aria-hidden="true">
+<path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+</svg>
+</div>
 <div class="card-content">
 <h3 class="card-title">Methods &amp; Structures</h3>
-<p class="card-description">Methods are <strong>actions</strong> your objects perform. Like recipes with ingredients and a final dish.</p>
-<ul class="card-topics" aria-label="Topics covered"><li>Method signatures</li><li>Parameters &amp; return types</li><li>Method overloading</li><li>Structures vs classes</li></ul>
-<div class="card-meta"><span class="difficulty easy">Beginner</span><span class="duration"><time datetime="PT35M">~35 mins</time></span></div>
+<p class="card-description">
+Methods are <strong>actions</strong> or <strong>verbs</strong>
+your objects can perform. Like recipes that take ingredients (parameters)
+and produce a dish (return value).
+</p>
+<ul class="card-topics" aria-label="Topics covered">
+<li>Method signatures</li>
+<li>Parameters &amp; return types</li>
+<li>Method overloading</li>
+<li>Structures vs classes</li>
+</ul>
+<div class="card-meta">
+<span class="difficulty easy">Beginner</span>
+<span class="duration"><time datetime="PT35M">~35 mins</time></span>
 </div>
-<button type="button" class="card-action" data-navigate="methods">Start Learning <span aria-hidden="true">→</span></button>
+</div>
+<button type="button" class="card-action" data-navigate="methods">
+Start Learning <span aria-hidden="true">→</span>
+</button>
 </article>
+
 <article class="learning-card featured" data-topic="playground" role="listitem">
 <div class="featured-badge"><span aria-hidden="true">⭐</span> Real Compiler</div>
-<div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" class="icon-svg" focusable="false"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+<div class="card-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" class="icon-svg" focusable="false" aria-hidden="true">
+<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+</svg>
+</div>
 <div class="card-content">
 <h3 class="card-title">Code Playground</h3>
-<p class="card-description"><strong>Practice makes perfect!</strong> Write, run, and experiment with C# code using a real compiler.</p>
-<ul class="card-topics" aria-label="Features"><li>Real C# compilation</li><li>Syntax highlighting</li><li>Error messages</li><li>Save your code</li></ul>
-<div class="card-meta"><span class="difficulty all">All Levels</span><span class="duration">Unlimited</span></div>
+<p class="card-description">
+<strong>Practice makes perfect!</strong>
+Write, run, and experiment with C# code using a real compiler.
+See instant results and learn by doing.
+</p>
+<ul class="card-topics" aria-label="Features">
+<li>Real C# compilation</li>
+<li>Syntax highlighting</li>
+<li>Error messages</li>
+<li>Save your code</li>
+</ul>
+<div class="card-meta">
+<span class="difficulty all">All Levels</span>
+<span class="duration">Unlimited</span>
 </div>
-<button type="button" class="card-action" data-navigate="playground">Open Playground <span aria-hidden="true">→</span></button>
+</div>
+<button type="button" class="card-action" data-navigate="playground">
+Open Playground <span aria-hidden="true">→</span>
+</button>
 </article>
 </div>
 </div>
 </section>
+
 <section id="interfaces" class="content-section" aria-labelledby="interfaces-title">
 <div class="container">
 <header class="section-header">
@@ -519,6 +750,7 @@ Concepts <span class="dropdown-arrow" aria-hidden="true">▼</span>
 <h2 id="interfaces-title" class="section-title">Understanding Interfaces</h2>
 <p class="section-description">The foundation of flexible, maintainable code</p>
 </header>
+
 <div class="concept-explainer">
 <div class="explainer-content">
 <h3>What is an Interface? (In Plain English)</h3>
@@ -526,34 +758,54 @@ Concepts <span class="dropdown-arrow" aria-hidden="true">▼</span>
 <div class="analogy-icon" aria-hidden="true">🔌</div>
 <div class="analogy-text">
 <p><strong>Real-World Analogy:</strong> Think of a power outlet.</p>
-<p>Every device must have the right plug shape (the interface). The outlet doesn't care if you plug in a lamp, TV, or phone charger – it just needs the right shape plug.</p>
-<p>An interface defines <strong>what methods a class must have</strong>, not <strong>how those methods work</strong>.</p>
+<p>Every device that plugs into an outlet must have the right plug shape
+(the interface). The outlet doesn't care if you plug in a lamp, TV, or phone charger –
+it just needs the right shape plug.</p>
+<p>Similarly, an interface defines <strong>what methods a class must have</strong>,
+but not <strong>how those methods work</strong>.</p>
 </div>
 </aside>
+
 <div class="key-points">
 <h4>Key Rules to Remember:</h4>
 <ul class="rules-list" role="list">
-<li><span class="rule-icon" aria-hidden="true">✓</span><span>Interfaces <strong>cannot contain implementation code</strong> – only signatures</span></li>
-<li><span class="rule-icon" aria-hidden="true">✓</span><span>Interface names start with capital <strong>"I"</strong> (e.g., ITransactions)</span></li>
-<li><span class="rule-icon" aria-hidden="true">✓</span><span>Classes that implement an interface <strong>must provide all methods</strong></span></li>
-<li><span class="rule-icon" aria-hidden="true">✓</span><span>A class can implement <strong>multiple interfaces</strong></span></li>
+<li>
+<span class="rule-icon" aria-hidden="true">✓</span>
+<span>Interfaces <strong>cannot contain implementation code</strong> – only signatures</span>
+</li>
+<li>
+<span class="rule-icon" aria-hidden="true">✓</span>
+<span>Interface names start with capital <strong>"I"</strong> (e.g., ITransactions)</span>
+</li>
+<li>
+<span class="rule-icon" aria-hidden="true">✓</span>
+<span>Classes that implement an interface <strong>must provide all methods</strong></span>
+</li>
+<li>
+<span class="rule-icon" aria-hidden="true">✓</span>
+<span>A class can implement <strong>multiple interfaces</strong></span>
+</li>
 </ul>
 </div>
 </div>
 </div>
+
 <article class="interactive-example" id="example-1" aria-labelledby="example-1-title">
 <header class="example-header">
 <h3 id="example-1-title">Example 1: Basic Interface Implementation</h3>
 <div class="example-controls" role="toolbar" aria-label="Code editor controls">
 <button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-1" aria-label="Reset code to original">Reset</button>
-<button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-1" aria-label="Run code"><span class="run-icon" aria-hidden="true">▶</span> Run Code</button>
+<button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-1" aria-label="Run code">
+<span class="run-icon" aria-hidden="true">▶</span> Run Code
+</button>
 </div>
 </header>
+
 <div class="code-editor-container">
 <div class="editor-wrapper">
 <div class="line-numbers" id="lines-1" aria-hidden="true"></div>
 <label for="editor-1" class="visually-hidden">C# code editor for basic interface example</label>
-<textarea class="code-editor" id="editor-1" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">using System;
+<textarea class="code-editor" id="editor-1" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-describedby="editor-1-desc">using System;
 
 public interface ITransactions
 {
@@ -597,8 +849,10 @@ public class Program
         t2.ShowTransaction();
     }
 }</textarea>
+<span id="editor-1-desc" class="visually-hidden">Edit the C# code and press Run Code to compile and execute</span>
 </div>
-<div class="editor-output" role="region" aria-label="Code output">
+
+<div class="editor-output" role="region" aria-label="Code output for example 1">
 <header class="output-header">
 <span class="output-title"><span aria-hidden="true">📤</span> Output</span>
 <div class="output-status" id="status-1" role="status" aria-live="polite"></div>
@@ -607,25 +861,45 @@ public class Program
 </div>
 </div>
 </article>
+
 <article class="interactive-example" id="example-2" aria-labelledby="example-2-title">
 <header class="example-header">
 <h3 id="example-2-title">Example 2: Multiple Interface Implementation</h3>
 <div class="example-controls" role="toolbar" aria-label="Code editor controls">
 <button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-2" aria-label="Reset code to original">Reset</button>
-<button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-2" aria-label="Run code"><span class="run-icon" aria-hidden="true">▶</span> Run Code</button>
+<button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-2" aria-label="Run code">
+<span class="run-icon" aria-hidden="true">▶</span> Run Code
+</button>
 </div>
 </header>
-<figure class="visual-diagram" aria-labelledby="diagram-caption">
-<div class="diagram-container" role="img" aria-describedby="diagram-desc">
-<div class="interface-box"><span class="box-label">ISquare</span><code>int GetSquareArea(int side)</code></div>
-<div class="interface-box"><span class="box-label">IRectangle</span><code>double GetRectArea(double l, double w)</code></div>
-<div class="interface-box"><span class="box-label">ITriangle</span><code>double GetTriangleArea(double b, double h)</code></div>
-<div class="arrows-container" aria-hidden="true"><div class="connecting-arrow"></div><div class="connecting-arrow"></div><div class="connecting-arrow"></div></div>
-<div class="class-box"><span class="box-label">ShapeCalculator</span><code>Implements all three!</code></div>
+
+<figure class="visual-diagram">
+<div class="diagram-container" role="img" aria-label="Diagram showing ShapeCalculator class implementing ISquare, IRectangle, and ITriangle interfaces">
+<div class="interface-box">
+<span class="box-label">ISquare</span>
+<code>int GetSquareArea(int side)</code>
 </div>
-<figcaption id="diagram-caption" class="visually-hidden">ShapeCalculator class implementing ISquare, IRectangle, and ITriangle interfaces</figcaption>
-<span id="diagram-desc" class="visually-hidden">Three interface boxes with arrows pointing to a single ShapeCalculator class box</span>
+<div class="interface-box">
+<span class="box-label">IRectangle</span>
+<code>double GetRectArea(double l, double w)</code>
+</div>
+<div class="interface-box">
+<span class="box-label">ITriangle</span>
+<code>double GetTriangleArea(double b, double h)</code>
+</div>
+<div class="arrows-container" aria-hidden="true">
+<div class="connecting-arrow"></div>
+<div class="connecting-arrow"></div>
+<div class="connecting-arrow"></div>
+</div>
+<div class="class-box">
+<span class="box-label">ShapeCalculator</span>
+<code>Implements all three!</code>
+</div>
+</div>
+<figcaption class="visually-hidden">Three interface boxes (ISquare, IRectangle, ITriangle) with arrows pointing to a single ShapeCalculator class box, demonstrating multiple interface implementation</figcaption>
 </figure>
+
 <div class="code-editor-container">
 <div class="editor-wrapper">
 <div class="line-numbers" id="lines-2" aria-hidden="true"></div>
@@ -686,7 +960,8 @@ public class Program
     }
 }</textarea>
 </div>
-<div class="editor-output" role="region" aria-label="Code output">
+
+<div class="editor-output" role="region" aria-label="Code output for example 2">
 <header class="output-header">
 <span class="output-title"><span aria-hidden="true">📤</span> Output</span>
 <div class="output-status" id="status-2" role="status" aria-live="polite"></div>
@@ -695,53 +970,60 @@ public class Program
 </div>
 </div>
 </article>
+
 <section class="quiz-section" aria-labelledby="quiz-title">
 <h3 id="quiz-title"><span aria-hidden="true">🎯</span> Quick Check: Test Your Understanding</h3>
-<form class="quiz-container" id="interface-quiz" aria-label="Interface concepts quiz">
+
+<div class="quiz-container" id="interface-quiz" aria-label="Interface concepts quiz">
 <fieldset class="quiz-question active" data-question="1">
 <legend class="question-text">What keyword is used to define an interface in C#?</legend>
-<div class="quiz-options" role="radiogroup">
-<button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">class</button>
-<button type="button" class="quiz-option" data-answer="correct" role="radio" aria-checked="false">interface</button>
-<button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">struct</button>
-<button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">abstract</button>
+<div class="quiz-options" role="radiogroup" aria-label="Answer options">
+<button type="button" class="quiz-option" data-answer="wrong" aria-pressed="false">class</button>
+<button type="button" class="quiz-option" data-answer="correct" aria-pressed="false">interface</button>
+<button type="button" class="quiz-option" data-answer="wrong" aria-pressed="false">struct</button>
+<button type="button" class="quiz-option" data-answer="wrong" aria-pressed="false">abstract</button>
 </div>
-<output class="quiz-feedback" role="status" aria-live="polite"></output>
+<div class="quiz-feedback" role="status" aria-live="polite"></div>
 </fieldset>
+
 <fieldset class="quiz-question" data-question="2" hidden>
 <legend class="question-text">Can interfaces contain implementation code?</legend>
-<div class="quiz-options" role="radiogroup">
-<button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Yes, always</button>
-<button type="button" class="quiz-option" data-answer="correct" role="radio" aria-checked="false">No, only signatures</button>
-<button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Only for private methods</button>
-<button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Only with abstract</button>
+<div class="quiz-options" role="radiogroup" aria-label="Answer options">
+<button type="button" class="quiz-option" data-answer="wrong" aria-pressed="false">Yes, always</button>
+<button type="button" class="quiz-option" data-answer="correct" aria-pressed="false">No, only signatures</button>
+<button type="button" class="quiz-option" data-answer="wrong" aria-pressed="false">Only for private methods</button>
+<button type="button" class="quiz-option" data-answer="wrong" aria-pressed="false">Only with abstract</button>
 </div>
-<output class="quiz-feedback" role="status" aria-live="polite"></output>
+<div class="quiz-feedback" role="status" aria-live="polite"></div>
 </fieldset>
+
 <fieldset class="quiz-question" data-question="3" hidden>
 <legend class="question-text">How many interfaces can a class implement?</legend>
-<div class="quiz-options" role="radiogroup">
-<button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Only 1</button>
-<button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Maximum 5</button>
-<button type="button" class="quiz-option" data-answer="correct" role="radio" aria-checked="false">Multiple (no limit)</button>
-<button type="button" class="quiz-option" data-answer="wrong" role="radio" aria-checked="false">Depends on size</button>
+<div class="quiz-options" role="radiogroup" aria-label="Answer options">
+<button type="button" class="quiz-option" data-answer="wrong" aria-pressed="false">Only 1</button>
+<button type="button" class="quiz-option" data-answer="wrong" aria-pressed="false">Maximum 5</button>
+<button type="button" class="quiz-option" data-answer="correct" aria-pressed="false">Multiple (no limit)</button>
+<button type="button" class="quiz-option" data-answer="wrong" aria-pressed="false">Depends on size</button>
 </div>
-<output class="quiz-feedback" role="status" aria-live="polite"></output>
+<div class="quiz-feedback" role="status" aria-live="polite"></div>
 </fieldset>
+
 <div class="quiz-progress" role="group" aria-label="Quiz progress">
-<span class="progress-text">Question <span id="current-q" aria-current="step">1</span> of <span>3</span></span>
-<div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="Quiz progress">
-<div class="progress-fill" style="width:33%"></div>
+<span class="progress-text">Question <span id="current-q">1</span> of <span>3</span></span>
+<div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="Quiz completion progress">
+<div class="progress-fill" style="width: 33%"></div>
 </div>
 </div>
+
 <nav class="quiz-navigation" aria-label="Quiz navigation">
-<button type="button" class="btn btn-outline" id="prev-question" disabled aria-label="Previous question">← Previous</button>
-<button type="button" class="btn btn-primary" id="next-question" aria-label="Next question">Next →</button>
+<button type="button" class="btn btn-outline" id="prev-question" disabled aria-label="Go to previous question">← Previous</button>
+<button type="button" class="btn btn-primary" id="next-question" aria-label="Go to next question">Next →</button>
 </nav>
-</form>
+</div>
 </section>
 </div>
 </section>
+
 <section id="inheritance" class="content-section alt-bg" aria-labelledby="inheritance-title">
 <div class="container">
 <header class="section-header">
@@ -749,6 +1031,7 @@ public class Program
 <h2 id="inheritance-title" class="section-title">Inheritance: Building Family Trees</h2>
 <p class="section-description">Reuse code by creating specialized versions of existing classes</p>
 </header>
+
 <div class="concept-explainer">
 <div class="explainer-content">
 <h3>What is Inheritance?</h3>
@@ -756,20 +1039,26 @@ public class Program
 <div class="analogy-icon" aria-hidden="true">👨‍👩‍👧‍👦</div>
 <div class="analogy-text">
 <p><strong>Real-World Analogy:</strong> Think of a family.</p>
-<p>Children inherit traits from parents – eye color, height, etc. But children can also have their own unique characteristics.</p>
-<p>A <strong>derived class (child)</strong> inherits features from a <strong>base class (parent)</strong>, but can add its own!</p>
+<p>Children inherit traits from their parents – eye color, height, etc.
+But children can also have their own unique characteristics.</p>
+<p>In programming, a <strong>derived class (child)</strong> inherits features from a
+<strong>base class (parent)</strong>, but can add its own!</p>
 </div>
 </aside>
 </div>
 </div>
+
 <article class="interactive-example" id="example-inheritance" aria-labelledby="example-inheritance-title">
 <header class="example-header">
 <h3 id="example-inheritance-title">Person → Student Inheritance</h3>
 <div class="example-controls" role="toolbar" aria-label="Code editor controls">
-<button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-inheritance" aria-label="Reset code">Reset</button>
-<button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-inheritance" aria-label="Run code"><span class="run-icon" aria-hidden="true">▶</span> Run Code</button>
+<button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-inheritance" aria-label="Reset code to original">Reset</button>
+<button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-inheritance" aria-label="Run code">
+<span class="run-icon" aria-hidden="true">▶</span> Run Code
+</button>
 </div>
 </header>
+
 <div class="code-editor-container large">
 <div class="editor-wrapper">
 <div class="line-numbers" id="lines-inheritance" aria-hidden="true"></div>
@@ -839,22 +1128,37 @@ public class Program
     }
 }</textarea>
 </div>
-<div class="editor-output" role="region" aria-label="Code output">
+
+<div class="editor-output" role="region" aria-label="Code output for inheritance example">
 <header class="output-header">
 <span class="output-title"><span aria-hidden="true">📤</span> Output</span>
 <div class="output-status" id="status-inheritance" role="status" aria-live="polite"></div>
 </header>
-<pre class="output-content" id="output-inheritance" tabindex="0"><span class="output-placeholder">Click "Run Code" to compile and execute...</span></pre>
+<pre class="output-content" id="output-inheritance" tabindex="0" aria-label="Compilation output"><span class="output-placeholder">Click "Run Code" to compile and execute...</span></pre>
 </div>
 </div>
+
 <ul class="key-concepts-grid" role="list" aria-label="Key inheritance concepts">
-<li class="concept-card"><div class="concept-icon" aria-hidden="true">🔑</div><h4>The <code>base</code> Keyword</h4><p>Call parent constructor or methods from child class</p></li>
-<li class="concept-card"><div class="concept-icon" aria-hidden="true">🛡️</div><h4><code>protected</code> Access</h4><p>Accessible in class AND its children</p></li>
-<li class="concept-card"><div class="concept-icon" aria-hidden="true">🔗</div><h4>Single Inheritance</h4><p>One base class, but multiple interfaces allowed</p></li>
+<li class="concept-card">
+<div class="concept-icon" aria-hidden="true">🔑</div>
+<h4>The <code>base</code> Keyword</h4>
+<p>Call parent constructor or methods from child class</p>
+</li>
+<li class="concept-card">
+<div class="concept-icon" aria-hidden="true">🛡️</div>
+<h4><code>protected</code> Access</h4>
+<p>Accessible in class AND its children</p>
+</li>
+<li class="concept-card">
+<div class="concept-icon" aria-hidden="true">🔗</div>
+<h4>Single Inheritance</h4>
+<p>One base class, but multiple interfaces allowed</p>
+</li>
 </ul>
 </article>
 </div>
 </section>
+
 <section id="polymorphism" class="content-section" aria-labelledby="polymorphism-title">
 <div class="container">
 <header class="section-header">
@@ -862,6 +1166,7 @@ public class Program
 <h2 id="polymorphism-title" class="section-title">Polymorphism: Many Forms</h2>
 <p class="section-description">Same method name, different behaviors based on the object</p>
 </header>
+
 <div class="concept-explainer">
 <div class="explainer-content">
 <h3>What is Polymorphism?</h3>
@@ -870,19 +1175,27 @@ public class Program
 <div class="analogy-text">
 <p><strong>Real-World Analogy:</strong> Universal remote control.</p>
 <p>Same "Power" button, different device behaviors:</p>
-<ul><li>📺 TV turns on/off screen</li><li>🔊 Soundbar starts/stops audio</li><li>📀 DVD player opens/closes tray</li></ul>
+<ul>
+<li><span aria-hidden="true">📺</span> TV turns on/off screen</li>
+<li><span aria-hidden="true">🔊</span> Soundbar starts/stops audio</li>
+<li><span aria-hidden="true">📀</span> DVD player opens/closes tray</li>
+</ul>
 </div>
 </aside>
 </div>
 </div>
+
 <article class="interactive-example" id="example-polymorphism" aria-labelledby="example-polymorphism-title">
 <header class="example-header">
 <h3 id="example-polymorphism-title">Bank Account: Method Overriding</h3>
 <div class="example-controls" role="toolbar" aria-label="Code editor controls">
-<button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-polymorphism" aria-label="Reset code">Reset</button>
-<button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-polymorphism" aria-label="Run code"><span class="run-icon" aria-hidden="true">▶</span> Run Code</button>
+<button type="button" class="btn btn-small btn-outline reset-btn" data-editor="editor-polymorphism" aria-label="Reset code to original">Reset</button>
+<button type="button" class="btn btn-small btn-primary run-btn" data-editor="editor-polymorphism" aria-label="Run code">
+<span class="run-icon" aria-hidden="true">▶</span> Run Code
+</button>
 </div>
 </header>
+
 <div class="code-editor-container large">
 <div class="editor-wrapper">
 <div class="line-numbers" id="lines-polymorphism" aria-hidden="true"></div>
@@ -969,24 +1282,29 @@ public class Program
     }
 }</textarea>
 </div>
-<div class="editor-output" role="region" aria-label="Code output">
+
+<div class="editor-output" role="region" aria-label="Code output for polymorphism example">
 <header class="output-header">
 <span class="output-title"><span aria-hidden="true">📤</span> Output</span>
 <div class="output-status" id="status-polymorphism" role="status" aria-live="polite"></div>
 </header>
-<pre class="output-content" id="output-polymorphism" tabindex="0"><span class="output-placeholder">Click "Run Code" to compile and execute...</span></pre>
+<pre class="output-content" id="output-polymorphism" tabindex="0" aria-label="Compilation output"><span class="output-placeholder">Click "Run Code" to compile and execute...</span></pre>
 </div>
 </div>
 </article>
 </div>
 </section>
+
 <section id="playground" class="content-section playground-section" aria-labelledby="playground-title">
 <div class="container">
 <header class="section-header">
 <span class="section-badge"><span aria-hidden="true">🎮</span> Practice Zone</span>
 <h2 id="playground-title" class="section-title">Interactive Code Playground</h2>
-<p class="section-description">Write, test, and experiment with C# code using a <strong>real compiler</strong></p>
+<p class="section-description">
+Write, test, and experiment with C# code using a <strong>real compiler</strong>
+</p>
 </header>
+
 <div class="playground-container">
 <div class="playground-toolbar" role="toolbar" aria-label="Playground controls">
 <div class="template-selector">
@@ -1005,17 +1323,23 @@ public class Program
 <div class="playground-actions" role="group" aria-label="Editor actions">
 <button type="button" class="btn btn-outline" id="clear-playground" aria-label="Clear editor">Clear</button>
 <button type="button" class="btn btn-outline" id="format-code" aria-label="Format code">Format</button>
-<button type="button" class="btn btn-outline" id="save-code" aria-label="Save code"><span aria-hidden="true">💾</span> Save</button>
-<button type="button" class="btn btn-primary btn-large" id="run-playground" aria-keyshortcuts="Ctrl+Enter"><span aria-hidden="true">▶</span> Run Code</button>
+<button type="button" class="btn btn-outline" id="save-code" aria-label="Save code to browser storage"><span aria-hidden="true">💾</span> Save</button>
+<button type="button" class="btn btn-primary btn-large" id="run-playground" aria-keyshortcuts="Control+Enter">
+<span aria-hidden="true">▶</span> Run Code
+</button>
 </div>
 </div>
+
 <div class="playground-editor">
 <div class="editor-pane">
-<header class="pane-header"><span><span aria-hidden="true">📝</span> Code Editor</span><span class="file-indicator">Program.cs</span></header>
+<div class="pane-header">
+<span><span aria-hidden="true">📝</span> Code Editor</span>
+<span class="file-indicator">Program.cs</span>
+</div>
 <div class="editor-wrapper full">
 <div class="line-numbers" id="lines-playground" aria-hidden="true"></div>
 <label for="playground-editor" class="visually-hidden">C# code editor - main playground</label>
-<textarea class="code-editor large" id="playground-editor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">using System;
+<textarea class="code-editor large" id="playground-editor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-describedby="playground-hint">using System;
 
 public class Program
 {
@@ -1035,19 +1359,27 @@ public class Program
         Console.WriteLine("\n✓ Compilation successful!");
     }
 }</textarea>
+<span id="playground-hint" class="visually-hidden">Press Ctrl+Enter to run code. Code auto-saves to browser storage.</span>
 </div>
 </div>
+
 <div class="output-pane" role="region" aria-label="Output console">
-<header class="pane-header"><span><span aria-hidden="true">📤</span> Output Console</span><div class="output-status" id="status-playground" role="status" aria-live="polite"></div><button type="button" class="btn btn-tiny" id="clear-console" aria-label="Clear console">Clear</button></header>
-<pre class="console-output" id="playground-output" tabindex="0" aria-label="Console output" aria-live="polite"><span class="console-welcome"><span>👋 Welcome to the C# Playground!</span>
+<div class="pane-header">
+<span><span aria-hidden="true">📤</span> Output Console</span>
+<div class="output-status" id="status-playground" role="status" aria-live="polite"></div>
+<button type="button" class="btn btn-tiny" id="clear-console" aria-label="Clear console output">Clear</button>
+</div>
+<pre class="console-output" id="playground-output" tabindex="0" aria-label="Console output"><span class="console-welcome"><span>👋 Welcome to the C# Playground!</span>
 <span>Write code on the left and click <strong>"Run Code"</strong> to execute.</span>
 <span class="compiler-info">🔴 Powered by real C# compiler (Mono)</span></span></pre>
 </div>
 </div>
+
 <aside class="playground-tips" aria-labelledby="tips-title">
 <h4 id="tips-title"><span aria-hidden="true">💡</span> Quick Tips:</h4>
 <ul>
-<li><code>Console.WriteLine()</code> - Print output</li>
+<li><code>Console.WriteLine()</code> – Print output</li>
+<li><code>Console.ReadLine()</code> – Read input (not supported in web)</li>
 <li>Errors will show line numbers</li>
 <li>Code auto-saves to browser storage</li>
 <li><kbd>Ctrl</kbd> + <kbd>Enter</kbd> to run code</li>
@@ -1056,61 +1388,106 @@ public class Program
 </div>
 </div>
 </section>
+
 <section id="progress" class="content-section alt-bg" aria-labelledby="progress-title">
 <div class="container">
 <header class="section-header">
 <span class="section-badge"><span aria-hidden="true">📊</span> Your Journey</span>
 <h2 id="progress-title" class="section-title">Learning Progress</h2>
 </header>
+
 <div class="progress-dashboard">
 <figure class="overall-progress">
-<svg class="progress-ring" width="200" height="200" role="img" aria-labelledby="progress-ring-title">
+<svg class="progress-ring" width="200" height="200" role="img" aria-label="Overall learning progress: 0%">
 <title id="progress-ring-title">Overall learning progress</title>
 <circle class="progress-ring-bg" cx="100" cy="100" r="90"/>
-<circle class="progress-ring-fill" cx="100" cy="100" r="90" stroke-dasharray="565.48" stroke-dashoffset="565.48"/>
+<circle class="progress-ring-fill" cx="100" cy="100" r="90"
+        stroke-dasharray="565.48" stroke-dashoffset="565.48"/>
 </svg>
-<div class="progress-percentage" aria-hidden="true"><span class="percentage-number" id="overall-percentage">0</span><span class="percentage-symbol">%</span></div>
+<div class="progress-percentage" aria-hidden="true">
+<span class="percentage-number" id="overall-percentage">0</span>
+<span class="percentage-symbol">%</span>
+</div>
 <figcaption><h3>Overall Progress</h3></figcaption>
 </figure>
+
 <div class="topic-progress-list" role="list" aria-label="Progress by topic">
 <div class="topic-progress-item" role="listitem">
-<div class="topic-info"><span class="topic-name" id="topic-interfaces">Interfaces</span><span class="topic-percentage" aria-hidden="true">0%</span></div>
-<div class="topic-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-interfaces"><div class="topic-fill" style="width:0%"></div></div>
+<div class="topic-info">
+<span class="topic-name" id="topic-interfaces">Interfaces</span>
+<span class="topic-percentage" aria-hidden="true">0%</span>
+</div>
+<div class="topic-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-interfaces">
+<div class="topic-fill" style="width: 0%"></div>
+</div>
 </div>
 <div class="topic-progress-item" role="listitem">
-<div class="topic-info"><span class="topic-name" id="topic-inheritance">Inheritance</span><span class="topic-percentage" aria-hidden="true">0%</span></div>
-<div class="topic-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-inheritance"><div class="topic-fill" style="width:0%"></div></div>
+<div class="topic-info">
+<span class="topic-name" id="topic-inheritance">Inheritance</span>
+<span class="topic-percentage" aria-hidden="true">0%</span>
+</div>
+<div class="topic-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-inheritance">
+<div class="topic-fill" style="width: 0%"></div>
+</div>
 </div>
 <div class="topic-progress-item" role="listitem">
-<div class="topic-info"><span class="topic-name" id="topic-polymorphism">Polymorphism</span><span class="topic-percentage" aria-hidden="true">0%</span></div>
-<div class="topic-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-polymorphism"><div class="topic-fill" style="width:0%"></div></div>
+<div class="topic-info">
+<span class="topic-name" id="topic-polymorphism">Polymorphism</span>
+<span class="topic-percentage" aria-hidden="true">0%</span>
+</div>
+<div class="topic-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-polymorphism">
+<div class="topic-fill" style="width: 0%"></div>
+</div>
 </div>
 <div class="topic-progress-item" role="listitem">
-<div class="topic-info"><span class="topic-name" id="topic-classes">Classes &amp; Objects</span><span class="topic-percentage" aria-hidden="true">0%</span></div>
-<div class="topic-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-classes"><div class="topic-fill" style="width:0%"></div></div>
+<div class="topic-info">
+<span class="topic-name" id="topic-classes">Classes &amp; Objects</span>
+<span class="topic-percentage" aria-hidden="true">0%</span>
+</div>
+<div class="topic-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-labelledby="topic-classes">
+<div class="topic-fill" style="width: 0%"></div>
 </div>
 </div>
+</div>
+
 <section class="achievements" aria-labelledby="achievements-title">
 <h4 id="achievements-title"><span aria-hidden="true">🏆</span> Achievements</h4>
 <ul class="achievement-grid" role="list">
-<li class="achievement" data-achievement="first-steps" aria-label="First Steps - Locked"><span class="achievement-icon" aria-hidden="true">🎯</span><span class="achievement-name">First Steps</span></li>
-<li class="achievement" data-achievement="code-runner" aria-label="Code Runner - Locked"><span class="achievement-icon" aria-hidden="true">▶️</span><span class="achievement-name">Code Runner</span></li>
-<li class="achievement" data-achievement="interface-master" aria-label="Interface Master - Locked"><span class="achievement-icon" aria-hidden="true">🔌</span><span class="achievement-name">Interface Master</span></li>
-<li class="achievement" data-achievement="inheritance-hero" aria-label="Inheritance Hero - Locked"><span class="achievement-icon" aria-hidden="true">🌳</span><span class="achievement-name">Inheritance Hero</span></li>
-<li class="achievement" data-achievement="oop-champion" aria-label="OOP Champion - Locked"><span class="achievement-icon" aria-hidden="true">🏅</span><span class="achievement-name">OOP Champion</span></li>
+<li class="achievement" data-achievement="first-steps" aria-label="First Steps achievement – Locked">
+<span class="achievement-icon" aria-hidden="true">🎯</span>
+<span class="achievement-name">First Steps</span>
+</li>
+<li class="achievement" data-achievement="code-runner" aria-label="Code Runner achievement – Locked">
+<span class="achievement-icon" aria-hidden="true">▶️</span>
+<span class="achievement-name">Code Runner</span>
+</li>
+<li class="achievement" data-achievement="interface-master" aria-label="Interface Master achievement – Locked">
+<span class="achievement-icon" aria-hidden="true">🔌</span>
+<span class="achievement-name">Interface Master</span>
+</li>
+<li class="achievement" data-achievement="inheritance-hero" aria-label="Inheritance Hero achievement – Locked">
+<span class="achievement-icon" aria-hidden="true">🌳</span>
+<span class="achievement-name">Inheritance Hero</span>
+</li>
+<li class="achievement" data-achievement="oop-champion" aria-label="OOP Champion achievement – Locked">
+<span class="achievement-icon" aria-hidden="true">🏅</span>
+<span class="achievement-name">OOP Champion</span>
+</li>
 </ul>
 </section>
 </div>
 </div>
 </section>
+
 <section id="resources" class="content-section" aria-labelledby="resources-title">
 <div class="container">
 <header class="section-header">
 <span class="section-badge"><span aria-hidden="true">📚</span> Additional Learning</span>
 <h2 id="resources-title" class="section-title">Resources &amp; References</h2>
 </header>
-<nav class="resources-grid" aria-label="Learning resources">
-<section class="resource-card" aria-labelledby="quick-ref-title">
+
+<div class="resources-grid" role="list" aria-label="Learning resources">
+<section class="resource-card" role="listitem" aria-labelledby="quick-ref-title">
 <h4 id="quick-ref-title"><span aria-hidden="true">📖</span> Quick Reference</h4>
 <ul>
 <li><a href="#interfaces" class="resource-link">C# Interfaces Guide</a></li>
@@ -1118,25 +1495,26 @@ public class Program
 <li><a href="#polymorphism" class="resource-link">Polymorphism Patterns</a></li>
 </ul>
 </section>
-<section class="resource-card" aria-labelledby="docs-title">
+<section class="resource-card" role="listitem" aria-labelledby="docs-title">
 <h4 id="docs-title"><span aria-hidden="true">🔗</span> Official Documentation</h4>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank" rel="noopener noreferrer" class="resource-link">Microsoft C# Docs</a></li>
-<li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interfaces/" target="_blank" rel="noopener noreferrer" class="resource-link">Interfaces Guide</a></li>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank" rel="noopener noreferrer" class="resource-link">Microsoft C# Docs <span class="visually-hidden">(opens in new tab)</span></a></li>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interfaces/" target="_blank" rel="noopener noreferrer" class="resource-link">Interfaces Guide <span class="visually-hidden">(opens in new tab)</span></a></li>
 </ul>
 </section>
-<section class="resource-card" aria-labelledby="compiler-info-title">
+<section class="resource-card" role="listitem" aria-labelledby="compiler-info-title">
 <h4 id="compiler-info-title"><span aria-hidden="true">🔧</span> Compiler Info</h4>
 <ul>
-<li><span class="resource-link">API: Piston API (emkc.org)</span></li>
-<li><span class="resource-link">Runtime: Mono C#</span></li>
-<li><span class="resource-link">Version: Latest stable</span></li>
+<li><span class="resource-info">API: Piston API</span></li>
+<li><span class="resource-info">Runtime: Mono C#</span></li>
+<li><span class="resource-info">Version: Latest</span></li>
 </ul>
 </section>
-</nav>
+</div>
 </div>
 </section>
 </main>
+
 <footer class="footer" role="contentinfo">
 <div class="container">
 <div class="footer-content">
@@ -1146,14 +1524,31 @@ public class Program
 <p>Interactive learning with real compilation</p>
 </div>
 <nav class="footer-links" aria-label="Footer navigation">
-<div class="footer-column"><h4>Learn</h4><ul><li><a href="#interfaces">Interfaces</a></li><li><a href="#inheritance">Inheritance</a></li><li><a href="#polymorphism">Polymorphism</a></li></ul></div>
-<div class="footer-column"><h4>Practice</h4><ul><li><a href="#playground">Code Playground</a></li><li><a href="#progress">My Progress</a></li></ul></div>
+<div class="footer-column">
+<h4>Learn</h4>
+<ul>
+<li><a href="#interfaces">Interfaces</a></li>
+<li><a href="#inheritance">Inheritance</a></li>
+<li><a href="#polymorphism">Polymorphism</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h4>Practice</h4>
+<ul>
+<li><a href="#playground">Code Playground</a></li>
+<li><a href="#progress">My Progress</a></li>
+</ul>
+</div>
 </nav>
 </div>
-<div class="footer-bottom"><p><small>&copy; 2026 C# Mastery. Built for learning. Compiler by Piston API.</small></p></div>
+<div class="footer-bottom">
+<p><small>&copy; <time datetime="2026">2026</time> C# Mastery. Built for learning. Compiler by Piston API.</small></p>
+</div>
 </div>
 </footer>
-<div id="toast-container" role="region" aria-live="polite" aria-label="Notifications"></div>
+
+<div id="toast-container" role="status" aria-live="polite" aria-label="Notifications"></div>
+
 <script>
 (function(){
 "use strict";
@@ -1169,27 +1564,32 @@ inheritance:'using System;\n\npublic class Animal\n{\n    public string Name { g
 polymorphism:'using System;\nusing System.Collections.Generic;\n\npublic abstract class Shape\n{\n    public string Color { get; set; }\n\n    protected Shape(string color)\n    {\n        Color = color;\n    }\n\n    public abstract double Area();\n    public abstract double Perimeter();\n\n    public override string ToString()\n    {\n        return $"{GetType().Name} ({Color}): Area={Area():F2}, Perimeter={Perimeter():F2}";\n    }\n}\n\npublic class Circle : Shape\n{\n    public double Radius { get; set; }\n\n    public Circle(double radius, string color) : base(color)\n    {\n        Radius = radius;\n    }\n\n    public override double Area() => Math.PI * Radius * Radius;\n    public override double Perimeter() => 2 * Math.PI * Radius;\n}\n\npublic class Rectangle : Shape\n{\n    public double Width { get; set; }\n    public double Height { get; set; }\n\n    public Rectangle(double w, double h, string color) : base(color)\n    {\n        Width = w;\n        Height = h;\n    }\n\n    public override double Area() => Width * Height;\n    public override double Perimeter() => 2 * (Width + Height);\n}\n\npublic class Program\n{\n    public static void Main()\n    {\n        List<Shape> shapes = new List<Shape>\n        {\n            new Circle(5, "Red"),\n            new Rectangle(4, 6, "Blue"),\n            new Circle(3, "Green"),\n            new Rectangle(8, 2, "Yellow")\n        };\n\n        double totalArea = 0;\n        foreach (var shape in shapes)\n        {\n            Console.WriteLine(shape);\n            totalArea += shape.Area();\n        }\n\n        Console.WriteLine($"\\nTotal area of all shapes: {totalArea:F2}");\n    }\n}',
 properties:'using System;\n\npublic class BankAccount\n{\n    private string _owner;\n    private decimal _balance;\n    private static int _accountCount = 0;\n    private int _accountNumber;\n\n    public string Owner\n    {\n        get => _owner;\n        set\n        {\n            if (string.IsNullOrWhiteSpace(value))\n                throw new ArgumentException("Owner cannot be empty");\n            _owner = value;\n        }\n    }\n\n    public decimal Balance\n    {\n        get => _balance;\n        private set => _balance = value;\n    }\n\n    public int AccountNumber => _accountNumber;\n\n    public static int TotalAccounts => _accountCount;\n\n    public BankAccount(string owner, decimal initialDeposit)\n    {\n        Owner = owner;\n        _balance = initialDeposit;\n        _accountCount++;\n        _accountNumber = 1000 + _accountCount;\n    }\n\n    public void Deposit(decimal amount)\n    {\n        if (amount <= 0)\n        {\n            Console.WriteLine("Deposit must be positive.");\n            return;\n        }\n        Balance += amount;\n        Console.WriteLine($"Deposited ${amount:F2}. New balance: ${Balance:F2}");\n    }\n\n    public void Withdraw(decimal amount)\n    {\n        if (amount > Balance)\n        {\n            Console.WriteLine("Insufficient funds!");\n            return;\n        }\n        Balance -= amount;\n        Console.WriteLine($"Withdrew ${amount:F2}. New balance: ${Balance:F2}");\n    }\n\n    public override string ToString()\n    {\n        return $"Account #{AccountNumber} | Owner: {Owner} | Balance: ${Balance:F2}";\n    }\n}\n\npublic class Program\n{\n    public static void Main()\n    {\n        var acc1 = new BankAccount("Alice", 1000m);\n        var acc2 = new BankAccount("Bob", 500m);\n\n        Console.WriteLine(acc1);\n        Console.WriteLine(acc2);\n        Console.WriteLine($"Total accounts: {BankAccount.TotalAccounts}\\n");\n\n        acc1.Deposit(250m);\n        acc1.Withdraw(100m);\n        acc2.Withdraw(600m);\n\n        Console.WriteLine();\n        Console.WriteLine(acc1);\n        Console.WriteLine(acc2);\n    }\n}',
 linq:'using System;\nusing System.Linq;\nusing System.Collections.Generic;\n\npublic class Student\n{\n    public string Name { get; set; }\n    public int Age { get; set; }\n    public double GPA { get; set; }\n    public string Major { get; set; }\n}\n\npublic class Program\n{\n    public static void Main()\n    {\n        var students = new List<Student>\n        {\n            new Student { Name = "Alice", Age = 22, GPA = 3.8, Major = "CS" },\n            new Student { Name = "Bob", Age = 20, GPA = 3.2, Major = "Math" },\n            new Student { Name = "Carol", Age = 21, GPA = 3.9, Major = "CS" },\n            new Student { Name = "Dave", Age = 23, GPA = 2.8, Major = "Physics" },\n            new Student { Name = "Eve", Age = 20, GPA = 3.5, Major = "CS" },\n            new Student { Name = "Frank", Age = 22, GPA = 3.1, Major = "Math" }\n        };\n\n        var honorRoll = students\n            .Where(s => s.GPA >= 3.5)\n            .OrderByDescending(s => s.GPA)\n            .Select(s => new { s.Name, s.GPA, s.Major });\n\n        Console.WriteLine("=== Honor Roll (GPA >= 3.5) ===");\n        foreach (var s in honorRoll)\n            Console.WriteLine($"  {s.Name} - GPA: {s.GPA} ({s.Major})");\n\n        var byMajor = students.GroupBy(s => s.Major);\n\n        Console.WriteLine("\\n=== Students by Major ===");\n        foreach (var group in byMajor)\n        {\n            Console.WriteLine($"  {group.Key}: {group.Count()} students, Avg GPA: {group.Average(s => s.GPA):F2}");\n        }\n\n        Console.WriteLine($"\\nOverall Average GPA: {students.Average(s => s.GPA):F2}");\n        Console.WriteLine($"Youngest: {students.Min(s => s.Age)}, Oldest: {students.Max(s => s.Age)}");\n    }\n}',
-async:'using System;\nusing System.Threading.Tasks;\n\npublic class Program\n{\n    public static async Task Main()\n    {\n        Console.WriteLine("=== Async/Await Demo ===\\n");\n        Console.WriteLine("Starting tasks...");\n\n        var task1 = SimulateDownload("File1.txt", 200);\n        var task2 = SimulateDownload("File2.dat", 150);\n        var task3 = SimulateDownload("File3.log", 300);\n\n        var results = await Task.WhenAll(task1, task2, task3);\n\n        Console.WriteLine("\\nAll downloads complete!");\n        foreach (var r in results)\n            Console.WriteLine($"  ✓ {r}");\n\n        Console.WriteLine($"\\nTotal size: {results.Length} files processed");\n    }\n\n    static async Task<string> SimulateDownload(string filename, int ms)\n    {\n        Console.WriteLine($"  Downloading {filename}...");\n        await Task.Delay(ms);\n        Console.WriteLine($"  Completed {filename} ({ms}ms)");\n        return $"{filename} - {ms}ms";\n    }\n}'
+async:'using System;\nusing System.Threading.Tasks;\n\npublic class Program\n{\n    public static async Task Main()\n    {\n        Console.WriteLine("=== Async/Await Demo ===\\n");\n        Console.WriteLine("Starting tasks...");\n\n        var task1 = SimulateDownload("File1.txt", 200);\n        var task2 = SimulateDownload("File2.dat", 150);\n        var task3 = SimulateDownload("File3.log", 300);\n\n        var results = await Task.WhenAll(task1, task2, task3);\n\n        Console.WriteLine("\\nAll downloads complete!");\n        foreach (var r in results)\n            Console.WriteLine($"  \\u2713 {r}");\n\n        Console.WriteLine($"\\nTotal size: {results.Length} files processed");\n    }\n\n    static async Task<string> SimulateDownload(string filename, int ms)\n    {\n        Console.WriteLine($"  Downloading {filename}...");\n        await Task.Delay(ms);\n        Console.WriteLine($"  Completed {filename} ({ms}ms)");\n        return $"{filename} - {ms}ms";\n    }\n}'
 };
+
 function loadProgress(){
-try{var s=localStorage.getItem("csharp-mastery-progress");if(s)progress=JSON.parse(s)}catch(e){}
+try{var s=localStorage.getItem("csharp-mastery-progress");if(s){var parsed=JSON.parse(s);if(parsed&&typeof parsed==="object"){for(var k in parsed){if(parsed.hasOwnProperty(k))progress[k]=parsed[k]}if(!Array.isArray(progress.achievements))progress.achievements=[];if(typeof progress.quizAnswers!=="object"||progress.quizAnswers===null)progress.quizAnswers={}}}}catch(e){progress={interfaces:0,inheritance:0,polymorphism:0,classes:0,codesRun:0,quizAnswers:{},achievements:[]}}
 }
+
 function saveProgress(){
 try{localStorage.setItem("csharp-mastery-progress",JSON.stringify(progress))}catch(e){}
 }
+
 function updateProgressUI(){
 var topics=["interfaces","inheritance","polymorphism","classes"];
 var total=0;
 topics.forEach(function(t){
 var val=progress[t]||0;
 total+=val;
-var item=document.querySelector('[aria-labelledby="topic-'+t+'"]');
-if(item){
-item.querySelector(".topic-fill").style.width=val+"%";
-item.setAttribute("aria-valuenow",val);
+var bar=document.querySelector('[aria-labelledby="topic-'+t+'"] .topic-fill');
+if(bar)bar.style.width=val+"%";
+var barContainer=document.querySelector('[aria-labelledby="topic-'+t+'"]');
+if(barContainer)barContainer.setAttribute("aria-valuenow",val);
+var info=document.getElementById("topic-"+t);
+if(info){
+var pctSpan=info.closest(".topic-info");
+if(pctSpan){var ps=pctSpan.querySelector(".topic-percentage");if(ps)ps.textContent=val+"%"}
 }
-var pct=document.querySelector("#topic-"+t+"~.topic-percentage,#topic-"+t).closest(".topic-info");
-if(pct){pct.querySelector(".topic-percentage").textContent=val+"%"}
 });
 var avg=Math.round(total/topics.length);
 var el=document.getElementById("overall-percentage");
@@ -1197,24 +1597,33 @@ if(el)el.textContent=avg;
 var ring=document.querySelector(".progress-ring-fill");
 if(ring){
 var circ=565.48;
-ring.setAttribute("stroke-dashoffset",circ-(circ*avg/100));
+ring.setAttribute("stroke-dashoffset",String(circ-(circ*avg/100)));
 }
-document.querySelector(".progress-ring title").textContent="Overall learning progress: "+avg+"%";
+var ringSvg=document.querySelector(".progress-ring");
+if(ringSvg)ringSvg.setAttribute("aria-label","Overall learning progress: "+avg+"%");
 progress.achievements.forEach(function(a){
 var ach=document.querySelector('[data-achievement="'+a+'"]');
-if(ach&&!ach.classList.contains("unlocked")){ach.classList.add("unlocked");ach.setAttribute("aria-label",ach.querySelector(".achievement-name").textContent+" - Unlocked")}
+if(ach&&!ach.classList.contains("unlocked")){
+ach.classList.add("unlocked");
+var name=ach.querySelector(".achievement-name");
+ach.setAttribute("aria-label",(name?name.textContent:"Achievement")+" – Unlocked");
+}
 });
 }
+
 function unlockAchievement(id){
 if(progress.achievements.indexOf(id)===-1){
 progress.achievements.push(id);
 saveProgress();
 updateProgressUI();
-showToast("🏆 Achievement Unlocked: "+document.querySelector('[data-achievement="'+id+'"] .achievement-name').textContent,"success");
+var ach=document.querySelector('[data-achievement="'+id+'"]');
+var name=ach?ach.querySelector(".achievement-name"):null;
+showToast("\uD83C\uDFC6 Achievement Unlocked: "+(name?name.textContent:id),"success");
 }
 }
+
 function addTopicProgress(topic,amount){
-if(!progress[topic])progress[topic]=0;
+if(typeof progress[topic]==="undefined")progress[topic]=0;
 progress[topic]=Math.min(100,progress[topic]+amount);
 saveProgress();
 updateProgressUI();
@@ -1226,23 +1635,31 @@ var topics=["interfaces","inheritance","polymorphism","classes"];
 var allDone=topics.every(function(t){return(progress[t]||0)>=100});
 if(allDone)unlockAchievement("oop-champion");
 }
+
 function showToast(msg,type){
 var c=document.getElementById("toast-container");
+if(!c)return;
 var t=document.createElement("div");
 t.className="toast "+(type||"info");
+t.setAttribute("role","alert");
 t.textContent=msg;
 c.appendChild(t);
 setTimeout(function(){t.classList.add("removing");setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},300)},3500);
 }
+
 function announce(msg){
 var a=document.getElementById("announcer");
+if(!a)return;
 a.textContent="";
 setTimeout(function(){a.textContent=msg},50);
 }
+
 function updateLineNumbers(editorId){
 var editor=document.getElementById(editorId);
 if(!editor)return;
-var linesId=editorId.replace("editor-","lines-").replace("playground-editor","lines-playground");
+var linesId;
+if(editorId==="playground-editor"){linesId="lines-playground"}
+else{linesId=editorId.replace("editor-","lines-")}
 var linesEl=document.getElementById(linesId);
 if(!linesEl)return;
 var count=editor.value.split("\n").length;
@@ -1250,6 +1667,7 @@ var html="";
 for(var i=1;i<=count;i++)html+="<span>"+i+"</span>";
 linesEl.innerHTML=html;
 }
+
 function storeOriginal(id){
 var el=document.getElementById(id);
 if(el)originalCode[id]=el.value;
