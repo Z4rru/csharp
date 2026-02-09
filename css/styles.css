@@ -70,20 +70,7 @@
     --container-max: 1200px;
 }
 
-/* Light Mode */
-[data-theme="light"] {
-    --color-bg: #ffffff;
-    --color-bg-alt: #f8fafc;
-    --color-bg-elevated: #ffffff;
-    --color-surface: #f1f5f9;
-    --color-border: #e2e8f0;
-    --color-text: #1e293b;
-    --color-text-secondary: #64748b;
-    --color-text-muted: #94a3b8;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-}
+/* Removed duplicate [data-theme="light"] block - merged into single block below */
 
 [data-theme="light"] {
     --color-bg: #ffffff;
@@ -2416,11 +2403,11 @@ body {
         min-height: 250px;
     }
     
-        .code-editor {
+     .code-editor {
         min-height: 250px;
         font-size: 0.8rem;
         padding-left: calc(40px + var(--spacing-md));
-        margin-left: -40px;
+        margin-left: 0;
         white-space: pre-wrap;
         word-wrap: break-word;
     }
@@ -2459,12 +2446,12 @@ body {
         justify-content: flex-end;
     }
     
-           .code-editor {
+     .code-editor {
         font-size: 0.8rem;
         min-height: 200px;
         padding: var(--spacing-sm);
         padding-left: calc(35px + var(--spacing-sm));
-        margin-left: -35px;
+        margin-left: 0;
         width: 100%;
         white-space: pre-wrap;
         word-wrap: break-word;
