@@ -426,10 +426,13 @@ public class Program
      * Setup event listeners for buttons
      */
     setupEventListeners() {
-        // Run buttons (multiple ID patterns)
+        // Run buttons
         document.querySelectorAll('[id^="run-"], .run-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const id = btn.id?.replace('run-', '') || btn.dataset?.editor?.replace('editor-', '');
+                const editorAttr = btn.dataset?.editor;
+                const id = editorAttr 
+                    ? editorAttr.replace('editor-', '') 
+                    : (btn.id?.replace('run-', '') || '');
                 if (id) {
                     this.runCode(id);
                 }
@@ -439,7 +442,10 @@ public class Program
         // Reset buttons
         document.querySelectorAll('[id^="reset-"], .reset-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const id = btn.id?.replace('reset-', '') || btn.dataset?.editor?.replace('editor-', '');
+                const editorAttr = btn.dataset?.editor;
+                const id = editorAttr 
+                    ? editorAttr.replace('editor-', '') 
+                    : (btn.id?.replace('reset-', '') || '');
                 if (id) {
                     this.resetCode(id);
                 }
@@ -512,8 +518,8 @@ public class Program
      * Run code and display simulated output
      */
     runCode(id) {
-        const editor = document.getElementById(`code-editor-${id}`) || 
-                       document.getElementById(`editor-${id}`) ||
+        const editor = document.getElementById(`editor-${id}`) || 
+                       document.getElementById(`code-editor-${id}`) ||
                        document.getElementById('playground-editor');
         const output = document.getElementById(`output-${id}`) || 
                        document.getElementById('playground-output');
@@ -652,7 +658,7 @@ public class Program
      * Reset code to original
      */
     resetCode(id) {
-        const possibleIds = [`code-editor-${id}`, `editor-${id}`, 'playground-editor'];
+        const possibleIds = [`editor-${id}`, `code-editor-${id}`, 'playground-editor'];
         let editor = null;
         let editorId = null;
 
